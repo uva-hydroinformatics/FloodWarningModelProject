@@ -38,7 +38,7 @@ print(dataset.keys())
 
 var="apcpsfc"
 precip=dataset[var]
-#print(type(precip)) 
+ 
 """pydap.model.GridType"""
 
 print(precip.dimensions) 
