@@ -1,59 +1,57 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Mar 21 19:49:13 2016
+This program retrieves data from the NOAA NOMADS repository, using the HRRRR model.
+The forecasted surface precipitation is obtained asa dataset for the newest available 
+UTC hour. Given a latitude and longitude in decimal degrees, an array of surface 
+precipitation for the corresponding grid-relative location is printed as a time series
+for a specified number of forecast hours.
 
-@author: Gina
+Author: Gina O'Neil
 """
-
 from pydap.client import open_url
-from datetime import datetime
-import matplotlib.pyplot as plt
-import matplotlib
+import datetime as dt
+from datetime import timedelta
+from scipy.io import netcdf
 
+#Get current UTC date and time
+dtime_now = dt.datetime.utcnow()
+#correct for lag time in dataset posting to HRRR repository
+lag_hr = 1
+dtime_fix = dtime_now - dt.timedelta(hours = lag_hr)
+date=dt.datetime.strftime(dtime_fix,"%Y%m%d")
+fc_hour=dt.datetime.strftime(dtime_fix, "%H")
 
-dtime_now=datetime.utcnow()
-date=datetime.strftime(dtime_now,"%Y%m%d")
-UTC_hour=int(datetime.strftime(dtime_now, "%H"))-4
-print(dtime_now)
-print(UTC_hour)
-#need to go back 4 hours need to monitor 
-def getData(date,UTC_hour):
+#open newest available dataset
+def getData(date,fc_hour):
     try:
-        dataset=open_url('http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,str(UTC_hour)))
-        return (dataset)
+        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,str(fc_hour))
+        dataset=open_url(url)
+        return(dataset, url)
     except:
-        last_hour=UTC_hour-1
-        dataset=open_url('http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,str(last_hour)))
-        return (dataset) 
-#add print of which hour is used
+        old_hour = fc_hour - 1
+        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,str(old_hour))
+        dataset=open_url(url)
+        return (dataset, url)    
     
-dataset=getData(date,UTC_hour)
+dataset, url=getData(date,fc_hour)
+print ("Retrieving forecast data from: %s " %(url))
+# 'dataset' is pydap.model.DatasetType    
+# dataset keys are all forecast products (variables) and time, lev, lat, lon
 
-print(type(dataset)) 
-"""pydap.model.DatasetType """
-
-print("dataset keys: ")
-print(dataset.keys()) 
-"""list of vars, time, lev, lat, lon"""
-
+# access gridded data for surface precipitation variable with corresponding expression
 var="apcpsfc"
-precip=dataset[var]
- 
-"""pydap.model.GridType"""
+precip=dataset[var] #grid dimensions are time, lat, lon
 
-print(precip.dimensions) 
-"""dimensions are 'time','lat','lon'"""
-
-"""convert dimensions to grid points, as per http://nomads.ncdc.noaa.gov/guide/?name=advanced"""
+#convert dimensions to grid points, as per http://nomads.ncdc.noaa.gov/guide/?name=advanced
 def gridpt(myVal, initVal, aResVal):
     gridVal=int((myVal-initVal)/aResVal)
     return gridVal
 
-
 Lon1=-78.507
 Lat1=38.033
-#location of Central California, rain forecasted here 4/8/16
+#Charlottesville
 
+#given in HRRR dataset metadata
 initLon=-134.09612700000
 aResLon= 0.029 
 
@@ -63,18 +61,18 @@ aResLat=0.027
 gridLat=gridpt(Lat1,initLat,aResLat)
 gridLon=gridpt(Lon1,initLon,aResLon)
 
-print(precip.time)
-"""time is an array of shape 16,0 and dtype=float64"""
-#change first time to 0
-#try to make time steps dynamic incase HRRR is ever able to forecast further
-grid=precip[0:16,gridLat,gridLon]
+#get all available timesteps for forecast data
+last_T=len(precip.time[:])
+
+grid=precip[0:last_T,gridLat,gridLon]
 print(grid)
-"""shows precip values and axes (time [decimal days])"""
+# grid shows precip values and axes of time [decimal days]
 
 print(grid.array[:])
-"""shows precip values only"""
+#shows precip values only
 
-"""precip.time[:] returns a list of times in decimal days"""
+"""attempt to change time steps from decimal days to datetime format and create list of precip values
+
 ts=[]
 values=[]
 timeseries=[]
@@ -93,3 +91,5 @@ print(ts)
 print(grid.time) #still don't know how to format into datetime
 fixed=matplotlib.dates.num2date(precip.time[:])
 print(grid.apcpsfc)
+
+"""
