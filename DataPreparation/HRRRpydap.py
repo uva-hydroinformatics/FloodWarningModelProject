@@ -73,25 +73,10 @@ print(grid)
 print(grid.array[:])
 #shows precip values only
 
-"""attempt to change time steps from decimal days to datetime format and create list of precip values
+vals = [ v[0][0] for v in grid.array[:] ]
+print (vals)
 
-ts=[]
-values=[]
-timeseries=[]
-for time in range(len(grid.array[:])):
-    for lat in range(len(grid.array[time][:])):
-        for lon in range(len(grid.array[time][lat][:])):
-            val=grid.array[time][lat][lon]
-            values.append(val)
-for t in precip.time[:]:
-    ts.append(t)
-for i in range(len(ts)):
-    fix=matplotlib.dates.num2date(ts[i]) 
-    timeseries.append(fix)
-print(values)
-print(ts)
-print(grid.time) #still don't know how to format into datetime
-fixed=matplotlib.dates.num2date(precip.time[:])
-print(grid.apcpsfc)
-
-"""
+ts = [ t for t in precip.time[:] ]
+ts_dates = [ matplotlib.dates.num2date(t) for t in ts] 
+hours = [ dt.datetime.strftime(ts_d, "%Y-%m-%d utc hour: %H") for ts_d in ts_dates]
+print(hours)
