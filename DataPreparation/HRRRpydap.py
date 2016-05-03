@@ -24,12 +24,12 @@ fc_hour=dt.datetime.strftime(dtime_fix, "%H")
 #open newest available dataset
 def getData(date,fc_hour):
     try:
-        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,str(fc_hour))
+        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%02dz'%(date,fc_hour)
         dataset=open_url(url)
         return(dataset, url)
     except:
-        old_hour = fc_hour - 1
-        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,str(old_hour))
+        old_hour = int(fc_hour) - 1
+        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%02dz'%(date,old_hour)
         dataset=open_url(url)
         return (dataset, url)    
     
