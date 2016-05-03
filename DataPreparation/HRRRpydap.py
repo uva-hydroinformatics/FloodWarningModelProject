@@ -18,53 +18,55 @@ dtime_now = dt.datetime.utcnow()
 #correct for lag time in dataset posting to HRRR repository
 lag_hr = 1
 dtime_fix = dtime_now - dt.timedelta(hours = lag_hr)
-date=dt.datetime.strftime(dtime_fix,"%Y%m%d")
-fc_hour=dt.datetime.strftime(dtime_fix, "%H")
+date = dt.datetime.strftime(dtime_fix,"%Y%m%d")
+fc_hour = dt.datetime.strftime(dtime_fix, "%H")
 
 #open newest available dataset
 def getData(date,fc_hour):
     try:
-        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%02dz'%(date,fc_hour)
-        dataset=open_url(url)
+        hour = str(fc_hour)
+        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour)
+        dataset = open_url(url)
         return(dataset, url)
     except:
         old_hour = int(fc_hour) - 1
-        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%02dz'%(date,old_hour)
-        dataset=open_url(url)
+        hour = str(old_hour).zfill(2)
+        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour)
+        dataset = open_url(url)
         return (dataset, url)    
     
-dataset, url=getData(date,fc_hour)
+dataset, url = getData(date,fc_hour)
 print ("Retrieving forecast data from: %s " %(url))
 # 'dataset' is pydap.model.DatasetType    
 # dataset keys are all forecast products (variables) and time, lev, lat, lon
 
 # access gridded data for surface precipitation variable with corresponding expression
-var="apcpsfc"
-precip=dataset[var] #grid dimensions are time, lat, lon
+var = "apcpsfc"
+precip = dataset[var] #grid dimensions are time, lat, lon
 
 #convert dimensions to grid points, as per http://nomads.ncdc.noaa.gov/guide/?name=advanced
 def gridpt(myVal, initVal, aResVal):
-    gridVal=int((myVal-initVal)/aResVal)
+    gridVal = int((myVal-initVal)/aResVal)
     return gridVal
 
-Lon1=-78.507
-Lat1=38.033
+Lon1 = -78.507
+Lat1 = 38.033
 #Charlottesville
 
 #given in HRRR dataset metadata
-initLon=-134.09612700000
-aResLon= 0.029 
+initLon = -134.09612700000
+aResLon = 0.029 
 
-initLat=21.14067100000
-aResLat=0.027
+initLat = 21.14067100000
+aResLat = 0.027
 
-gridLat=gridpt(Lat1,initLat,aResLat)
-gridLon=gridpt(Lon1,initLon,aResLon)
+gridLat = gridpt(Lat1,initLat,aResLat)
+gridLon = gridpt(Lon1,initLon,aResLon)
 
 #get all available timesteps for forecast data
-last_T=len(precip.time[:])
+last_T = len(precip.time[:])
 
-grid=precip[0:last_T,gridLat,gridLon]
+grid = precip[0:last_T,gridLat,gridLon]
 print(grid)
 # grid shows precip values and axes of time [decimal days]
 
