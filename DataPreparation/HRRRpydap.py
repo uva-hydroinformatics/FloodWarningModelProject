@@ -82,7 +82,7 @@ hours = [ dt.datetime.strftime(ts_d, "%Y-%m-%d utc hour: %H") for ts_d in ts_dat
 print(hours)
 
 # write results to csv file
-with open("Precip_Forecast_%s_%sz.csv"%(str(date), str(hour)), "w") as results:
+with open("Precip_Forecast_%s_%sz.csv"%(str(date), str(hour_used)), "w") as results:
     res_csv = csv.writer(results)
     res_csv.writerow(["Date-Time", "Latitude", "Longitude", "Precipitation [mm]"])
     for j in range(len(vals)):
