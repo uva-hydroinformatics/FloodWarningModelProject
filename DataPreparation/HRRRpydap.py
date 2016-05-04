@@ -16,7 +16,7 @@ from scipy.io import netcdf
 #Get current UTC date and time
 dtime_now = dt.datetime.utcnow()
 #correct for lag time in dataset posting to HRRR repository
-lag_hr = 1
+lag_hr = 2
 dtime_fix = dtime_now - dt.timedelta(hours = lag_hr)
 date = dt.datetime.strftime(dtime_fix,"%Y%m%d")
 fc_hour = dt.datetime.strftime(dtime_fix, "%H")
@@ -24,18 +24,18 @@ fc_hour = dt.datetime.strftime(dtime_fix, "%H")
 #open newest available dataset
 def getData(date,fc_hour):
     try:
-        hour = str(fc_hour)
-        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour)
+        hour_used = str(fc_hour)
+        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour_used)
         dataset = open_url(url)
-        return(dataset, url)
+        return(dataset, url, hour_used)
     except:
         old_hour = int(fc_hour) - 1
-        hour = str(old_hour).zfill(2)
-        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour)
+        hour_used = str(old_hour).zfill(2)
+        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour_used)
         dataset = open_url(url)
-        return (dataset, url)    
+        return (dataset, url, hour_used)    
     
-dataset, url = getData(date,fc_hour)
+dataset, url, hour_used = getData(date,fc_hour)
 print ("Retrieving forecast data from: %s " %(url))
 # 'dataset' is pydap.model.DatasetType    
 # dataset keys are all forecast products (variables) and time, lev, lat, lon
@@ -80,3 +80,13 @@ ts = [ t for t in precip.time[:] ]
 ts_dates = [ matplotlib.dates.num2date(t) for t in ts] 
 hours = [ dt.datetime.strftime(ts_d, "%Y-%m-%d utc hour: %H") for ts_d in ts_dates]
 print(hours)
+
+# write results to csv file
+with open("Precip_Forecast_%s_%sz.csv"%(str(date), str(hour)), "w") as results:
+    res_csv = csv.writer(results)
+    res_csv.writerow(["Date-Time", "Latitude", "Longitude", "Precipitation [mm]"])
+    for j in range(len(vals)):
+        res_csv.writerow([ts_dates[j],str(Lat1), str(Lon1), vals[j]])
+results.close() 
+
+#working on writing results to nc file
