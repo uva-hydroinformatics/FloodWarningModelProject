@@ -24,16 +24,23 @@ fc_hour = dt.datetime.strftime(dtime_fix, "%H")
 #open newest available dataset
 def getData(date,fc_hour):
     try:
-        hour_used = str(fc_hour)
-        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour_used)
+        hour = str(fc_hour)
+        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour)
         dataset = open_url(url)
-        return(dataset, url, hour_used)
+        return(dataset, url, hour)
     except:
-        old_hour = int(fc_hour) - 1
-        hour_used = str(old_hour).zfill(2)
-        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour_used)
-        dataset = open_url(url)
-        return (dataset, url, hour_used)    
+        try:
+            old_hour = int(fc_hour) - 1
+            hour = str(old_hour).zfill(2)
+            url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour)
+            dataset = open_url(url)
+            return (dataset, url, hour)    
+        except:
+            old_hour = int(fc_hour) - 2
+            hour = str(old_hour).zfill(2)
+            url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour)
+            dataset = open_url(url)
+            return (dataset, url, hour)    
     
 dataset, url, hour_used = getData(date,fc_hour)
 print ("Retrieving forecast data from: %s " %(url))
