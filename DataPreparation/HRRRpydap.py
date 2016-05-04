@@ -5,44 +5,39 @@ The forecasted surface precipitation is obtained asa dataset for the newest avai
 UTC hour. Given a latitude and longitude in decimal degrees, an array of surface 
 precipitation for the corresponding grid-relative location is printed as a time series
 for a specified number of forecast hours.
-
 Author: Gina O'Neil
 """
 from pydap.client import open_url
 import datetime as dt
 from datetime import timedelta
 from scipy.io import netcdf
+from netCDF4 import Dataset
+import matplotlib.dates
+import csv
 
 #Get current UTC date and time
 dtime_now = dt.datetime.utcnow()
-#correct for lag time in dataset posting to HRRR repository
-lag_hr = 2
-dtime_fix = dtime_now - dt.timedelta(hours = lag_hr)
-date = dt.datetime.strftime(dtime_fix,"%Y%m%d")
-fc_hour = dt.datetime.strftime(dtime_fix, "%H")
+print(dtime_now)
 
-#open newest available dataset
-def getData(date,fc_hour):
-    try:
-        hour = str(fc_hour)
-        url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour)
-        dataset = open_url(url)
-        return(dataset, url, hour)
-    except:
+#Get newest available dataset by trying (current date-time - delta time) until
+#a dataset is available for that hour. This corrects for inconsistent posting
+#of HRRR datasets to repository
+def getData(current_dt):
+    delta_T = 0
+    while True:    
         try:
-            old_hour = int(fc_hour) - 1
-            hour = str(old_hour).zfill(2)
+            dtime_fix = dtime_now - dt.timedelta(hours = delta_T)
+            date = dt.datetime.strftime(dtime_fix,"%Y%m%d")
+            fc_hour = dt.datetime.strftime(dtime_fix, "%H")            
+            hour = str(fc_hour)
             url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour)
             dataset = open_url(url)
-            return (dataset, url, hour)    
+            False
+            return(dataset, url, date, hour)
         except:
-            old_hour = int(fc_hour) - 2
-            hour = str(old_hour).zfill(2)
-            url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour)
-            dataset = open_url(url)
-            return (dataset, url, hour)    
+            delta_T += 1
     
-dataset, url, hour_used = getData(date,fc_hour)
+dataset, url, date, hour = getData(dtime_now)
 print ("Retrieving forecast data from: %s " %(url))
 # 'dataset' is pydap.model.DatasetType    
 # dataset keys are all forecast products (variables) and time, lev, lat, lon
@@ -56,9 +51,10 @@ def gridpt(myVal, initVal, aResVal):
     gridVal = int((myVal-initVal)/aResVal)
     return gridVal
 
-Lon1 = -78.507
-Lat1 = 38.033
-#Charlottesville
+#Miami International Airport coordinates 
+Lon1 = -80.2855555556
+Lat1 = 25.7941666667
+
 
 #given in HRRR dataset metadata
 initLon = -134.09612700000
@@ -67,33 +63,54 @@ aResLon = 0.029
 initLat = 21.14067100000
 aResLat = 0.027
 
+#compute grid-relative points
 gridLat = gridpt(Lat1,initLat,aResLat)
 gridLon = gridpt(Lon1,initLon,aResLon)
 
 #get all available timesteps for forecast data
 last_T = len(precip.time[:])
 
+#Select dimensions in dataset
 grid = precip[0:last_T,gridLat,gridLon]
-print(grid)
-# grid shows precip values and axes of time [decimal days]
 
-print(grid.array[:])
 #shows precip values only
+print(grid.array[:])
+
 
 vals = [ v[0][0] for v in grid.array[:] ]
 print (vals)
-
+print(precip.time[:])
 ts = [ t for t in precip.time[:] ]
-ts_dates = [ matplotlib.dates.num2date(t) for t in ts] 
+print(ts)
+ts_dates = [ matplotlib.dates.num2date(t-1) for t in ts] 
 hours = [ dt.datetime.strftime(ts_d, "%Y-%m-%d utc hour: %H") for ts_d in ts_dates]
 print(hours)
 
-# write results to csv file
-with open("Precip_Forecast_%s_%sz.csv"%(str(date), str(hour_used)), "w") as results:
+with open("Precip_Forecast_%s_%sz.csv"%(date, hour), "w") as results:    
     res_csv = csv.writer(results)
     res_csv.writerow(["Date-Time", "Latitude", "Longitude", "Precipitation [mm]"])
     for j in range(len(vals)):
         res_csv.writerow([ts_dates[j],str(Lat1), str(Lon1), vals[j]])
 results.close() 
-
-#working on writing results to nc file
+"""
+w_nc_fid = Dataset('precip_test.nc', 'w', format='NETCDF4')
+w_nc_fid.description = "HRRR forecasted surface precipitation at %f latitude %f longitude" %\
+                      (Lat1, Lon1)
+# Using our previous dimension info, we can create the new time dimension
+# Even though we know the size, we are going to set the size to unknown
+w_nc_fid.createDimension('time', None)
+w_nc_dim = w_nc_fid.createVariable('time', nc_fid.variables['time'].dtype,\
+                                   ('time',))
+# You can do this step yourself but someone else did the work for us.
+for ncattr in nc_fid.variables['time'].ncattrs():
+    w_nc_dim.setncattr(ncattr, nc_fid.variables['time'].getncattr(ncattr))
+# Assign the dimension data to the new NetCDF file.
+w_nc_fid.variables['time'][:] = time
+w_nc_var = w_nc_fid.createVariable('air', 'f8', ('time'))
+w_nc_var.setncatts({'long_name': u"mean Daily Air temperature",\
+                    'units': u"degK", 'level_desc': u'Surface',\
+                    'var_desc': u"Air temperature",\
+                    'statistic': u'Mean\nM'})
+w_nc_fid.variables['air'][:] = air[time_idx, lat_idx, lon_idx]
+w_nc_fid.close()  # close the new file
+"""
