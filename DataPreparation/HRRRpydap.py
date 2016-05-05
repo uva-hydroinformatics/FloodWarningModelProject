@@ -76,22 +76,23 @@ grid = precip[0:last_T,gridLat,gridLon]
 #shows precip values only
 print(grid.array[:])
 
+#extract precip values and account for missing values
+vals_mm = [ v[0][0] if v !=9.999e0 else None for v in grid.array[:] ]
+#convert precip depths from mm to in
+vals_in = [ v * 0.0393701 for v in vals_mm]
 
-vals = [ v[0][0] for v in grid.array[:] ]
-print (vals)
-print(precip.time[:])
 ts = [ t for t in precip.time[:] ]
-print(ts)
+#convert decimal days to date-time and format
 ts_dates = [ matplotlib.dates.num2date(t-1) for t in ts] 
 hours = [ dt.datetime.strftime(ts_d, "%Y-%m-%d utc hour: %H") for ts_d in ts_dates]
-print(hours)
 
 with open("Precip_Forecast_%s_%sz.csv"%(date, hour), "w") as results:    
     res_csv = csv.writer(results)
-    res_csv.writerow(["Date-Time", "Latitude", "Longitude", "Precipitation [mm]"])
-    for j in range(len(vals)):
-        res_csv.writerow([ts_dates[j],str(Lat1), str(Lon1), vals[j]])
+    res_csv.writerow(["Date-Time", "Latitude", "Longitude", "Precipitation [mm]", "Precipitation [in]"])
+    for j in range(len(vals_mm)):
+        res_csv.writerow([hours[j],str(Lat1), str(Lon1), vals_mm[j], vals_in[j]])
 results.close() 
+
 """
 w_nc_fid = Dataset('precip_test.nc', 'w', format='NETCDF4')
 w_nc_fid.description = "HRRR forecasted surface precipitation at %f latitude %f longitude" %\
