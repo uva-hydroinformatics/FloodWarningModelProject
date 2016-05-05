@@ -77,7 +77,7 @@ grid = precip[0:last_T,gridLat,gridLon]
 print(grid.array[:])
 
 #extract precip values and account for missing values
-vals_mm = [ v[0][0] if v !=9.999e0 else None for v in grid.array[:] ]
+vals_mm = [ v[0][0] if v !=9.999e20 else None for v in grid.array[:] ]
 #convert precip depths from mm to in
 vals_in = [ v * 0.0393701 for v in vals_mm]
 
