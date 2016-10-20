@@ -47,6 +47,7 @@ def getData(current_dt):
             return(dataset, url, date, hour)
         except:
             delta_T += 1
+            print "Failed to open : %s"%(url)
 
 def gridpt(myVal, initVal, aResVal):
     gridVal = (myVal-initVal)/aResVal
