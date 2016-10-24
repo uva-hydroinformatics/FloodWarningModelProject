@@ -83,7 +83,7 @@ def main():
     grid = precip[0:len(precip.time[:]), grid_lat1:grid_lat2, grid_lon1:grid_lon2]
 
     """Convert grid into x array Data Array"""
-    precip_darray = xray.DataArray(grid.array[:], coords = [ times, grid.lat[:], grid.lon[:]], dims = ['times', 'latitude', 'longitude'])
+    precip_darray = xray.DataArray(grid.array[:], coords = [ times, grid.lat[:], grid.lon[:]], dims = ['time', 'y', 'x'])
 
     """Convert Data Array to Dataset"""
     precip_ds = precip_darray.to_dataset(name='precipitation')
