@@ -4,7 +4,7 @@ This program retrieves data from the NOAA NOMADS repository, using the HRRRR mod
 The forecasted surface precipitation is obtained as a dataset for the newest available 
 UTC hour. Given a latitude and longitude in decimal degrees, an array of surface 
 precipitation for the corresponding grid-relative location is printed to a netCDF file
-with dimensions of time, latitude, and longitude.
+with dimensions of time, latitude, and longitude. TIME IS IN DECIMAL DAYS
 *Note* Script must be run with python 2.7 (compatible with pydap)
 Author: Gina O'Neil
 """
@@ -15,6 +15,7 @@ from netCDF4 import Dataset
 import matplotlib.dates
 import xray
 import datetime as dt
+import sys
 """
 Global parameters:
     -Study area location (LL and UR corners of TUFLOW model bounds)
@@ -28,10 +29,10 @@ aResLon = 0.029
 initLat = 21.14067100000
 aResLat = 0.027
 
-lon_lb = -77.6458
-lon_ub = -76.6622
+lon_lb = -77.979315
+lon_ub = -76.649286
 lat_lb = 36.32729
-lat_ub = 37.21033
+lat_ub = 37.203955
 
 def getData(current_dt):
     delta_T = 0
@@ -43,12 +44,17 @@ def getData(current_dt):
             hour = str(fc_hour)
             url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour)
             dataset = open_url(url)
-            False
-            return(dataset, url, date, hour)
+            if len(dataset.keys()) > 0:
+                False
+                return(dataset, url, date, hour)
+            else:
+                print "Back up method - Failed to open : %s"%(url)
+                delta_T += 1
+                True
         except:
             delta_T += 1
             print "Failed to open : %s"%(url)
-
+            
 def gridpt(myVal, initVal, aResVal):
     gridVal = (myVal-initVal)/aResVal
     return gridVal
@@ -61,7 +67,7 @@ def main():
     dtime_now = dt.datetime.utcnow() 
     dataset, url, date, hour = getData(dtime_now) #get newest available dataset
     print ("Retrieving forecast data from: %s " %(url))
-    
+
     """select desired forecast product from grid, grid dimensions are time, lat, lon
     apcpsfc = "surface total precipitation" [mm]
     source: http://www.nco.ncep.noaa.gov/pmb/products/hrrr/hrrr.t00z.wrfsfcf00.grib2.shtml""" 
@@ -75,24 +81,25 @@ def main():
     grid_lat1 = gridpt(lat_lb, initLat, aResLat) 
     grid_lat2 = gridpt(lat_ub, initLat, aResLat)
     
-#    """Convert time steps from decimal days to datetime format, must keep array items as datetime objects"""    
-#    times = [ matplotlib.dates.num2date(t-1) for t in precip.time[:] ]
+    """Convert time steps from decimal days to datetime format, must keep array items as datetime objects"""    
+    times = [ matplotlib.dates.num2date(t-1) for t in precip.time[:] ]
 
     """Slice grid to study area dimensions and create nc file named by datetime and forecast hour - single file
     indices are a range of latitudes and longitudes with a default of the smallest increment available (equal to respective avg. resolution)"""
     grid = precip[0:len(precip.time[:]), grid_lat1:grid_lat2, grid_lon1:grid_lon2]
 
     """Convert grid into x array Data Array"""
-    precip_darray = xray.DataArray(grid.array[:], coords = [ grid.time[:], grid.lat[:], grid.lon[:]], dims = ['times', 'latitude', 'longitude'])
-
+    precip_darray = xray.DataArray(grid.array[:], coords = [ grid.time[:], grid.lat[:], grid.lon[:]], dims = ['time', 'y', 'x'])
+    print precip_darray
     """Convert Data Array to Dataset"""
-    precip_ds = precip_darray.to_dataset(name='precipitation')
-
+    precip_ds = precip_darray.to_dataset(name='rainfall_depth')
+    print precip_ds
     """Convert Dataset to Netcdf"""
     precip_ds.to_netcdf('%s%s.nc'%(date, hour))
   
     print ("Finished writing Netcdf file for %s hour %s, %d forecast hours available." %(date,hour, len(precip.time[:])))
-    
+#    times = [ matplotlib.dates.num2date(t-1) for t in precip.time[:] ]
+#    times_fmt = [ dt.datetime.strftime(ts_d, "%d%b%Y%H%M") for ts_d in times]
     """Alternative: (Multiple files) For every available forecase hour in dataset, slice grid to study area dimensions and create nc file named by datetime and forecast hour"""
 #    for hr in range(len(precip.time[:])):
 #        grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
