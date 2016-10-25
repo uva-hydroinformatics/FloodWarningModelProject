@@ -23,16 +23,18 @@ Global parameters:
     (source: http://nomads.ncep.noaa.gov:9090/dods/hrrr "info" link)
 """
 
-initLon = -134.09612700000
-aResLon = 0.029 
+initLon = -134.09548000000 # modified that to follow the latest values on the website
+aResLon = 0.029
 
-initLat = 21.14067100000
+initLat = 21.14054700000 # modified that to follow the latest values on the website
 aResLat = 0.027
 
-lon_lb = -77.979315
-lon_ub = -76.649286
-lat_lb = 36.32729
-lat_ub = 37.203955
+# this values added to the original bounding box made the retrieved data to be
+lon_lb = (-77.979315-0.4489797462)
+lon_ub = (-76.649286-0.455314383)
+lat_lb = (36.321159-0.133)
+lat_ub = (37.203955-0.122955)
+print lon_lb, lon_ub, lat_lb, lat_ub
 
 def getData(current_dt):
     delta_T = 0
