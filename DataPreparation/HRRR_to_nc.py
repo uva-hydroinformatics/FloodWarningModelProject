@@ -58,7 +58,7 @@ def getData(current_dt):
             print "Failed to open : %s"%(url)
             
 def gridpt(myVal, initVal, aResVal):
-    gridVal = (myVal-initVal)/aResVal
+    gridVal = int((myVal-initVal)/aResVal)
     return gridVal
     
 def main():
