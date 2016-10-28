@@ -10,12 +10,13 @@ Author: Gina O'Neil
 """
 import numpy as np
 from pydap.client import open_url
-import netCDF4 as nc4
-from netCDF4 import Dataset
+#import netCDF4 as nc4
+#from netCDF4 import Dataset
 import matplotlib.dates
 import xray
 import datetime as dt
 import sys
+import utm
 """
 Global parameters:
     -Study area location (LL and UR corners of TUFLOW model bounds)
@@ -42,7 +43,7 @@ def getData(current_dt):
         try:
             dtime_fix = current_dt - dt.timedelta(hours = delta_T)
             date = dt.datetime.strftime(dtime_fix,"%Y%m%d")
-            fc_hour = dt.datetime.strftime(dtime_fix, "%H")            
+            fc_hour = dt.datetime.strftime(dtime_fix, "%H")
             hour = str(fc_hour)
             url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz'%(date,hour)
             dataset = open_url(url)
@@ -56,17 +57,29 @@ def getData(current_dt):
         except:
             delta_T += 1
             print "Failed to open : %s"%(url)
-            
+
 def gridpt(myVal, initVal, aResVal):
     gridVal = (myVal-initVal)/aResVal
     return gridVal
+
+
+def convert_to_utm(lon, lat):
+    lon, lat = np.meshgrid(lon, lat)
+    wgs_coords = np.stack((lat, lon), axis=-1)
+    utm_coords = []
+    for point in wgs_coords:
+        for lat, lon in point:
+            utm_result = utm.from_latlon(lat, lon)
+            utm_point = utm_result[0], utm_result[1]
+            utm_coords.append(utm_point)
+    return utm_coords
     
 def main():
     
     """Get newest available HRRR dataset by trying (current datetime - delta time) until 
     a dataset is available for that hour. This corrects for inconsistent posting
     of HRRR datasets to repository"""
-    dtime_now = dt.datetime.utcnow() 
+    dtime_now = dt.datetime.utcnow()
     dataset, url, date, hour = getData(dtime_now) #get newest available dataset
     print ("Retrieving forecast data from: %s " %(url))
 
@@ -78,21 +91,55 @@ def main():
     print ("Dataset open")
     
     """Convert dimensions to grid points, source: http://nomads.ncdc.noaa.gov/guide/?name=advanced"""
-    grid_lon1 = gridpt(lon_lb, initLon, aResLon) 
+    grid_lon1 = gridpt(lon_lb, initLon, aResLon)
     grid_lon2 = gridpt(lon_ub, initLon, aResLon)
     grid_lat1 = gridpt(lat_lb, initLat, aResLat) 
     grid_lat2 = gridpt(lat_ub, initLat, aResLat)
     
     """Convert time steps from decimal days to datetime format, must keep array items as datetime objects"""    
     times = [ matplotlib.dates.num2date(t-1) for t in precip.time[:] ]
+    hours = []
+    # for t in times:
+    #     hours.append(int(dt.datetime.strftime(times[t], "%H")))
+
 
     """Slice grid to study area dimensions and create nc file named by datetime and forecast hour - single file
     indices are a range of latitudes and longitudes with a default of the smallest increment available (equal to respective avg. resolution)"""
-    grid = precip[0:len(precip.time[:]), grid_lat1:grid_lat2, grid_lon1:grid_lon2]
+    grid = precip[0:19, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
+
+    # PROJECT THE COORDINATES INTO UTM 18N
+    grid_prj = convert_to_utm(grid.lon[:], grid.lat[:])
+    # Write the new coordinates to txt file for visualizing it on ArcMap
+    f = open('workfile_prj.txt', 'w')
+    f.write('X, Y \n')
+    for i in range(len(grid_prj[:])):
+        f.write(str(grid_prj[i][0]) +','+str(grid_prj[i][1])+'\n')
+    f.close()
+
+    #generate the new coordinates in the UTM projection for creating the NetCDF file
+    new_x = []
+    new_y = []
+
+    ini_x = grid_prj[0][0]   #232192.367128
+    ini_y = grid_prj[0][1]    #4024846.01445
+    final_x = grid_prj[(len(grid.lon)-1)][0] #350314.834104
+    final_y=grid_prj[(32*len(grid.lon))][1] #4121694.20625
+
+    x_inc= (final_x-ini_x)/45.0
+    y_inc=(final_y-ini_y)/32.0
+
+    new_x.append(ini_x)
+    new_y.append(ini_y)
+
+    for i in range(len(grid.lon[:]) -1):
+        new_x.append(new_x[i]+x_inc)
+
+    for i in range(len(grid.lat[:]) -1):
+        new_y.append(new_y[i]+y_inc)
 
     """Convert grid into x array Data Array"""
-    precip_darray = xray.DataArray(grid.array[:], coords = [ grid.time[:], grid.lat[:], grid.lon[:]], dims = ['time', 'y', 'x'])
-    print precip_darray
+    precip_darray = xray.DataArray(grid.array[:], coords = [np.float64(range(len(grid.time[:]))), new_y[:], new_x[:]], dims = ['time', 'y', 'x'])
+    print precip_darray[0]
     """Convert Data Array to Dataset"""
     precip_ds = precip_darray.to_dataset(name='rainfall_depth')
     print precip_ds
