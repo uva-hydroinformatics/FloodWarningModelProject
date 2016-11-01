@@ -138,7 +138,11 @@ def main():
         new_y.append(new_y[i]+y_inc)
 
     """Convert grid into x array Data Array"""
-    precip_darray = xray.DataArray(grid.array[:], coords = [np.float64(range(len(grid.time[:]))), new_y[:], new_x[:]], dims = ['time', 'y', 'x'])
+    precip_darray = xray.DataArray(grid.array[:], coords = [np.float64(range(len(grid.time[:]))), new_y[:], new_x[:]], dims = ['time', 'Y', 'X'])
+    precip_darray.Y.attrs['standard_name'] = "projection_y_coordinate"
+    precip_darray.X.attrs['standard_name'] = "projection_x_coordinate"
+    precip_darray.Y.attrs['units'] = "m"
+    precip_darray.X.attrs['units'] = "m"
     print precip_darray[0]
     """Convert Data Array to Dataset"""
     precip_ds = precip_darray.to_dataset(name='rainfall_depth')
