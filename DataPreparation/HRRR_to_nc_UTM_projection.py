@@ -107,8 +107,8 @@ def get_projected_array(grid, hr):
     precip = ds.ReadAsArray()
     ny, nx = np.shape(precip)
     b = ds.GetGeoTransform()  # bbox, interval
-    x = np.arange(nx) * b[1] + b[0]
-    y = np.arange(ny) * b[5] + b[3]
+    x = np.arange(nx) * b[1] + (b[0] + b[1]/2.0)
+    y = np.arange(ny) * b[5] + (b[3] + b[5]/2.0)-6
     return x, y, precip
 
 
@@ -151,7 +151,17 @@ def main():
 
     x_var = nco.createVariable('X', 'f4', ('X',))
     y_var = nco.createVariable('Y', 'f4', ('Y',))
-    rain = nco.createVariable('Rainfall', 'f4', ('time', 'X', 'Y'))
+    rain = nco.createVariable('rainfall_depth', 'f4', ('time', 'X', 'Y'))
+
+
+
+    y_var.standard_name = 'projection_y_coordinate'
+    x_var.standard_name = 'projection_x_coordinate'
+    y_var.long_name = 'y-coordinate in cartesian system'
+    x_var.long_name = 'x-coordinate in cartesian system'
+
+    y_var.units = 'm'
+    x_var.units = 'm'
 
     x_var[:] = x
     y_var[:] = y
