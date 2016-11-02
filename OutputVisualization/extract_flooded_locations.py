@@ -7,6 +7,7 @@ from os import remove
 import struct
 import simplekml
 import sys
+import csv
 
 gdal.UseExceptions()
 
@@ -19,7 +20,8 @@ asc_filename = './VU_50m_CPU_Sandy_005_h_Max.asc'
 shp_filename = './BridgeSurvey.shp'
 # The name and location of the extracted flood locations shapefile
 out_file = './floodedLocations.shp'
-
+# The name and location of the output CSV file
+csv_file = './floodedLocations.csv'
 # Open the ASCII file
 src_ds = gdal.Open(asc_filename)
 if src_ds is None:
@@ -102,31 +104,51 @@ for feat in lyr:
     value = feat.GetField(feat.GetFieldIndex('FloodedBy'))
     if value > 0.0:
         out_lyr.CreateFeature(feat)
-
+#List of Bridge Objects for CSV
+bridges = []
 # Create the kmZ file to be visualized on Google maps
 kml = simplekml.Kml()
 kml.document.name = "Flooded locations"
 # Get the output layer's feature definition
 out_lyr_defn = out_lyr.GetLayerDefn()
 for feat in out_lyr:
-    # Add metadata to the KMZ file
+    #Create a dictonary for CSV Writer
+    bridgeObj = {}
+    # Add metadata to the KMZ file and dictionary
     xcord = feat.GetField(feat.GetFieldIndex(out_lyr_defn.GetFieldDefn(7).GetName()))
     ycord = feat.GetField(feat.GetFieldIndex(out_lyr_defn.GetFieldDefn(6).GetName()))
+    bridgeObj['Location'] = str(ycord) + "," + str(xcord)
     roadname = feat.GetField(feat.GetFieldIndex(out_lyr_defn.GetFieldDefn(8).GetName()))
+    bridgeObj['RoadName'] = roadname
     stream = feat.GetField(feat.GetFieldIndex(out_lyr_defn.GetFieldDefn(5).GetName()))
+    bridgeObj['Stream'] = stream
     npo = kml.newpoint(name=roadname, coords=[(xcord, ycord)])
     npo.description = "Located at "+stream
 
-    # Add extended metadata to the KMZ file
+    # Add extended metadata to the KMZ file and dictionary
     fedid = feat.GetField(feat.GetFieldIndex(out_lyr_defn.GetFieldDefn(4).GetName()))
     roadelev = feat.GetField(feat.GetFieldIndex(out_lyr_defn.GetFieldDefn(19).GetName()))
     floodedby = feat.GetField(feat.GetFieldIndex('FloodedBy'))
     npo.extendeddata.newdata("Feature ID", int(fedid))
     npo.extendeddata.newdata("Bridge elevation (m)", "%.2f" % float(roadelev))
     npo.extendeddata.newdata("Flooded by (m)", "%.2f" % float(floodedby))
+    bridgeObj['FeartureID'] = fedid
+    bridgeObj['RoadElevation'] = str(roadelev) +'m'
+    bridgeObj['FloodedBy'] = str(floodedby) + 'm'
+
+    bridges.append(bridgeObj)
 
 # I am saving kmz not kml as kmz has smaller size (15 KB compared to 249 KB)
 kml.savekmz("FloodedLocations.kmz")
+
+#Save CSV
+with open(csv_file, 'wb') as csvfile:
+    fieldnames = bridges[0].keys()
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    writer.writeheader()
+    for bridge in bridges:
+        writer.writerow(bridge)
+
 
 # Close the shapefiles and ASCII file
 ds = None
