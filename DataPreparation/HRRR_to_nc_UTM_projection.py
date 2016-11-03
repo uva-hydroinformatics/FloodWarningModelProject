@@ -104,12 +104,11 @@ def get_projected_array(grid, hr):
     ny, nx = np.shape(precip)
     b = ds.GetGeoTransform()  # bbox, interval
     x = np.arange(nx) * b[1] + (b[0] + b[1]/2.0)
-    y = np.arange(ny) * b[5] + (b[3] + b[5]/2.0)-6
+    y = np.arange(ny) * b[5] + (b[3] + b[5]/2.0)
     return x, y, precip
 
 
 def main():
-    
     # Get newest available HRRR dataset by trying (current datetime - delta time) until
     # a dataset is available for that hour. This corrects for inconsistent posting
     # of HRRR datasets to repository
@@ -145,8 +144,8 @@ def main():
     nco.createDimension('Y', len(y))
     nco.createDimension('time', None)
 
-    x_var = nco.createVariable('X', 'f4', ('X',))
-    y_var = nco.createVariable('Y', 'f4', ('Y',))
+    x_var = nco.createVariable('X', 'f8', ('X',))
+    y_var = nco.createVariable('Y', 'f8', ('Y',))
     rain = nco.createVariable('rainfall_depth', 'f4', ('time', 'X', 'Y'))
 
     y_var.standard_name = 'projection_y_coordinate'
