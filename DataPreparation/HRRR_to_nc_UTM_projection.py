@@ -9,6 +9,7 @@ with dimensions of time, latitude, and longitude. TIME IS IN DECIMAL DAYS
 Authors: Gina O'Neil, Mohamed Morsy, Jeff Sadler
 """
 from pydap.client import open_url
+from pydap.exceptions import ServerError
 import datetime as dt
 from osgeo import gdal, osr
 import numpy as np
@@ -36,26 +37,22 @@ lat_lb = (36.321159-0.133)
 lat_ub = (37.203955-0.122955)
 
 
-def getData(current_dt):
-    delta_T = 0
-    while True:    
-        try:
-            dtime_fix = current_dt - dt.timedelta(hours = delta_T)
-            date = dt.datetime.strftime(dtime_fix,"%Y%m%d")
-            fc_hour = dt.datetime.strftime(dtime_fix, "%H")
-            hour = str(fc_hour)
-            url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz' % (date, hour)
-            dataset = open_url(url)
-            if len(dataset.keys()) > 0:
-                False
-                return dataset, url, date, hour
-            else:
-                print "Back up method - Failed to open : %s" % url
-                delta_T += 1
-                True
-        except:
-            delta_T += 1
-            print "Failed to open : %s" % url
+def getData(current_dt, delta_T):
+    dtime_fix = current_dt + dt.timedelta(hours=delta_T)
+    date = dt.datetime.strftime(dtime_fix, "%Y%m%d")
+    fc_hour = dt.datetime.strftime(dtime_fix, "%H")
+    hour = str(fc_hour)
+    url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz' % (date, hour)
+    try:
+        dataset = open_url(url)
+        if len(dataset.keys()) > 0:
+            return dataset, url, date, hour
+        else:
+            print "Back up method - Failed to open : %s" % url
+            return getData(current_dt, delta_T - 1)
+    except ServerError:
+        print "Failed to open : %s" % url
+        return getData(current_dt, delta_T - 1)
 
 
 def gridpt(myVal, initVal, aResVal):
@@ -119,7 +116,7 @@ def main():
     dtime_now = dt.datetime.utcnow()
     print "Open a connection to HRRR to retrieve forecast rainfall data.............\n"
     # get newest available dataset
-    dataset, url, date, hour = getData(dtime_now)
+    dataset, url, date, hour = getData(dtime_now, delta_T=0)
     print ("Retrieving forecast data from: %s " % url)
 
     # select desired forecast product from grid, grid dimensions are time, lat, lon
