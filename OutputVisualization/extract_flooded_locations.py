@@ -3,11 +3,20 @@ from os.path import exists
 from os.path import basename
 from os.path import splitext
 from os import remove
+from oauth2client.service_account import ServiceAccountCredentials
 
 import struct
 import simplekml
 import sys
 import csv
+import gspread
+
+#Auth for Google Doc
+scope = ['https://spreadsheets.google.com/feeds']
+credentials = ServiceAccountCredentials.from_json_keyfile_name('Flood.json', scope)
+gc = gspread.authorize(credentials)
+wks = gc.open("Map").sheet1
+
 
 gdal.UseExceptions()
 
@@ -148,7 +157,31 @@ with open(csv_file, 'wb') as csvfile:
     writer.writeheader()
     for bridge in bridges:
         writer.writerow(bridge)
+# Remove Geosheet function so map does not update for every single bridge
+wks.update_acell('H1', " ")
 
+#Plant Headers in Google Doc
+cell_list = wks.range('A1:F1') #Get Range
+i=0
+for cell in cell_list: #For each cell set the value equal to a key
+    cell.value = bridges[0].keys()[i]
+    i = i +1
+wks.update_cells(cell_list)
+
+#Push Data to Google Docs
+i=2
+for bridge in bridges:
+    row = 'A' + str(i) + ':F' + str(i) #Generate the Range for every bridge
+    cell_list = wks.range(row)
+    i= i + 1
+    j =0
+    for cell in cell_list: #Populate values
+        cell.value = bridge[bridges[0].keys()[j]]
+        j = j +1
+    wks.update_cells(cell_list)
+
+#Add Geosheet Function
+wks.update_acell('H1', '=GEO_MAP(A1:F500,"FloodData")')
 
 # Close the shapefiles and ASCII file
 ds = None
