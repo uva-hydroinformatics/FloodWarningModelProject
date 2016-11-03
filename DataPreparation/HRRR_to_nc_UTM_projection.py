@@ -15,6 +15,7 @@ from osgeo import gdal, osr
 import numpy as np
 import os
 from netCDF4 import Dataset
+import shutil
 
 """
 Global parameters:
@@ -141,7 +142,8 @@ def main():
     # get projected coordinates to make netcdf
     grid = precip[0, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
     x, y, precip_prj = get_projected_array(grid, 0, loc_datetime)
-    nco = Dataset('%s/%s.nc' % (loc_datetime, loc_datetime), mode='w')
+    nc_file_name = '%s/%s.nc' % (loc_datetime, loc_datetime)
+    nco = Dataset(nc_file_name, mode='w')
     nco.createDimension('X', len(x))
     nco.createDimension('Y', len(y))
     nco.createDimension('time', None)
@@ -171,6 +173,7 @@ def main():
         print ("File for hour %d has been written" % hr)
 
     nco.close()
+    shutil.copy2(nc_file_name, "rainfall_forecast.nc")
 
 if __name__ == "__main__":
     main()
