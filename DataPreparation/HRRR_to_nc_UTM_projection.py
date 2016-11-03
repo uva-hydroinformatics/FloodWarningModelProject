@@ -108,7 +108,21 @@ def get_projected_array(grid, hr):
     return x, y, precip
 
 
+def remove_all_rasters():
+    exts = ".tif", ".nc"
+    for root, dirs, files in os.walk(os.getcwd()):
+        for f in files:
+            if any(f.lower().endswith(ext) for ext in exts):
+                try:
+                    os.remove(os.path.join(root, f))
+                except WindowsError:
+                    print "tried to delete file {} but couldn't".format(f)
+                    continue
+
+
 def main():
+    # remove any rasters in the current directory
+    remove_all_rasters()
     # Get newest available HRRR dataset by trying (current datetime - delta time) until
     # a dataset is available for that hour. This corrects for inconsistent posting
     # of HRRR datasets to repository
