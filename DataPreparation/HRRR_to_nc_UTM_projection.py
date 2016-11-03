@@ -60,7 +60,7 @@ def gridpt(myVal, initVal, aResVal):
     return gridVal
 
 
-def make_wgs_raster(grid, hr):
+def make_wgs_raster(grid, hr, directory):
     xres = grid.lon[1] - grid.lon[0]
     yres = grid.lat[1] - grid.lat[0]
     ysize = len(grid.lat)
@@ -76,7 +76,7 @@ def make_wgs_raster(grid, hr):
     gt = [ulx, xres, 0, uly, 0, yres]
     precip_array = grid.apcpsfc.data[0]
     precip_array = precip_array.astype(np.float64)
-    latlonfile = 'latlon%s.tif' % hr
+    latlonfile = '%s/latlon%s.tif' % (directory, hr)
     ds = driver.Create(latlonfile, xsize, ysize, 1, gdal.GDT_Float64, )
     ds.SetProjection(srs.ExportToWkt())
     ds.SetGeoTransform(gt)
@@ -90,15 +90,16 @@ def make_wgs_raster(grid, hr):
     return latlonfile
 
 
-def project_to_utm(wgs_raster_name, hr):
-    outfilename = "projected%s.tif" % hr
-    os.system('gdalwarp %s %s -t_srs "+proj=utm +zone=18 +datum=NAD83"' % (wgs_raster_name, outfilename))
+def project_to_utm(wgs_raster_name, hr, directory):
+    outfilename = "%s/projected%s.tif" % (directory, hr)
+    os.system('gdalwarp %s %s -t_srs "+proj=utm +zone=18 +datum=NAD83"' % (wgs_raster_name,
+                                                                           outfilename))
     return outfilename
 
 
-def get_projected_array(grid, hr):
-    wgs_file = make_wgs_raster(grid, hr)
-    projected_file_name = project_to_utm(wgs_file, hr)
+def get_projected_array(grid, hr, directory):
+    wgs_file = make_wgs_raster(grid, hr, directory)
+    projected_file_name = project_to_utm(wgs_file, hr, directory)
     ds = gdal.Open(projected_file_name)
     precip = ds.ReadAsArray()
     ny, nx = np.shape(precip)
@@ -108,28 +109,15 @@ def get_projected_array(grid, hr):
     return x, y, precip
 
 
-def remove_all_rasters():
-    exts = ".tif", ".nc"
-    for root, dirs, files in os.walk(os.getcwd()):
-        for f in files:
-            if any(f.lower().endswith(ext) for ext in exts):
-                try:
-                    os.remove(os.path.join(root, f))
-                except WindowsError:
-                    print "tried to delete file {} but couldn't".format(f)
-                    continue
-
-
 def main():
     # remove any rasters in the current directory
-    remove_all_rasters()
     # Get newest available HRRR dataset by trying (current datetime - delta time) until
     # a dataset is available for that hour. This corrects for inconsistent posting
     # of HRRR datasets to repository
-    dtime_now = dt.datetime.utcnow()
+    utc_datetime = dt.datetime.utcnow()
     print "Open a connection to HRRR to retrieve forecast rainfall data.............\n"
     # get newest available dataset
-    dataset, url, date, hour = getData(dtime_now, delta_T=0)
+    dataset, url, date, hour = getData(utc_datetime, delta_T=0)
     print ("Retrieving forecast data from: %s " % url)
 
     # select desired forecast product from grid, grid dimensions are time, lat, lon
@@ -145,15 +133,15 @@ def main():
     grid_lat1 = gridpt(lat_lb, initLat, aResLat) 
     grid_lat2 = gridpt(lat_ub, initLat, aResLat)
     
-    # Convert time steps from decimal days to datetime format
-    #  must keep array items as datetime objects
-    # times = [ matplotlib.dates.num2date(t-1) for t in precip.time[:] ]
-    # hours = []
-    # for t in times:
-    #   hours.append(int(dt.datetime.strftime(times[t], "%H")))
+    # make netcdf file ##
+    # make directory to store rainfall data
+    loc_datetime = dt.datetime.now().strftime('%Y%m%d.%H%M')
+    os.makedirs(loc_datetime)
+
+    # get projected coordinates to make netcdf
     grid = precip[0, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
-    x, y, precip_prj = get_projected_array(grid, 0)
-    nco = Dataset('%s.nc' % dt.datetime.now().strftime('%Y%m%d.%H%M'), mode='w')
+    x, y, precip_prj = get_projected_array(grid, 0, loc_datetime)
+    nco = Dataset('%s/%s.nc' % (loc_datetime, loc_datetime), mode='w')
     nco.createDimension('X', len(x))
     nco.createDimension('Y', len(y))
     nco.createDimension('time', None)
@@ -173,9 +161,10 @@ def main():
     x_var[:] = x
     y_var[:] = y
 
+    # add rain values to .nc file for each time step
     for hr in range(len(precip.time[:])):
         grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
-        x, y, precip_prj = get_projected_array(grid, hr)
+        x, y, precip_prj = get_projected_array(grid, hr, loc_datetime)
         precip_prj = np.transpose(precip_prj)
         rain[hr, :, :] = precip_prj
 
