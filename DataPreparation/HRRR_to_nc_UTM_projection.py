@@ -8,10 +8,9 @@ with dimensions of time, latitude, and longitude. TIME IS IN DECIMAL DAYS
 *Note* Script must be run with python 2.7 (compatible with pydap)
 Authors: Gina O'Neil, Mohamed Morsy, Jeff Sadler
 """
-import numpy as np
 from pydap.client import open_url
 import datetime as dt
-from osgeo import gdal, osr, ogr
+from osgeo import gdal, osr
 import numpy as np
 import os
 from netCDF4 import Dataset
@@ -24,10 +23,10 @@ Global parameters:
     (source: http://nomads.ncep.noaa.gov:9090/dods/hrrr "info" link)
 """
 
-initLon = -134.09548000000 # modified that to follow the latest values on the website
+initLon = -134.09548000000  # modified that to follow the latest values on the website
 aResLon = 0.029
 
-initLat = 21.14054700000 # modified that to follow the latest values on the website
+initLat = 21.14054700000  # modified that to follow the latest values on the website
 aResLat = 0.027
 
 # this values added to the original bounding box made the retrieved data to be
@@ -49,7 +48,7 @@ def getData(current_dt):
             dataset = open_url(url)
             if len(dataset.keys()) > 0:
                 False
-                return(dataset, url, date, hour)
+                return dataset, url, date, hour
             else:
                 print "Back up method - Failed to open : %s" % url
                 delta_T += 1
@@ -153,8 +152,6 @@ def main():
     y_var = nco.createVariable('Y', 'f4', ('Y',))
     rain = nco.createVariable('rainfall_depth', 'f4', ('time', 'X', 'Y'))
 
-
-
     y_var.standard_name = 'projection_y_coordinate'
     x_var.standard_name = 'projection_x_coordinate'
     y_var.long_name = 'y-coordinate in cartesian system'
@@ -176,5 +173,5 @@ def main():
 
     nco.close()
 
-if __name__=="__main__":
-   main()
+if __name__ == "__main__":
+    main()
