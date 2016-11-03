@@ -13,9 +13,9 @@ import gspread
 
 #Auth for Google Doc
 scope = ['https://spreadsheets.google.com/feeds']
-credentials = ServiceAccountCredentials.from_json_keyfile_name('Flood.json', scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_name('R2S2-a63b1dfc219c.json', scope)
 gc = gspread.authorize(credentials)
-wks = gc.open("Map").sheet1
+wks = gc.open("R2S2Map").sheet1
 
 
 gdal.UseExceptions()
@@ -159,6 +159,10 @@ with open(csv_file, 'wb') as csvfile:
         writer.writerow(bridge)
 # Remove Geosheet function so map does not update for every single bridge
 wks.update_acell('H1', " ")
+cell_list = wks.range("A1:F500")
+for cell in cell_list:
+    cell.value = " "
+wks.update_cells(cell_list)
 
 #Plant Headers in Google Doc
 cell_list = wks.range('A1:F1') #Get Range
@@ -181,7 +185,7 @@ for bridge in bridges:
     wks.update_cells(cell_list)
 
 #Add Geosheet Function
-wks.update_acell('H1', '=GEO_MAP(A1:F500,"FloodData")')
+wks.update_acell('H1', '=GEO_MAP(A1:F500,"Currrent Flooded Bridges in The Hampton Roads District")')
 
 # Close the shapefiles and ASCII file
 ds = None
