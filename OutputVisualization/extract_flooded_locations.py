@@ -156,13 +156,13 @@ for feat in out_lyr:
 # I am saving kmz not kml as kmz has smaller size (15 KB compared to 249 KB)
 kml.savekmz("FloodedLocations.kmz")
 
-#Save CSV
-with open(csv_file, 'wb') as csvfile:
-    fieldnames = bridges[0].keys()
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    writer.writeheader()
-    for bridge in bridges:
-        writer.writerow(bridge)
+# #Save CSV
+# with open(csv_file, 'wb') as csvfile:
+#     fieldnames = bridges[0].keys()
+#     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+#     writer.writeheader()
+#     for bridge in bridges:
+#         writer.writerow(bridge)
 # Remove Geosheet function so map does not update for every single bridge
 wks.update_acell('H1', " ")
 cell_list = wks.range("A1:G500")
@@ -179,16 +179,15 @@ for cell in cell_list: #For each cell set the value equal to a key
 wks.update_cells(cell_list)
 
 #Push Data to Google Docs
-i=2
-for bridge in bridges:
-    row = 'A' + str(i) + ':G' + str(i) #Generate the Range for every bridge
-    cell_list = wks.range(row)
-    i= i + 1
-    j =0
-    for cell in cell_list: #Populate values
-        cell.value = bridge[bridges[0].keys()[j]]
+i = 0 #Cell Counter
+j = 0 #Bridge Counter
+cell_list = wks.range('A2:G'+str(len(bridges)))
+for cell in cell_list: #Populate values
+    cell.value = bridges[j][bridges[0].keys()[i%7]]
+    i = i + 1
+    if i%7 == 0: #Move to next bridge after 7 cells
         j = j +1
-    wks.update_cells(cell_list)
+wks.update_cells(cell_list)
 
 #Add Geosheet Function
 wks.update_acell('H1', '=GEO_MAP(A1:G500,"Currrent Flooded Bridges in The Hampton Roads District")')
