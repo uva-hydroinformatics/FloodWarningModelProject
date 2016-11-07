@@ -111,8 +111,8 @@ lyr.ResetReading()
 # Extract only the flooded bridges from the original shapefile
 for feat in lyr:
     value = feat.GetField(feat.GetFieldIndex('FloodedBy'))
-    if value > 0.0:
-        out_lyr.CreateFeature(feat)
+    out_lyr.CreateFeature(feat)
+
 #List of Bridge Objects for CSV
 bridges = []
 # Create the kmZ file to be visualized on Google maps
@@ -144,6 +144,12 @@ for feat in out_lyr:
     bridgeObj['FeartureID'] = fedid
     bridgeObj['RoadElevation'] = str(roadelev) +'m'
     bridgeObj['FloodedBy'] = str(floodedby) + 'm'
+    if floodedby > 0:
+        bridgeObj['Color'] = 'red'
+    elif floodedby < 0 and floodedby > -1:
+        bridgeObj['Color'] = 'yellow'
+    else:
+        bridgeObj['Color'] = 'green'
 
     bridges.append(bridgeObj)
 
@@ -159,13 +165,13 @@ with open(csv_file, 'wb') as csvfile:
         writer.writerow(bridge)
 # Remove Geosheet function so map does not update for every single bridge
 wks.update_acell('H1', " ")
-cell_list = wks.range("A1:F500")
+cell_list = wks.range("A1:G500")
 for cell in cell_list:
     cell.value = " "
 wks.update_cells(cell_list)
 
 #Plant Headers in Google Doc
-cell_list = wks.range('A1:F1') #Get Range
+cell_list = wks.range('A1:G1') #Get Range
 i=0
 for cell in cell_list: #For each cell set the value equal to a key
     cell.value = bridges[0].keys()[i]
@@ -175,7 +181,7 @@ wks.update_cells(cell_list)
 #Push Data to Google Docs
 i=2
 for bridge in bridges:
-    row = 'A' + str(i) + ':F' + str(i) #Generate the Range for every bridge
+    row = 'A' + str(i) + ':G' + str(i) #Generate the Range for every bridge
     cell_list = wks.range(row)
     i= i + 1
     j =0
@@ -185,7 +191,7 @@ for bridge in bridges:
     wks.update_cells(cell_list)
 
 #Add Geosheet Function
-wks.update_acell('H1', '=GEO_MAP(A1:F500,"Currrent Flooded Bridges in The Hampton Roads District")')
+wks.update_acell('H1', '=GEO_MAP(A1:G500,"Currrent Flooded Bridges in The Hampton Roads District")')
 
 # Close the shapefiles and ASCII file
 ds = None
