@@ -84,10 +84,10 @@ for feat in lyr:
     structval = rb.ReadRaster(px, py, 1, 1, buf_type=gdal.GDT_Float64)
     maxwlval = struct.unpack('d', structval)
     bridge_elev = feat.GetField(feat.GetFieldIndex('RoadElev_m'))
-    if maxwlval[0] < 0.0:
-        feat.SetField('FloodedBy', maxwlval[0])
+    if maxwlval[0] > bridge_elev:
+        feat.SetField('FloodedBy', maxwlval[0] - bridge_elev)
     else:
-        feat.SetField('FloodedBy', bridge_elev - maxwlval[0])
+        feat.SetField('FloodedBy', 0.0)
     lyr.SetFeature(feat)
 
 # Create new shapefile with flooded bridge locations and data
@@ -111,42 +111,45 @@ lyr.ResetReading()
 # Extract only the flooded bridges from the original shapefile
 for feat in lyr:
     value = feat.GetField(feat.GetFieldIndex('FloodedBy'))
-    out_lyr.CreateFeature(feat)
+    if value != 0.0:
+        out_lyr.CreateFeature(feat)
 
 #List of Bridge Objects for CSV
 bridges = []
 # Create the kmZ file to be visualized on Google maps
 kml = simplekml.Kml()
 kml.document.name = "Flooded locations"
-# Get the output layer's feature definition
-out_lyr_defn = out_lyr.GetLayerDefn()
-for feat in out_lyr:
+lyr.ResetReading()
+
+for feat in lyr:
     #Create a dictonary for CSV Writer
     bridgeObj = {}
     # Add metadata to the KMZ file and dictionary
-    xcord = feat.GetField(feat.GetFieldIndex(out_lyr_defn.GetFieldDefn(7).GetName()))
-    ycord = feat.GetField(feat.GetFieldIndex(out_lyr_defn.GetFieldDefn(6).GetName()))
+    xcord = feat.GetField(feat.GetFieldIndex(lyr_defn.GetFieldDefn(7).GetName()))
+    ycord = feat.GetField(feat.GetFieldIndex(lyr_defn.GetFieldDefn(6).GetName()))
     bridgeObj['Location'] = str(ycord) + "," + str(xcord)
-    roadname = feat.GetField(feat.GetFieldIndex(out_lyr_defn.GetFieldDefn(8).GetName()))
+    roadname = feat.GetField(feat.GetFieldIndex(lyr_defn.GetFieldDefn(8).GetName()))
     bridgeObj['RoadName'] = roadname
-    stream = feat.GetField(feat.GetFieldIndex(out_lyr_defn.GetFieldDefn(5).GetName()))
+    stream = feat.GetField(feat.GetFieldIndex(lyr_defn.GetFieldDefn(5).GetName()))
     bridgeObj['Stream'] = stream
-    npo = kml.newpoint(name=roadname, coords=[(xcord, ycord)])
-    npo.description = "Located at "+stream
-
-    # Add extended metadata to the KMZ file and dictionary
-    fedid = feat.GetField(feat.GetFieldIndex(out_lyr_defn.GetFieldDefn(4).GetName()))
-    roadelev = feat.GetField(feat.GetFieldIndex(out_lyr_defn.GetFieldDefn(19).GetName()))
-    floodedby = feat.GetField(feat.GetFieldIndex('FloodedBy'))
-    npo.extendeddata.newdata("Feature ID", int(fedid))
-    npo.extendeddata.newdata("Bridge elevation (m)", "%.2f" % float(roadelev))
-    npo.extendeddata.newdata("Flooded by (m)", "%.2f" % float(floodedby))
+    fedid = feat.GetField(feat.GetFieldIndex(lyr_defn.GetFieldDefn(4).GetName()))
     bridgeObj['FeartureID'] = fedid
+    roadelev = feat.GetField(feat.GetFieldIndex(lyr_defn.GetFieldDefn(19).GetName()))
     bridgeObj['RoadElevation'] = str(roadelev) +'m'
+    floodedby = feat.GetField(feat.GetFieldIndex('FloodedBy'))
     bridgeObj['FloodedBy'] = str(floodedby) + 'm'
-    if floodedby > 0:
+
+    if floodedby > 0.0:
+        npo = kml.newpoint(name=roadname, coords=[(xcord, ycord)])
+        npo.description = "Located at "+stream
+        # Add extended metadata to the KMZ file and dictionary
+        npo.extendeddata.newdata("Feature ID", int(fedid))
+        npo.extendeddata.newdata("Bridge elevation (m)", "%.2f" % float(roadelev))
+        npo.extendeddata.newdata("Flooded by (m)", "%.2f" % float(floodedby))
+
+    if floodedby > 0.30:
         bridgeObj['Color'] = 'red'
-    elif floodedby < 0 and floodedby > -1:
+    elif floodedby <=0.30 and floodedby > 0.0:
         bridgeObj['Color'] = 'yellow'
     else:
         bridgeObj['Color'] = 'green'
