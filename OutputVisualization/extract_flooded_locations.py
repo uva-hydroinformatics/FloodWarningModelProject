@@ -122,7 +122,7 @@ kml.document.name = "Flooded locations"
 lyr.ResetReading()
 
 for feat in lyr:
-    #Create a dictonary for CSV Writer
+    # Create a dictonary for CSV Writer
     bridgeObj = {}
     # Add metadata to the KMZ file and dictionary
     xcord = feat.GetField(feat.GetFieldIndex(lyr_defn.GetFieldDefn(7).GetName()))
@@ -149,7 +149,7 @@ for feat in lyr:
 
     if floodedby > 0.30:
         bridgeObj['Color'] = 'red'
-    elif floodedby <=0.30 and floodedby > 0.0:
+    elif 0 < floodedby <= 0.30:
         bridgeObj['Color'] = 'yellow'
     else:
         bridgeObj['Color'] = 'green'
@@ -168,31 +168,31 @@ kml.savekmz("FloodedLocations.kmz")
 #         writer.writerow(bridge)
 # Remove Geosheet function so map does not update for every single bridge
 wks.update_acell('H1', " ")
-cell_list = wks.range("A1:G500")
+cell_list = wks.range("A1:G"+str(len(bridges)))
 for cell in cell_list:
     cell.value = " "
 wks.update_cells(cell_list)
 
-#Plant Headers in Google Doc
-cell_list = wks.range('A1:G1') #Get Range
+# Plant Headers in Google Doc
+cell_list = wks.range('A1:G1')  # Get Range
 i=0
-for cell in cell_list: #For each cell set the value equal to a key
+for cell in cell_list:  # For each cell set the value equal to a key
     cell.value = bridges[0].keys()[i]
-    i = i +1
+    i += 1
 wks.update_cells(cell_list)
 
-#Push Data to Google Docs
-i = 0 #Cell Counter
-j = 0 #Bridge Counter
+# Push Data to Google Docs
+i = 0  # Cell Counter
+j = 0  # Bridge Counter
 cell_list = wks.range('A2:G'+str(len(bridges)))
-for cell in cell_list: #Populate values
-    cell.value = bridges[j][bridges[0].keys()[i%7]]
-    i = i + 1
-    if i%7 == 0: #Move to next bridge after 7 cells
-        j = j +1
+for cell in cell_list:  # Populate values
+    cell.value = bridges[j][bridges[0].keys()[i%len(bridges[0].keys())]]
+    i += 1
+    if i%len(bridges[0].keys()) == 0: # Move to next bridge after 7 cells
+        j += 1
 wks.update_cells(cell_list)
 
-#Add Geosheet Function
+# Add Geosheet Function
 wks.update_acell('H1', '=GEO_MAP(A1:G500,"Currrent Flooded Bridges in The Hampton Roads District")')
 
 # Close the shapefiles and ASCII file
