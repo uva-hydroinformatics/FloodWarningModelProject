@@ -11,7 +11,7 @@ import sys
 import csv
 import gspread
 
-#Auth for Google Doc
+# Auth for Google Doc
 scope = ['https://spreadsheets.google.com/feeds']
 credentials = ServiceAccountCredentials.from_json_keyfile_name('R2S2-a63b1dfc219c.json', scope)
 gc = gspread.authorize(credentials)
@@ -114,7 +114,7 @@ for feat in lyr:
     if value != 0.0:
         out_lyr.CreateFeature(feat)
 
-#List of Bridge Objects for CSV
+# List of Bridge Objects for CSV
 bridges = []
 # Create the kmZ file to be visualized on Google maps
 kml = simplekml.Kml()
@@ -167,33 +167,49 @@ kml.savekmz("FloodedLocations.kmz")
 #     for bridge in bridges:
 #         writer.writerow(bridge)
 # Remove Geosheet function so map does not update for every single bridge
-wks.update_acell('H1', " ")
-cell_list = wks.range("A1:G"+str(len(bridges)))
+wks.update_acell('J1', " ")
+cell_list = wks.range("A1:H"+str(len(bridges)+2))
 for cell in cell_list:
     cell.value = " "
 wks.update_cells(cell_list)
 
 # Plant Headers in Google Doc
 cell_list = wks.range('A1:G1')  # Get Range
-i=0
+i = 0
 for cell in cell_list:  # For each cell set the value equal to a key
     cell.value = bridges[0].keys()[i]
     i += 1
 wks.update_cells(cell_list)
+wks.update_acell('H1', "Type")
 
 # Push Data to Google Docs
 i = 0  # Cell Counter
 j = 0  # Bridge Counter
-cell_list = wks.range('A2:G'+str(len(bridges)))
+cell_list = wks.range('A2:G'+str(len(bridges)+1))
 for cell in cell_list:  # Populate values
-    cell.value = bridges[j][bridges[0].keys()[i%len(bridges[0].keys())]]
+    cell.value = bridges[j][bridges[0].keys()[i % len(bridges[0].keys())]]
     i += 1
-    if i%len(bridges[0].keys()) == 0: # Move to next bridge after 7 cells
+    if i % len(bridges[0].keys()) == 0:  # Move to next bridge after 7 cells
         j += 1
 wks.update_cells(cell_list)
 
+# Code for rough boundry
+wks.update_acell('F'+str(len(bridges)+2), "36.40359, -77.98095|36.99597, -77.58819|37.18298, -76.92714|37.02038," +
+                                          " -76.70701|36.60316, -76.65605|36.3759, -77.05706|36.40359, -77.98095")
+wks.update_acell('H'+str(len(bridges)+2), "line")
+
+# Code for boundry. DOES NOT WORK DUE TO POINT LIMITATIONS
+# lines = ""
+# with open('Boundry.csv', 'rb') as csvfile:
+#     spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+#     for row in spamreader:
+#         lines += row[0].split(",")[1] + ',' + row[0].split(",")[0] + '|'
+#
+# wks.update_acell('F'+str(len(bridges)+2), lines)
+# wks.update_acell('H'+str(len(bridges)+2), "line")
+
 # Add Geosheet Function
-wks.update_acell('H1', '=GEO_MAP(A1:G500,"Currrent Flooded Bridges in The Hampton Roads District")')
+wks.update_acell('J1', '=GEO_MAP(A1:H' + str(len(bridges)+2) + ',"Currrent Flooded Bridges in The Hampton Roads District")')
 
 # Close the shapefiles and ASCII file
 ds = None
