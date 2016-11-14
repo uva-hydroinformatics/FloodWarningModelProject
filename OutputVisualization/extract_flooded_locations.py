@@ -193,14 +193,14 @@ for cell in cell_list:  # Populate values
         j += 1
 wks.update_cells(cell_list)
 
-# Code for rough boundry
+# Code for rough boundary
 wks.update_acell('F'+str(len(bridges)+2), "36.40359, -77.98095|36.99597, -77.58819|37.18298, -76.92714|37.02038," +
                                           " -76.70701|36.60316, -76.65605|36.3759, -77.05706|36.40359, -77.98095")
 wks.update_acell('H'+str(len(bridges)+2), "line")
 
-# Code for boundry. DOES NOT WORK DUE TO POINT LIMITATIONS
+# Code for boundary. DOES NOT WORK DUE TO POINT LIMITATIONS
 # lines = ""
-# with open('Boundry.csv', 'rb') as csvfile:
+# with open('Boundary.csv', 'rb') as csvfile:
 #     spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
 #     for row in spamreader:
 #         lines += row[0].split(",")[1] + ',' + row[0].split(",")[0] + '|'
