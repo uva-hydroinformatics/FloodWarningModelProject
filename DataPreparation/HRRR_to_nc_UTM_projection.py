@@ -16,6 +16,7 @@ import numpy as np
 import os
 from netCDF4 import Dataset
 import shutil
+import xarray
 
 """
 Global parameters:
@@ -164,13 +165,32 @@ def main():
     y_var[:] = y
 
     # add rain values to .nc file for each time step
-    for hr in range(len(precip.time[:])):
+    precip_list = []
+    for hr in range(len(precip.time[:])-14):
         grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
         x, y, precip_prj = get_projected_array(grid, hr, loc_datetime)
+        precip_list.append(precip_prj)
         precip_prj = np.transpose(precip_prj)
         rain[hr, :, :] = precip_prj
-
         print ("File for hour %d has been written" % hr)
+
+    precip_array = np.array(precip_list)
+    precip_xarray = xarray.DataArray(precip_array,
+                                     coords=[
+                                         np.float64(range(len(precip_array))),
+                                         y[:],
+                                         x[:]],
+                                     dims=['time', 'Y', 'X'])
+    precip_xarray.Y.attrs['standard_name'] = "projection_y_coordinate"
+    precip_xarray.X.attrs['standard_name'] = "projection_x_coordinate"
+    precip_xarray.Y.attrs['units'] = "m"
+    precip_xarray.X.attrs['units'] = "m"
+    print precip_xarray[0]
+    """Convert Data Array to Dataset"""
+    precip_ds = precip_xarray.to_dataset(name='rainfall_depth')
+    print precip_ds
+    """Convert Dataset to Netcdf"""
+    precip_ds.to_netcdf('test.nc')
 
     nco.close()
     shutil.copy2(nc_file_name, "rainfall_forecast.nc")
