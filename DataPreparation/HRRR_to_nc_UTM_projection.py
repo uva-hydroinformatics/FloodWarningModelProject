@@ -166,7 +166,7 @@ def main():
 
     # add rain values to .nc file for each time step
     precip_list = []
-    for hr in range(len(precip.time[:])-14):
+    for hr in range(len(precip.time[:])):
         grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
         x, y, precip_prj = get_projected_array(grid, hr, loc_datetime)
         precip_list.append(precip_prj)
