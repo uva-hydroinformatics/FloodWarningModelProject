@@ -137,13 +137,14 @@ def main():
     
     # make netcdf file ##
     # make directory to store rainfall data
-    loc_datetime = dt.datetime.now().strftime('%Y%m%d.%H%M')
-    os.makedirs(loc_datetime)
+    loc_datetime = dt.datetime.now()
+    loc_datetime_str = loc_datetime.strftime('%Y%m%d.%H%M')
+    os.makedirs(loc_datetime_str)
 
     # get projected coordinates to make netcdf
     grid = precip[0, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
-    x, y, precip_prj = get_projected_array(grid, 0, loc_datetime)
-    nc_file_name = '%s/%s.nc' % (loc_datetime, loc_datetime)
+    x, y, precip_prj = get_projected_array(grid, 0, loc_datetime_str)
+    nc_file_name = '%s/%s.nc' % (loc_datetime_str, loc_datetime_str)
     nco = Dataset(nc_file_name, mode='w')
     nco.createDimension('X', len(x))
     nco.createDimension('Y', len(y))
@@ -168,8 +169,8 @@ def main():
     precip_list = []
     for hr in range(len(precip.time[:])):
         grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
-        x, y, precip_prj = get_projected_array(grid, hr, loc_datetime)
-        # precip_prj.fill(hr)  # uncomment this line to produce dummy data
+        x, y, precip_prj = get_projected_array(grid, hr, loc_datetime_str)
+        precip_prj.fill(hr)  # uncomment this line to produce dummy data
         precip_list.append(precip_prj)
         precip_prj = np.transpose(precip_prj)
         rain[hr, :, :] = precip_prj
@@ -181,12 +182,19 @@ def main():
                                          np.float64(range(len(precip_array))),
                                          y[:],
                                          x[:]],
-                                     dims=['time', 'Y', 'X'])
-    precip_xarray.Y.attrs['standard_name'] = "projection_y_coordinate"
-    precip_xarray.X.attrs['standard_name'] = "projection_x_coordinate"
-    precip_xarray.Y.attrs['units'] = "m"
-    precip_xarray.X.attrs['units'] = "m"
-    print precip_xarray[0]
+                                     dims=['time', 'y', 'x'])
+    precip_xarray.y.attrs['standard_name'] = 'projection_y_coordinate'
+    precip_xarray.y.attrs['long_name'] = 'y-coordinate in cartesian system'
+    precip_xarray.y.attrs['units'] = 'm'
+    precip_xarray.y.attrs['axis'] = 'Y'
+    precip_xarray.x.attrs['standard_name'] = 'projection_x_coordinate'
+    precip_xarray.x.attrs['long_name'] = 'x-coordinate in cartesian system'
+    precip_xarray.x.attrs['units'] = 'm'
+    precip_xarray.x.attrs['axis'] = 'X'
+    precip_xarray.time.attrs['standard_name'] = 'time'
+    precip_xarray.time.attrs['long_name'] = 'time'
+    precip_xarray.time.attrs['units'] = 'hours since {}'.format(loc_datetime.strftime('%Y-%m-%d %H:%M'))
+    precip_xarray.time.attrs['axis'] = 'T'
     """Convert Data Array to Dataset"""
     precip_ds = precip_xarray.to_dataset(name='rainfall_depth')
     print precip_ds
