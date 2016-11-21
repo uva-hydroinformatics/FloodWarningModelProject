@@ -169,7 +169,7 @@ def main():
     for hr in range(len(precip.time[:])):
         grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
         x, y, precip_prj = get_projected_array(grid, hr, loc_datetime)
-        # precip_prj = precip_prj.fill(hr)  # uncomment this line to produce dummy data
+        # precip_prj.fill(hr)  # uncomment this line to produce dummy data
         precip_list.append(precip_prj)
         precip_prj = np.transpose(precip_prj)
         rain[hr, :, :] = precip_prj
