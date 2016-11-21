@@ -181,12 +181,19 @@ def main():
                                          np.float64(range(len(precip_array))),
                                          y[:],
                                          x[:]],
-                                     dims=['time', 'Y', 'X'])
-    precip_xarray.Y.attrs['standard_name'] = "projection_y_coordinate"
-    precip_xarray.X.attrs['standard_name'] = "projection_x_coordinate"
-    precip_xarray.Y.attrs['units'] = "m"
-    precip_xarray.X.attrs['units'] = "m"
-    print precip_xarray[0]
+                                     dims=['time', 'y', 'x'])
+    precip_xarray.y.attrs['standard_name'] = 'projection_y_coordinate'
+    precip_xarray.y.attrs['long_name'] = 'y-coordinate in cartesian system'
+    precip_xarray.y.attrs['units'] = 'm'
+    precip_xarray.y.attrs['axis'] = 'Y'
+    precip_xarray.x.attrs['standard_name'] = 'projection_x_coordinate'
+    precip_xarray.x.attrs['long_name'] = 'x-coordinate in cartesian system'
+    precip_xarray.x.attrs['units'] = 'm'
+    precip_xarray.x.attrs['axis'] = 'X'
+    precip_xarray.time.attrs['standard_name'] = 'time'
+    precip_xarray.time.attrs['long_name'] = 'time'
+    precip_xarray.time.attrs['units'] = 'hours since 2000-01-01 00:00'
+    precip_xarray.time.attrs['axis'] = 'T'
     """Convert Data Array to Dataset"""
     precip_ds = precip_xarray.to_dataset(name='rainfall_depth')
     print precip_ds
