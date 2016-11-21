@@ -147,7 +147,7 @@ def main():
             try:
                 grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
                 x, y, precip_prj = get_projected_array(grid, hr, loc_datetime_str)
-                precip_prj.fill(hr*10)  # uncomment this line to produce dummy data
+                # precip_prj.fill(hr*10)  # uncomment this line to produce dummy data
                 precip_list.append(precip_prj)
                 print ("File for hour %d has been written" % hr)
                 break
