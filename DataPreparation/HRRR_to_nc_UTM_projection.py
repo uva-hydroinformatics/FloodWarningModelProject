@@ -14,7 +14,6 @@ import datetime as dt
 from osgeo import gdal, osr
 import numpy as np
 import os
-from netCDF4 import Dataset
 import shutil
 import xarray
 
@@ -125,56 +124,35 @@ def main():
     # select desired forecast product from grid, grid dimensions are time, lat, lon
     # apcpsfc = "surface total precipitation" [mm]
     # source: http://www.nco.ncep.noaa.gov/pmb/products/hrrr/hrrr.t00z.wrfsfcf00.grib2.shtml
-    var = "apcpsfc"   
+    var = "apcpsfc"
     precip = dataset[var]
     print ("Dataset open")
-    
+
     # Convert dimensions to grid points, source: http://nomads.ncdc.noaa.gov/guide/?name=advanced
     grid_lon1 = gridpt(lon_lb, initLon, aResLon)
     grid_lon2 = gridpt(lon_ub, initLon, aResLon)
-    grid_lat1 = gridpt(lat_lb, initLat, aResLat) 
+    grid_lat1 = gridpt(lat_lb, initLat, aResLat)
     grid_lat2 = gridpt(lat_ub, initLat, aResLat)
-    
+
     # make netcdf file ##
     # make directory to store rainfall data
     loc_datetime = dt.datetime.now()
     loc_datetime_str = loc_datetime.strftime('%Y%m%d.%H%M')
     os.makedirs(loc_datetime_str)
 
-    # get projected coordinates to make netcdf
-    grid = precip[0, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
-    x, y, precip_prj = get_projected_array(grid, 0, loc_datetime_str)
-    nc_file_name = '%s/%s.nc' % (loc_datetime_str, loc_datetime_str)
-    nco = Dataset(nc_file_name, mode='w')
-    nco.createDimension('X', len(x))
-    nco.createDimension('Y', len(y))
-    nco.createDimension('time', None)
-
-    x_var = nco.createVariable('X', 'f8', ('X',))
-    y_var = nco.createVariable('Y', 'f8', ('Y',))
-    rain = nco.createVariable('rainfall_depth', 'f4', ('time', 'X', 'Y'))
-
-    y_var.standard_name = 'projection_y_coordinate'
-    x_var.standard_name = 'projection_x_coordinate'
-    y_var.long_name = 'y-coordinate in cartesian system'
-    x_var.long_name = 'x-coordinate in cartesian system'
-
-    y_var.units = 'm'
-    x_var.units = 'm'
-
-    x_var[:] = x
-    y_var[:] = y
-
-    # add rain values to .nc file for each time step
+    # add rain values to data array file for each time step
     precip_list = []
     for hr in range(len(precip.time[:])):
-        grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
-        x, y, precip_prj = get_projected_array(grid, hr, loc_datetime_str)
-        precip_prj.fill(hr)  # uncomment this line to produce dummy data
-        precip_list.append(precip_prj)
-        precip_prj = np.transpose(precip_prj)
-        rain[hr, :, :] = precip_prj
-        print ("File for hour %d has been written" % hr)
+        while True:
+            try:
+                grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
+                x, y, precip_prj = get_projected_array(grid, hr, loc_datetime_str)
+                precip_prj.fill(hr*10)  # uncomment this line to produce dummy data
+                precip_list.append(precip_prj)
+                print ("File for hour %d has been written" % hr)
+                break
+            except ServerError:
+                'There was a server error. Let us try again'
 
     precip_array = np.array(precip_list)
     precip_xarray = xarray.DataArray(precip_array,
@@ -193,15 +171,14 @@ def main():
     precip_xarray.x.attrs['axis'] = 'X'
     precip_xarray.time.attrs['standard_name'] = 'time'
     precip_xarray.time.attrs['long_name'] = 'time'
-    precip_xarray.time.attrs['units'] = 'hours since {}'.format(loc_datetime.strftime('%Y-%m-%d %H:%M'))
+    precip_xarray.time.attrs['units'] = 'hours since %s' % loc_datetime.strftime('%Y-%m-%d %H:%M')
     precip_xarray.time.attrs['axis'] = 'T'
     """Convert Data Array to Dataset"""
     precip_ds = precip_xarray.to_dataset(name='rainfall_depth')
     print precip_ds
     """Convert Dataset to Netcdf"""
-    precip_ds.to_netcdf('test.nc')
-
-    nco.close()
+    nc_file_name = '%s/%s.nc' % (loc_datetime_str, loc_datetime_str)
+    precip_ds.to_netcdf(nc_file_name)
     shutil.copy2(nc_file_name, "rainfall_forecast.nc")
 
 if __name__ == "__main__":
