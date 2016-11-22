@@ -154,6 +154,24 @@ def main():
             except ServerError:
                 'There was a server error. Let us try again'
 
+    # Write gridded forecast rainfall data as ASCII files
+    for data in range(len(precip_list)):
+        f = open('test'+ str(data)+'.asc', 'w')
+        f.write('ncols '+str(len(x))+'\n')
+        f.write('nrows '+str(len(y))+'\n')
+        f.write('xllcorner 230832.744572\n')
+        f.write('yllcorner 4021153.35743\n')
+        f.write('cellsize 2759.32949\n')
+        f.write('NODATA_value -999.0\n')
+        for i in range(len(precip_list[data])-1):
+            for j in range (len(precip_list[data][i])):
+                f.write(str(precip_list[data][i][j])+' ')
+            f.write('\n')
+        for j in range (len(precip_list[data][i])):
+                f.write(str(precip_list[data][i][j])+' ')
+        f.close()
+
+
     precip_array = np.array(precip_list)
     precip_xarray = xarray.DataArray(precip_array,
                                      coords=[
