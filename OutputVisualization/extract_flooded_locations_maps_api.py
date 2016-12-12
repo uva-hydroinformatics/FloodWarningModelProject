@@ -3,10 +3,32 @@ from os.path import exists
 from os.path import basename
 from os.path import splitext
 from os import remove
+import smtplib
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+from email.MIMEBase import MIMEBase
+from email import encoders
 
 import struct
 import simplekml
 import sys
+
+#INSERT EMAIL CREDENTIALS HERE
+#The sender must 'allow less secure apps' by using this link https://www.google.com/settings/security/lesssecureapps
+toaddr = ""
+fromaddr = ""
+password = ""
+
+msg = MIMEMultipart()
+
+msg['From'] = fromaddr
+msg['To'] = toaddr
+msg['Subject'] = "KMZ Email Test"
+
+body = "This is a test."
+
+msg.attach(MIMEText(body, 'plain'))
+
 
 gdal.UseExceptions()
 
@@ -129,8 +151,27 @@ for feat in lyr:
         npo.style.iconstyle.color = simplekml.Color.green
 
 kml.save("bridges.kml")
+kml.savekmz("bridges.kmz")
+
 
 # Close the shapefiles and ASCII file
 ds = None
 out_ds = None
 src_ds = None
+
+filename = "bridges.kmz"
+attachment = open("bridges.kmz", "rb")
+
+part = MIMEBase('application', 'octet-stream')
+part.set_payload((attachment).read())
+encoders.encode_base64(part)
+part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
+
+msg.attach(part)
+
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.starttls()
+server.login(fromaddr, password)
+text = msg.as_string()
+server.sendmail(fromaddr, toaddr, text)
+server.quit()
