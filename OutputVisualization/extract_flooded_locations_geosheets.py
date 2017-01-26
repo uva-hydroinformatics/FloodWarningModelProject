@@ -16,7 +16,7 @@ import sys
 import csv
 import gspread
 
-INSERT EMAIL CREDENTIALS HERE
+#INSERT EMAIL CREDENTIALS HERE
 #The sender must 'allow less secure apps' by using this link https://www.google.com/settings/security/lesssecureapps
 toaddr = ""
 fromaddr = ""
@@ -28,7 +28,7 @@ msg['From'] = fromaddr
 msg['To'] = toaddr
 msg['Subject'] = "KMZ Email Test"
 
-body = "This is a test."
+body = "The attached KMZ file includes the flooded bridge locations. You can open this KMZ file using Google Maps"
 
 msg.attach(MIMEText(body, 'plain'))
 
@@ -238,8 +238,8 @@ out_ds = None
 src_ds = None
 
 
-filename = "bridges.kmz"
-attachment = open("bridges.kmz", "rb")
+filename = "FloodedLocations.kmz"
+attachment = open("FloodedLocations.kmz", "rb")
 
 part = MIMEBase('application', 'octet-stream')
 part.set_payload((attachment).read())
