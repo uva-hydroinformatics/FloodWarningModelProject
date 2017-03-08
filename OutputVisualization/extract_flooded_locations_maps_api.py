@@ -138,7 +138,7 @@ for feat in lyr:
     floodedby = feat.GetField(feat.GetFieldIndex('FloodedBy'))
 
     npo = kml.newpoint(name=roadname, coords=[(xcord, ycord)])
-    npo.description = "<![CDATA[<table><tr><th>Located at: </th><th>" + stream + "</th></tr><tr><td>Feature ID:</td><td>" + str(
+    npo.description = "<![CDATA[<table><tr><td>Located at: </td><td>" + stream + "</td></tr><tr><td>Feature ID:</td><td>" + str(
         fedid) + "</td></tr><tr><td>Bridge Elevation: </td><td>" + str(
         roadelev) + "</td></tr><tr><td>Flooded By:</td><td>" + str(floodedby) + "</td></tr></table>]]>"
     npo.style.iconstyle.icon.href = 'http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png'
