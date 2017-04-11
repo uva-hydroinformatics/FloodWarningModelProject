@@ -103,12 +103,38 @@ def get_projected_array(grid, hr, directory):
     projected_file_name = project_to_utm(wgs_file, hr, directory)
     ds = gdal.Open(projected_file_name)
     precip = ds.ReadAsArray()
+    # precip_flip = np.mgrid[0:37, 0:44][0]*10 + np.arange(0, 44, 1)
     ny, nx = np.shape(precip)
     b = ds.GetGeoTransform()  # bbox, interval
     x = np.arange(nx) * b[1] + (b[0] + b[1]/2.0)
     y = np.arange(ny) * b[5] + (b[3] + b[5]/2.0)
+    y = np.flipud(y)  # This step to arrange Y values from smallest to largest
+    precip = np.flipud(precip)  # Flip the precipitation values to match up with Y values
     return x, y, precip
 
+
+def generate_gridded_rainfall_data(x, y, precip_list):
+    for data in range(len(precip_list)):
+        f = open('test'+ str(data)+'.asc', 'w')
+        f.write('ncols '+str(len(x))+'\n')
+        f.write('nrows '+str(len(y))+'\n')
+        f.write('xllcorner 230832.744572\n')
+        f.write('yllcorner 4021153.35743\n')
+        f.write('cellsize 2759.32949\n')
+        f.write('NODATA_value -999.0\n')
+        precip_data=np.flipud(precip_list[data])
+        for i in range(len(precip_data)-1):
+            for j in range (len(precip_data[i])):
+                f.write(str(precip_data[i][j])+' ')
+            f.write('\n')
+        for j in range (len(precip_data[-1])):
+            f.write(str(precip_data[-1][j])+' ')
+        f.close()
+
+
+##################################################################################################
+# ***************************************** Main Program *****************************************
+##################################################################################################
 
 def main():
     # remove any rasters in the current directory
@@ -137,7 +163,7 @@ def main():
     # make netcdf file ##
     # make directory to store rainfall data
     loc_datetime = dt.datetime.now()
-    loc_datetime_str = loc_datetime.strftime('%Y%m%d.%H%M')
+    loc_datetime_str = loc_datetime.strftime('%Y%m%d-%H%M%S')
     os.makedirs(loc_datetime_str)
 
     # add rain values to data array file for each time step
@@ -155,23 +181,9 @@ def main():
                 'There was a server error. Let us try again'
 
     # Write gridded forecast rainfall data as ASCII files
-    for data in range(len(precip_list)):
-        f = open('test'+ str(data)+'.asc', 'w')
-        f.write('ncols '+str(len(x))+'\n')
-        f.write('nrows '+str(len(y))+'\n')
-        f.write('xllcorner 230832.744572\n')
-        f.write('yllcorner 4021153.35743\n')
-        f.write('cellsize 2759.32949\n')
-        f.write('NODATA_value -999.0\n')
-        for i in range(len(precip_list[data])-1):
-            for j in range (len(precip_list[data][i])):
-                f.write(str(precip_list[data][i][j])+' ')
-            f.write('\n')
-        for j in range (len(precip_list[data][i])):
-                f.write(str(precip_list[data][i][j])+' ')
-        f.close()
+    generate_gridded_rainfall_data(x, y, precip_list)
 
-
+    # Write NetCDF file for forecast rainfall data
     precip_array = np.array(precip_list)
     precip_xarray = xarray.DataArray(precip_array,
                                      coords=[
@@ -197,7 +209,7 @@ def main():
     """Convert Dataset to Netcdf"""
     nc_file_name = '%s/%s.nc' % (loc_datetime_str, loc_datetime_str)
     precip_ds.to_netcdf(nc_file_name)
-    shutil.copy2(nc_file_name, "rainfall_forecast.nc")
+    shutil.copy2(nc_file_name, loc_datetime_str+"/"+"rainfall_forecast.nc")
 
 if __name__ == "__main__":
     main()
