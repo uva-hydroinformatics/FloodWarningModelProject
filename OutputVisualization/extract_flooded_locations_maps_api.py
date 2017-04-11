@@ -8,7 +8,7 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from email.MIMEBase import MIMEBase
 from email import encoders
-
+import time
 import struct
 import simplekml
 import sys
@@ -126,7 +126,6 @@ for feat in lyr:
 kml = simplekml.Kml()
 kml.document.name = "Bridge locations"
 lyr.ResetReading()
-
 for feat in lyr:
     # Add metadata to the KMZ file and dictionary
     xcord = feat.GetField(feat.GetFieldIndex(lyr_defn.GetFieldDefn(7).GetName()))
@@ -140,7 +139,7 @@ for feat in lyr:
     npo = kml.newpoint(name=roadname, coords=[(xcord, ycord)])
     npo.description = "<![CDATA[<table><tr><td>Located at: </td><td>" + stream + "</td></tr><tr><td>Feature ID:</td><td>" + str(
         fedid) + "</td></tr><tr><td>Bridge Elevation: </td><td>" + str(
-        roadelev) + "</td></tr><tr><td>Flooded By:</td><td>" + str(floodedby) + "</td></tr></table>]]>"
+        roadelev) + "</td></tr><tr><td>Flooded By:</td><td>" + str(floodedby) + '</td></tr></table> <img src="http://34.207.240.31/static/area_graph.png" height="100" width="300">]]>'
     npo.style.iconstyle.icon.href = 'http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png'
 
     if floodedby > 0.3:
@@ -150,28 +149,27 @@ for feat in lyr:
     else:
         npo.style.iconstyle.color = simplekml.Color.green
 
-kml.save("bridges.kml")
-kml.savekmz("bridges.kmz")
+kml.savekmz("bridges"+time.strftime("%Y%m%d-%H%M%S")+".kmz")
 
 
-# Close the shapefiles and ASCII file
-ds = None
-out_ds = None
-src_ds = None
-
-filename = "bridges.kmz"
-attachment = open("bridges.kmz", "rb")
-
-part = MIMEBase('application', 'octet-stream')
-part.set_payload((attachment).read())
-encoders.encode_base64(part)
-part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
-
-msg.attach(part)
-
-server = smtplib.SMTP('smtp.gmail.com', 587)
-server.starttls()
-server.login(fromaddr, password)
-text = msg.as_string()
-server.sendmail(fromaddr, toaddr, text)
-server.quit()
+# # Close the shapefiles and ASCII file
+# ds = None
+# out_ds = None
+# src_ds = None
+#
+# filename = "bridges.kmz"
+# attachment = open("bridges.kmz", "rb")
+#
+# part = MIMEBase('application', 'octet-stream')
+# part.set_payload((attachment).read())
+# encoders.encode_base64(part)
+# part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
+#
+# msg.attach(part)
+#
+# server = smtplib.SMTP('smtp.gmail.com', 587)
+# server.starttls()
+# server.login(fromaddr, password)
+# text = msg.as_string()
+# server.sendmail(fromaddr, toaddr, text)
+# server.quit()
