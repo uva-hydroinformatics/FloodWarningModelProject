@@ -216,7 +216,7 @@ def main():
     nc_file_name = '%s/%s.nc' % (loc_datetime_str, loc_datetime_str)
     precip_ds.to_netcdf(nc_file_name)
     # Send the NetCDF to the bc_dbase directory for TUFLOW to run
-    shutil.copy2(nc_file_name, "bc_dbase/rainfall_forecast.nc")
+    shutil.copy2(nc_file_name, "../bc_dbase/rainfall_forecast.nc")
 
     # Zip the rainfall data folder to send to AWS S3 then delete the original folder
     shutil.make_archive(loc_datetime_str, 'zip', loc_datetime_str)
