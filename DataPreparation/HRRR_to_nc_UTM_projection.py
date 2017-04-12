@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-This program retrieves data from the NOAA NOMADS repository, using the HRRRR model.
-The forecasted surface precipitation is obtained as a dataset for the newest available 
-UTC hour. Given a latitude and longitude in decimal degrees, an array of surface 
-precipitation for the corresponding grid-relative location is printed to a netCDF file
-with dimensions of time, latitude, and longitude. TIME IS IN DECIMAL DAYS
+This program retrieves data from the NOAA NOMADS repository, using the High-Resolution Rapid Refresh
+(HRRR) model (https://rapidrefresh.noaa.gov/hrrr/). The forecasted surface precipitation is obtained
+as a dataset for the newest available UTC hour. Given a latitude and longitude in decimal degrees,
+an array of surface precipitation for the corresponding grid-relative location is printed to TIF,
+ASCII, and netCDF file formats. TIME IS IN DECIMAL DAYS.
 *Note* Script must be run with python 2.7 (compatible with pydap)
-Authors: Gina O'Neil, Mohamed Morsy, Jeff Sadler
 """
 from pydap.client import open_url
 from pydap.exceptions import ServerError
@@ -77,7 +76,7 @@ def make_wgs_raster(grid, hr, directory):
     gt = [ulx, xres, 0, uly, 0, yres]
     precip_array = grid.apcpsfc.data[0]
     precip_array = precip_array.astype(np.float64)
-    latlonfile = '%s/latlon%s.tif' % (directory, hr)
+    latlonfile = '%s/TIF/latlon%s.tif' % (directory, hr)
     ds = driver.Create(latlonfile, xsize, ysize, 1, gdal.GDT_Float64, )
     ds.SetProjection(srs.ExportToWkt())
     ds.SetGeoTransform(gt)
@@ -92,7 +91,8 @@ def make_wgs_raster(grid, hr, directory):
 
 
 def project_to_utm(wgs_raster_name, hr, directory):
-    outfilename = "%s/projected%s.tif" % (directory, hr)
+    outfilename = "%s/TIF/projected%s.tif" % (directory, hr)
+    print ("Projecting file for hour %d from WSG84 to NAD83 UTM ZONE 18N" % hr)
     os.system('gdalwarp %s %s -t_srs "+proj=utm +zone=18 +datum=NAD83"' % (wgs_raster_name,
                                                                            outfilename))
     return outfilename
@@ -103,6 +103,7 @@ def get_projected_array(grid, hr, directory):
     projected_file_name = project_to_utm(wgs_file, hr, directory)
     ds = gdal.Open(projected_file_name)
     precip = ds.ReadAsArray()
+    # uncomment the following line to generate dummy rainfall data for testing
     # precip_flip = np.mgrid[0:37, 0:44][0]*10 + np.arange(0, 44, 1)
     ny, nx = np.shape(precip)
     b = ds.GetGeoTransform()  # bbox, interval
@@ -113,15 +114,15 @@ def get_projected_array(grid, hr, directory):
     return x, y, precip
 
 
-def generate_gridded_rainfall_data(x, y, precip_list):
+def generate_gridded_rainfall_data(x, y, precip_list, directory):
     for data in range(len(precip_list)):
-        f = open('test'+ str(data)+'.asc', 'w')
+        f = open(directory+'/t'+ str(data)+'.asc', 'w')
         f.write('ncols '+str(len(x))+'\n')
         f.write('nrows '+str(len(y))+'\n')
-        f.write('xllcorner 230832.744572\n')
-        f.write('yllcorner 4021153.35743\n')
-        f.write('cellsize 2759.32949\n')
-        f.write('NODATA_value -999.0\n')
+        f.write('xllcorner '+str(x[0]- (x[1]-x[0])/2.0)+'\n')  # xllcorner 230832.744572
+        f.write('yllcorner '+str(y[0]- (y[1]-y[0])/2.0)+'\n')  # yllcorner 4021153.35743
+        f.write('cellsize '+str(x[1]-x[0])+'\n')  # cellsize 2759.32949
+        f.write('NODATA_value -999.0\n')  # TUFLOW No Data value = -999.0
         precip_data=np.flipud(precip_list[data])
         for i in range(len(precip_data)-1):
             for j in range (len(precip_data[i])):
@@ -137,7 +138,6 @@ def generate_gridded_rainfall_data(x, y, precip_list):
 ##################################################################################################
 
 def main():
-    # remove any rasters in the current directory
     # Get newest available HRRR dataset by trying (current datetime - delta time) until
     # a dataset is available for that hour. This corrects for inconsistent posting
     # of HRRR datasets to repository
@@ -160,11 +160,15 @@ def main():
     grid_lat1 = gridpt(lat_lb, initLat, aResLat)
     grid_lat2 = gridpt(lat_ub, initLat, aResLat)
 
-    # make netcdf file ##
     # make directory to store rainfall data
     loc_datetime = dt.datetime.now()
     loc_datetime_str = loc_datetime.strftime('%Y%m%d-%H%M%S')
     os.makedirs(loc_datetime_str)
+    # The TIF folder includes the original and projected rainfall data in TIF format
+    os.makedirs(loc_datetime_str+"/TIF")
+    # The ASC includes the projected rainfall in ASCII format
+    # to be used as gridded rainfall with TUFLOW
+    os.makedirs(loc_datetime_str+"/ASC")
 
     # add rain values to data array file for each time step
     precip_list = []
@@ -181,9 +185,9 @@ def main():
                 'There was a server error. Let us try again'
 
     # Write gridded forecast rainfall data as ASCII files
-    generate_gridded_rainfall_data(x, y, precip_list)
+    generate_gridded_rainfall_data(x, y, precip_list, loc_datetime_str+'/ASC')
 
-    # Write NetCDF file for forecast rainfall data
+    # Build dataset to create a NetCDF for forecast rainfall data
     precip_array = np.array(precip_list)
     precip_xarray = xarray.DataArray(precip_array,
                                      coords=[
@@ -203,13 +207,21 @@ def main():
     precip_xarray.time.attrs['long_name'] = 'time'
     precip_xarray.time.attrs['units'] = 'hours since %s' % loc_datetime.strftime('%Y-%m-%d %H:%M')
     precip_xarray.time.attrs['axis'] = 'T'
-    """Convert Data Array to Dataset"""
+    # Convert Data Array to Dataset
     precip_ds = precip_xarray.to_dataset(name='rainfall_depth')
+    print "Generated NetCDF file information:"
     print precip_ds
-    """Convert Dataset to Netcdf"""
+
+    # Convert Dataset to Netcdf
     nc_file_name = '%s/%s.nc' % (loc_datetime_str, loc_datetime_str)
     precip_ds.to_netcdf(nc_file_name)
-    shutil.copy2(nc_file_name, loc_datetime_str+"/"+"rainfall_forecast.nc")
+    # Send the NetCDF to the bc_dbase directory for TUFLOW to run
+    shutil.copy2(nc_file_name, "bc_dbase/rainfall_forecast.nc")
+
+    # Zip the rainfall data folder to send to AWS S3 then delete the original folder
+    shutil.make_archive(loc_datetime_str, 'zip', loc_datetime_str)
+    #shutil.rmtree(loc_datetime_str)
+    print "Done with forecast rainfall data pre-processing!"
 
 if __name__ == "__main__":
     main()
