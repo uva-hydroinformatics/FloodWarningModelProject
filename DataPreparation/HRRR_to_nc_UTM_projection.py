@@ -220,8 +220,8 @@ def main():
 
     # Zip the rainfall data folder to send to AWS S3 then delete the original folder
     shutil.make_archive(loc_datetime_str, 'zip', loc_datetime_str)
-    #shutil.rmtree(loc_datetime_str)
-    print "Done with forecast rainfall data pre-processing!"
+    shutil.rmtree(loc_datetime_str)
+    print "Done with the forecast rainfall data pre-processing!"
 
 if __name__ == "__main__":
     main()
