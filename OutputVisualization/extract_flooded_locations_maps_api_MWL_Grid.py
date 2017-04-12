@@ -13,8 +13,9 @@ import struct
 import simplekml
 import sys
 
-#INSERT EMAIL CREDENTIALS HERE
-#The sender must 'allow less secure apps' by using this link https://www.google.com/settings/security/lesssecureapps
+# INSERT EMAIL CREDENTIALS HERE
+# The sender must 'allow less secure apps' by using this link
+# https://www.google.com/settings/security/lesssecureapps
 toaddr = ""
 fromaddr = ""
 password = ""
@@ -36,9 +37,9 @@ print "Extracting the bridges.......\n"
 
 # The name and location of the maximum water levels ASCII file generated
 # from the TUFLOW model during the whole simulation
-asc_filename = './VU_50m_CPU_Sandy_005_h_Max.asc'
+asc_filename = '../results/grids/VU_50m_GPU_Forecast_008_h_Max.asc'
 # The name and location of the revised VDOT bridge location and data shapefile
-shp_filename = './BridgeSurvey.shp'
+shp_filename = '../model/gis/BridgeSurvey.shp'
 # The name and location of the extracted flood locations shapefile
 out_file = './floodedLocations.shp'
 
@@ -102,6 +103,8 @@ for feat in lyr:
     lyr.SetFeature(feat)
 
 # Create new shapefile with flooded bridge locations and data
+# In case running th script through AWS instances, comment the following line for Create the new
+# shapefile for saving space on the AWS instance
 if exists(out_file):
         remove(out_file)
 driver_name = "ESRI Shapefile"
@@ -118,7 +121,6 @@ out_lyr = out_ds.CreateLayer(splitext(basename(out_file))[0], proj, ogr.wkbPoint
 for i in range(lyr_defn.GetFieldCount()):
     out_lyr.CreateField(lyr_defn.GetFieldDefn(i))
 lyr.ResetReading()
-
 for feat in lyr:
     out_lyr.CreateFeature(feat)
 
@@ -151,7 +153,7 @@ for feat in lyr:
 
 kml.savekmz("bridges"+time.strftime("%Y%m%d-%H%M%S")+".kmz")
 
-
+# Uncomment the following lines for sending emails with flooded locations
 # # Close the shapefiles and ASCII file
 # ds = None
 # out_ds = None
