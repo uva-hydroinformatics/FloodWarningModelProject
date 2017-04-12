@@ -12,6 +12,7 @@ import time
 import struct
 import simplekml
 import sys
+import os
 
 # INSERT EMAIL CREDENTIALS HERE
 # The sender must 'allow less secure apps' by using this link
@@ -41,7 +42,9 @@ asc_filename = '../results/grids/VU_50m_GPU_Forecast_008_h_Max.asc'
 # The name and location of the revised VDOT bridge location and data shapefile
 shp_filename = '../model/gis/BridgeSurvey.shp'
 # The name and location of the extracted flood locations shapefile
-out_file = './floodedLocations.shp'
+if not exists('../results/flooded_locations'):
+    os.makedirs('../results/flooded_locations')
+out_file = '../results/flooded_locations/floodedLocations.shp'
 
 # Open the ASCII file
 src_ds = gdal.Open(asc_filename)
@@ -151,7 +154,7 @@ for feat in lyr:
     else:
         npo.style.iconstyle.color = simplekml.Color.green
 
-kml.savekmz("bridges"+time.strftime("%Y%m%d-%H%M%S")+".kmz")
+kml.savekmz("../results/flooded_locations/"+"bridges"+time.strftime("%Y%m%d-%H%M%S")+".kmz")
 
 # Uncomment the following lines for sending emails with flooded locations
 # # Close the shapefiles and ASCII file
