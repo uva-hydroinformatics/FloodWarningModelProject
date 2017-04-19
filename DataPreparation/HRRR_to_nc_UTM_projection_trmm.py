@@ -15,6 +15,9 @@ import numpy as np
 import os
 import shutil
 import xarray
+from pydap.cas.urs import setup_session
+import pandas as pd
+
 
 """
 Global parameters:
@@ -35,6 +38,50 @@ lon_lb = (-77.979315-0.4489797462)
 lon_ub = (-76.649286-0.455314383)
 lat_lb = (36.321159-0.133)
 lat_ub = (37.203955-0.122955)
+
+
+def zero_pad(inte):
+    return '{:02d}'.format(inte)
+
+
+def get_trmm_data(start_date, end_date, dty):
+    lon_lb = (-77.979315 - 0.2489797462 / 2)
+    lon_ub = (-76.649286 + 0.455314383 / 2)
+    lat_lb = 36.321159
+    lat_ub = 37.203955
+    st_date = dt.datetime.strptime(start_date, "%Y-%m-%d")
+    ed_date = dt.datetime.strptime(end_date, "%Y-%m-%d")
+    date_range = pd.date_range(st_date, ed_date, freq='3H')
+    precip_list = []
+    for d in date_range:
+        print 'getting trmm data for {}'.format(d)
+        doy = d.timetuple().tm_yday
+        if d.hour == 0:
+            doy -= 1
+        url = 'https://disc2.gesdisc.eosdis.nasa.gov:443/opendap/TRMM_RT/TRMM_3B42RT.7/{yr}/{doy}/3B42RT.{yr}{mth}{dy}{hr}.7R2.nc4'.format(
+            yr=d.year, mth=zero_pad(d.month), dy=zero_pad(d.day), hr=zero_pad(d.hour), doy=doy)
+        session = setup_session('jsadler2', 'UVa2017!', check_url=url)
+        dataset = open_url(url, session=session)
+        var = dataset['precipitation']
+        precp = var[:, :]
+        lats = np.array(dataset['lat'[:]])
+        lons = np.array(dataset['lon'[:]])
+        lon_mask = (lons > lon_lb) & (lons < lon_ub)
+        lon_filt = lons[lon_mask]
+        lat_mask = (lats > lat_lb) & (lats < lat_ub)
+        lat_filt = lats[lat_mask]
+        prcep_place = precp[lat_mask]
+        precp_m = prcep_place.T[lon_mask]
+        p = precp_m.T
+
+        x, y, precip_proj = get_projected_array(lat_filt,
+                                           lon_filt, p, '{}{}'.format(d.day, d.hour), dty)
+        precip_list.append(precip_proj)
+    return x, y, precip_list
+
+
+def get_hrrr_data():
+    pass
 
 
 def getData(current_dt, delta_T):
@@ -60,13 +107,13 @@ def gridpt(myVal, initVal, aResVal):
     return gridVal
 
 
-def make_wgs_raster(grid, precip_array, directory):
-    xres = grid.lon[1] - grid.lon[0]
-    yres = grid.lat[1] - grid.lat[0]
-    ysize = len(grid.lat)
-    xsize = len(grid.lon)
-    ulx = grid.lon[0] - (xres / 2.)
-    uly = grid.lat[0] - (yres / 2.)
+def make_wgs_raster(lats, lons, precip_array, hr, directory):
+    xres = lons[1] - lons[0]
+    yres = lats[1] - lats[0]
+    ysize = len(lats)
+    xsize = len(lons)
+    ulx = lons[0] - (xres / 2.)
+    uly = lats[0] - (yres / 2.)
     driver = gdal.GetDriverByName('GTiff')
     srs = osr.SpatialReference()
     srs.ImportFromEPSG(4326)
@@ -75,7 +122,7 @@ def make_wgs_raster(grid, precip_array, directory):
     projected_srs.SetUTM(18, True)
     gt = [ulx, xres, 0, uly, 0, yres]
     precip_array = precip_array.astype(np.float64)
-    latlonfile = '%s/TIF/latlon%s.tif' % directory
+    latlonfile = '%s/TIF/latlon%s.tif' % (directory, hr)
     ds = driver.Create(latlonfile, xsize, ysize, 1, gdal.GDT_Float64, )
     ds.SetProjection(srs.ExportToWkt())
     ds.SetGeoTransform(gt)
@@ -91,14 +138,14 @@ def make_wgs_raster(grid, precip_array, directory):
 
 def project_to_utm(wgs_raster_name, hr, directory):
     outfilename = "%s/TIF/projected%s.tif" % (directory, hr)
-    print ("Projecting file for hour %d from WSG84 to NAD83 UTM ZONE 18N" % hr)
+    print ("Projecting file for hour {} from WSG84 to NAD83 UTM ZONE 18N".format(hr))
     os.system('gdalwarp %s %s -t_srs "+proj=utm +zone=18 +datum=NAD83"' % (wgs_raster_name,
                                                                            outfilename))
     return outfilename
 
 
-def get_projected_array(grid, hr, directory):
-    wgs_file = make_wgs_raster(grid, hr, directory)
+def get_projected_array(lats, lons, precip, hr, directory):
+    wgs_file = make_wgs_raster(lats, lons, precip, hr, directory)
     projected_file_name = project_to_utm(wgs_file, hr, directory)
     ds = gdal.Open(projected_file_name)
     precip = ds.ReadAsArray()
@@ -132,67 +179,12 @@ def generate_gridded_rainfall_data(x, y, precip_list, directory):
         f.close()
 
 
-##################################################################################################
-# ***************************************** Main Program *****************************************
-##################################################################################################
-
-def main():
-    # Get newest available HRRR dataset by trying (current datetime - delta time) until
-    # a dataset is available for that hour. This corrects for inconsistent posting
-    # of HRRR datasets to repository
-    utc_datetime = dt.datetime.utcnow()
-    print "Open a connection to HRRR to retrieve forecast rainfall data.............\n"
-    # get newest available dataset
-    dataset, url, date, hour = getData(utc_datetime, delta_T=0)
-    print ("Retrieving forecast data from: %s " % url)
-
-    # select desired forecast product from grid, grid dimensions are time, lat, lon
-    # apcpsfc = "surface total precipitation" [mm]
-    # source: http://www.nco.ncep.noaa.gov/pmb/products/hrrr/hrrr.t00z.wrfsfcf00.grib2.shtml
-    var = "apcpsfc"
-    precip = dataset[var]
-    print ("Dataset open")
-
-    # Convert dimensions to grid points, source: http://nomads.ncdc.noaa.gov/guide/?name=advanced
-    grid_lon1 = gridpt(lon_lb, initLon, aResLon)
-    grid_lon2 = gridpt(lon_ub, initLon, aResLon)
-    grid_lat1 = gridpt(lat_lb, initLat, aResLat)
-    grid_lat2 = gridpt(lat_ub, initLat, aResLat)
-
-    # make directory to store rainfall data
-    loc_datetime = dt.datetime.now()
-    loc_datetime_str = loc_datetime.strftime('%Y%m%d-%H%M%S')
-    os.makedirs(loc_datetime_str)
-    # The TIF folder includes the original and projected rainfall data in TIF format
-    os.makedirs(loc_datetime_str+"/TIF")
-    # The ASC includes the projected rainfall in ASCII format
-    # to be used as gridded rainfall with TUFLOW
-    os.makedirs(loc_datetime_str+"/ASC")
-
-    # add rain values to data array file for each time step
-    precip_list = []
-    for hr in range(len(precip.time[:])):
-        while True:
-            try:
-                grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
-                x, y, precip_prj = get_projected_array(grid, hr, loc_datetime_str)
-                # precip_prj.fill(hr*10)  # uncomment this line to produce dummy data
-                precip_list.append(precip_prj)
-                print ("File for hour %d has been written" % hr)
-                break
-            except ServerError:
-                'There was a server error. Let us try again'
-
-    # Write gridded forecast rainfall data as ASCII files
-    generate_gridded_rainfall_data(x, y, precip_list, loc_datetime_str+'/ASC')
-
-    # Build dataset to create a NetCDF for forecast rainfall data
-    precip_array = np.array(precip_list)
+def make_nc_file(x, y, precip_array, start_date_time):
     precip_xarray = xarray.DataArray(precip_array,
                                      coords=[
                                          np.float64(range(len(precip_array))),
-                                         y[:],
-                                         x[:]],
+                                         y,
+                                         x],
                                      dims=['time', 'y', 'x'])
     precip_xarray.y.attrs['standard_name'] = 'projection_y_coordinate'
     precip_xarray.y.attrs['long_name'] = 'y-coordinate in cartesian system'
@@ -204,7 +196,7 @@ def main():
     precip_xarray.x.attrs['axis'] = 'X'
     precip_xarray.time.attrs['standard_name'] = 'time'
     precip_xarray.time.attrs['long_name'] = 'time'
-    precip_xarray.time.attrs['units'] = 'hours since %s' % loc_datetime.strftime('%Y-%m-%d %H:%M')
+    precip_xarray.time.attrs['units'] = 'hours since %s' % start_date_time
     precip_xarray.time.attrs['axis'] = 'T'
     # Convert Data Array to Dataset
     precip_ds = precip_xarray.to_dataset(name='rainfall_depth')
@@ -212,17 +204,77 @@ def main():
     print precip_ds
 
     # Convert Dataset to Netcdf
-    nc_file_name = '%s/%s.nc' % (loc_datetime_str, loc_datetime_str)
+    nc_file_name = '%s/%s.nc' % (start_date_time, start_date_time)
     precip_ds.to_netcdf(nc_file_name)
-    # Send the NetCDF to the bc_dbase directory for TUFLOW to run
-    if not os.path.exists('../bc_dbase/forecast_rainfall'):
-        os.makedirs('../bc_dbase/forecast_rainfall')
-    shutil.copy2(nc_file_name, "../bc_dbase/forecast_rainfall/rainfall_forecast.nc")
+    return nc_file_name
 
-    # Zip the rainfall data folder to send to AWS S3 then delete the original folder
-    shutil.make_archive('zip', '../bc_dbase/forecast_rainfall/'+loc_datetime_str, loc_datetime_str)
-    shutil.rmtree(loc_datetime_str)
-    print "Done with the forecast rainfall data pre-processing!"
+
+##################################################################################################
+# ***************************************** Main Program *****************************************
+##################################################################################################
+
+def main():
+    # Get newest available HRRR dataset by trying (current datetime - delta time) until
+    # a dataset is available for that hour. This corrects for inconsistent posting
+    # of HRRR datasets to repository
+    # get newest available dataset
+    observation = True
+    if observation:
+        start_date_time_str = "2012-10-29"
+        end_date_time_str = "2012-10-30"
+    else:
+        pass
+        # loc_datetime = dt.datetime.now()
+        # start_date_time_str = loc_datetime.strftime('%Y%m%d-%H%M%S')
+        #
+        # dataset, url, date, hour = getData(utc_datetime, delta_T=0)
+        #
+        # precip = dataset[var]
+
+
+    # make directory to store rainfall data
+
+    os.makedirs(start_date_time_str)
+    # The TIF folder includes the original and projected rainfall data in TIF format
+    os.makedirs(start_date_time_str+"/TIF")
+    # The ASC includes the projected rainfall in ASCII format
+    # to be used as gridded rainfall with TUFLOW
+    os.makedirs(start_date_time_str+"/ASC")
+
+    drcty = "C:/Users/Jeff/Documents/research/morsy_3rd/FloodWarningModelProject/DataPreparation"
+    x, y, precips = get_trmm_data(start_date_time_str, end_date_time_str, start_date_time_str)
+    make_nc_file(x[:], y[:], precips, start_date_time_str)
+    print 'kj'
+    # add rain values to data array file for each time step
+    # # precip_list = []
+    # # for hr in range(len(precip.time[:])):
+    # #     while True:
+    # #         try:
+    # #             grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
+    # #             x, y, precip_prj = get_projected_array(grid, hr, start_date_time_str)
+    # #             # precip_prj.fill(hr*10)  # uncomment this line to produce dummy data
+    # #             precip_list.append(precip_prj)
+    # #             print ("File for hour %d has been written" % hr)
+    # #             break
+    # #         except ServerError:
+    # #             'There was a server error. Let us try again'
+    #
+    # # Write gridded forecast rainfall data as ASCII files
+    # generate_gridded_rainfall_data(x, y, precip_list, start_date_time_str+'/ASC')
+    #
+    # # Build dataset to create a NetCDF for forecast rainfall data
+    # precip_array = np.array(precip_list)
+    # nc_file_name = make_nc_file(x[:], y[:], precip_array, start_date_time_str)
+    #
+    # # Send the NetCDF to the bc_dbase directory for TUFLOW to run
+    # if not os.path.exists('../bc_dbase/forecast_rainfall'):
+    #     os.makedirs('../bc_dbase/forecast_rainfall')
+    # shutil.copy2(nc_file_name, "../bc_dbase/forecast_rainfall/rainfall_forecast.nc")
+    #
+    # # Zip the rainfall data folder to send to AWS S3 then delete the original folder
+    # shutil.make_archive('zip', '../bc_dbase/forecast_rainfall/'+start_date_time_str, start_date_time_str)
+    # shutil.rmtree(start_date_time_str)
+    # print "Done with the forecast rainfall data pre-processing!"
 
 if __name__ == "__main__":
     main()
