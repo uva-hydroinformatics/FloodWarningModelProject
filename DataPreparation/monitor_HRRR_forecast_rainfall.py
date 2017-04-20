@@ -1,7 +1,10 @@
 from pydap.client import open_url
 from pydap.exceptions import ServerError
 import datetime as dt
+from osgeo import gdal, osr
 import numpy as np
+import os
+import shutil
 import xarray
 from apscheduler.schedulers.blocking import BlockingScheduler
 
@@ -44,6 +47,11 @@ def getData(current_dt, delta_T):
         return getData(current_dt, delta_T - 1)
 
 
+def gridpt(myVal, initVal, aResVal):
+    gridVal = int((myVal-initVal)/aResVal)
+    return gridVal
+
+
 def data_monitor():
     # Get newest available HRRR dataset by trying (current datetime - delta time) until
     # a dataset is available for that hour. This corrects for inconsistent posting
@@ -63,10 +71,12 @@ def data_monitor():
     grid_lat1 = gridpt(lat_lb, initLat, aResLat)
     grid_lat2 = gridpt(lat_ub, initLat, aResLat)
 
+    precip_list = []
     for hr in range(len(precip.time[:])):
         while True:
             try:
                 grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
+                print max(grid.data[0])
                 print ("File for hour %d has been written" % hr)
                 break
             except ServerError:
@@ -83,7 +93,7 @@ def data_monitor():
 
 def main():
     scheduler = BlockingScheduler()
-    scheduler.add_job(data_monitor, 'interval', minutes=2)
+    scheduler.add_job(data_monitor, 'interval', minutes=1)
     scheduler.start()
 
 
