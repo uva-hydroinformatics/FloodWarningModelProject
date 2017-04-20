@@ -71,12 +71,12 @@ def data_monitor():
     grid_lat1 = gridpt(lat_lb, initLat, aResLat)
     grid_lat2 = gridpt(lat_ub, initLat, aResLat)
 
-    precip_list = []
+    max_precip_value = []
     for hr in range(len(precip.time[:])):
         while True:
             try:
                 grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
-                print max(grid.data[0])
+                max_precip_value.append(np.amax(grid.array[:]))
                 print ("File for hour %d has been written" % hr)
                 break
             except ServerError:
