@@ -93,7 +93,7 @@ def data_monitor():
 
         # In case running through the AWS instance uncomment the following lines to start
         # the AWS instance that includes the model
-        #conn.run_instances('<Add machine ID>')
+        ## conn.start_instances(instance_ids=['<instance_ids>'])
 
     print "Done running the model at", dt.datetime.now()
 
