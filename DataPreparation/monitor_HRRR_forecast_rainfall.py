@@ -1,11 +1,9 @@
 from pydap.client import open_url
 from pydap.exceptions import ServerError
+import subprocess
+import boto.ec2
 import datetime as dt
-from osgeo import gdal, osr
 import numpy as np
-import os
-import shutil
-import xarray
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 """
@@ -28,6 +26,9 @@ lon_ub = (-76.649286-0.455314383)
 lat_lb = (36.321159-0.133)
 lat_ub = (37.203955-0.122955)
 
+#  Connection to AWS
+conn = boto.ec2.connect_to_region("us-east-1", aws_access_key_id="<aws_access_key_id>",
+                                  aws_secret_access_key="<aws_secret_access_key>")
 
 def getData(current_dt, delta_T):
     dtime_fix = current_dt + dt.timedelta(hours=delta_T)
@@ -77,14 +78,25 @@ def data_monitor():
             try:
                 grid = precip[hr, grid_lat1:grid_lat2, grid_lon1:grid_lon2]
                 max_precip_value.append(np.amax(grid.array[:]))
-                print ("File for hour %d has been written" % hr)
                 break
             except ServerError:
                 'There was a server error. Let us try again'
 
+    if max(max_precip_value) >= 2.0:
+        print max_precip_value
+        print "Max value", max(max_precip_value)
+        # In case running the model locally uncomment the following lines to run the batch file
+        filepath="C:/Users/Morsy/Desktop/floodWarningmodelPrototype/runs/run_workflow.bat"
+        p = subprocess.Popen(filepath, shell=True, stdout = subprocess.PIPE)
+        stdout, stderr = p.communicate()
+        print p.returncode
 
-    print "Decorated job"
-    print dt.datetime.now()
+        # In case running through the AWS instance uncomment the following lines to start
+        # the AWS instance that includes the model
+        #conn.run_instances('<Add machine ID>')
+
+    print "Done running the model at", dt.datetime.now()
+
 
 ##################################################################################################
 # ***************************************** Main Program *****************************************
@@ -93,8 +105,9 @@ def data_monitor():
 
 def main():
     scheduler = BlockingScheduler()
-    scheduler.add_job(data_monitor, 'interval', minutes=1)
+    scheduler.add_job(data_monitor, 'interval', hours=1)
     scheduler.start()
+    data_monitor()
 
 
 if __name__ == "__main__":
