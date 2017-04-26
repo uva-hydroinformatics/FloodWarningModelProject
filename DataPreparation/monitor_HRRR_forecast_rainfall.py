@@ -3,7 +3,11 @@ from pydap.exceptions import ServerError
 import subprocess
 import boto.ec2
 import datetime as dt
+from osgeo import gdal, osr
 import numpy as np
+import os
+import shutil
+import xarray
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 """
@@ -27,8 +31,8 @@ lat_lb = (36.321159-0.133)
 lat_ub = (37.203955-0.122955)
 
 #  Connection to AWS
-conn = boto.ec2.connect_to_region("us-east-1", aws_access_key_id="<aws_access_key_id>",
-                                  aws_secret_access_key="<aws_secret_access_key>")
+conn = boto.ec2.connect_to_region("us-east-1", aws_access_key_id="AKIAI6Z3PMSUTPXIXWMQ",
+                                  aws_secret_access_key="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")
 
 def getData(current_dt, delta_T):
     dtime_fix = current_dt + dt.timedelta(hours=delta_T)
@@ -93,7 +97,7 @@ def data_monitor():
 
         # In case running through the AWS instance uncomment the following lines to start
         # the AWS instance that includes the model
-        ## conn.start_instances(instance_ids=['<instance_ids>'])
+        # conn.start_instances(instance_ids=['i-0c4be289d1e98502e'])
 
     print "Done running the model at", dt.datetime.now()
 
@@ -107,7 +111,6 @@ def main():
     scheduler = BlockingScheduler()
     scheduler.add_job(data_monitor, 'interval', hours=1)
     scheduler.start()
-    data_monitor()
 
 
 if __name__ == "__main__":
