@@ -69,8 +69,15 @@ if lyr.GetFeatureCount() != 493:
     raise Exception(lyr.GetFeatureCount(), 'Not equal to number of the bridges'
                                            ' in the study area, 493 bridges')
 
-# For each new run delete the flooded depth field if exist
+# For each new run delete the maximum water level and flooded depth fields if exist
 # Get the input layer's feature definition
+lyr_defn = lyr.GetLayerDefn()
+try:
+    lyr_defn.GetFieldIndex('MaxWL')
+    lyr.DeleteField(lyr_defn.GetFieldIndex('MaxWL'))
+except:
+    pass
+
 lyr_defn = lyr.GetLayerDefn()
 try:
     lyr_defn.GetFieldIndex('FloodedBy')
@@ -78,7 +85,13 @@ try:
 except:
     pass
 
-# Define new Field to the bridge locations and data shapefile to append flooded depth
+# Define new Fields to the bridge locations and data shapefile to append maximum water level and
+# flooded depth at each location
+fieldDefn = ogr.FieldDefn('MaxWL', ogr.OFTReal)
+fieldDefn.SetWidth(14)
+fieldDefn.SetPrecision(6)
+lyr.CreateField(fieldDefn)
+
 fieldDefn = ogr.FieldDefn('FloodedBy', ogr.OFTReal)
 fieldDefn.SetWidth(14)
 fieldDefn.SetPrecision(6)
@@ -99,10 +112,14 @@ for feat in lyr:
     structval = rb.ReadRaster(px, py, 1, 1, buf_type=gdal.GDT_Float64)
     maxwlval = struct.unpack('d', structval)
     bridge_elev = feat.GetField(feat.GetFieldIndex('RoadElev_m'))
-    if maxwlval[0] > bridge_elev:
-        feat.SetField('FloodedBy', maxwlval[0] - bridge_elev)
+    feat.SetField('MaxWL', float("{0:.2f}".format(maxwlval[0])))
+    if maxwlval[0] != -999:
+        if maxwlval[0] > bridge_elev:
+            feat.SetField('FloodedBy', float("{0:.2f}".format(maxwlval[0] - bridge_elev)))
+        else:
+            feat.SetField('FloodedBy', 0.0)
     else:
-        feat.SetField('FloodedBy', 0.0)
+        feat.SetField('FloodedBy', -999)
     lyr.SetFeature(feat)
 
 # Create new shapefile with flooded bridge locations and data
@@ -139,12 +156,13 @@ for feat in lyr:
     stream = feat.GetField(feat.GetFieldIndex(lyr_defn.GetFieldDefn(5).GetName()))
     fedid = feat.GetField(feat.GetFieldIndex(lyr_defn.GetFieldDefn(4).GetName()))
     roadelev = feat.GetField(feat.GetFieldIndex(lyr_defn.GetFieldDefn(19).GetName()))
+    MaxWL = feat.GetField(feat.GetFieldIndex('MaxWL'))
     floodedby = feat.GetField(feat.GetFieldIndex('FloodedBy'))
 
     npo = kml.newpoint(name=roadname, coords=[(xcord, ycord)])
-    npo.description = "<![CDATA[<table><tr><td>Located at: </td><td>" + stream + "</td></tr><tr><td>Feature ID:</td><td>" + str(
-        fedid) + "</td></tr><tr><td>Bridge Elevation: </td><td>" + str(
-        roadelev) + "</td></tr><tr><td>Flooded By:</td><td>" + str(floodedby) + '</td></tr></table> <img src="http://34.207.240.31/static/area_graph.png" height="100" width="300">]]>'
+    npo.description = "<![CDATA[<table><tr><td>Located at: </td><td>" + stream + "</td></tr><tr><td>Feature ID:</td><td>" + str(int(
+        fedid)) + "</td></tr><tr><td>Maximum Water Level (m):</td><td>" + str(MaxWL) +"</td></tr><tr><td>Bridge Elevation (m): </td><td>" + str(
+        roadelev) + "</td></tr><tr><td>Flooded By (m):</td><td>" + str(floodedby) + '</td></tr></table> <img src="http://34.207.240.31/static/area_graph.png" height="100" width="300">]]>'
     npo.style.iconstyle.icon.href = 'http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png'
 
     if floodedby > 0.3:
