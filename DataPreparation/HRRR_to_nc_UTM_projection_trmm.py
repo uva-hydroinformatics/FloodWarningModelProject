@@ -139,7 +139,8 @@ def make_wgs_raster(lats, lons, precip_array, hr, directory):
 def project_to_utm(wgs_raster_name, hr, directory):
     outfilename = "%s/TIF/projected%s.tif" % (directory, hr)
     print ("Projecting file for hour {} from WSG84 to NAD83 UTM ZONE 18N".format(hr))
-    os.system('gdalwarp %s %s -t_srs "+proj=utm +zone=18 +datum=NAD83"' % (wgs_raster_name,
+    # Added -tr to fix the output raster resoltuion to match with the one projected in ArcMap
+    os.system('gdalwarp %s %s -t_srs "+proj=utm +zone=18 +datum=NAD83" -tr 25478.02331 25478.02331' % (wgs_raster_name,
                                                                            outfilename))
     return outfilename
 
@@ -220,8 +221,8 @@ def main():
     # get newest available dataset
     observation = True
     if observation:
-        start_date_time_str = "2012-10-29"
-        end_date_time_str = "2012-10-30"
+        start_date_time_str = "2012-10-28"
+        end_date_time_str = "2012-11-01"
     else:
         pass
         # loc_datetime = dt.datetime.now()
