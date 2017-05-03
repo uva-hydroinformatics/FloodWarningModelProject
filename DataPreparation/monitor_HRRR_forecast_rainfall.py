@@ -27,8 +27,8 @@ lat_lb = (36.321159-0.133)
 lat_ub = (37.203955-0.122955)
 
 #  Connection to AWS
-conn = boto.ec2.connect_to_region("us-east-1", aws_access_key_id="<aws_access_key_id>",
-                                  aws_secret_access_key="<aws_secret_access_key>")
+conn = boto.ec2.connect_to_region("us-east-1", aws_access_key_id="AKIAI6Z3PMSUTPXIXWMQ",
+                                  aws_secret_access_key="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")
 
 def getData(current_dt, delta_T):
     dtime_fix = current_dt + dt.timedelta(hours=delta_T)
@@ -107,6 +107,7 @@ def main():
     scheduler = BlockingScheduler()
     scheduler.add_job(data_monitor, 'interval', hours=1)
     scheduler.start()
+
 
 if __name__ == "__main__":
     main()
