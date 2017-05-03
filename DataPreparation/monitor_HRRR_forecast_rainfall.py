@@ -82,7 +82,7 @@ def data_monitor():
             except ServerError:
                 'There was a server error. Let us try again'
 
-    if max(max_precip_value) >= 2.0:
+    if max(max_precip_value) >= 3.0:
         print max_precip_value
         print "Max value", max(max_precip_value)
         # In case running the model locally uncomment the following lines to run the batch file
@@ -93,7 +93,7 @@ def data_monitor():
 
         # In case running through the AWS instance uncomment the following lines to start
         # the AWS instance that includes the model
-        ## conn.start_instances(instance_ids=['<instance_ids>'])
+        # conn.start_instances(instance_ids=['<instance_ids>'])
 
     print "Done running the model at", dt.datetime.now()
 
@@ -107,8 +107,6 @@ def main():
     scheduler = BlockingScheduler()
     scheduler.add_job(data_monitor, 'interval', hours=1)
     scheduler.start()
-    data_monitor()
-
 
 if __name__ == "__main__":
     main()
