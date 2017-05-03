@@ -160,10 +160,19 @@ for feat in lyr:
     floodedby = feat.GetField(feat.GetFieldIndex('FloodedBy'))
 
     npo = kml.newpoint(name=roadname, coords=[(xcord, ycord)])
-    npo.description = "<![CDATA[<table><tr><td>Located at: </td><td>" + stream + "</td></tr><tr><td>Feature ID:</td><td>" + str(int(
-        fedid)) + "</td></tr><tr><td>Maximum Water Level (m):</td><td>" + str(MaxWL) +"</td></tr><tr><td>Bridge Elevation (m): </td><td>" + str(
-        roadelev) + "</td></tr><tr><td>Flooded By (m):</td><td>" + str(floodedby) + '</td></tr></table> <img src="http://34.207.240.31/static/area_graph.png" height="100" width="300">]]>'
-    npo.style.iconstyle.icon.href = 'http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png'
+    npo.description = \
+        "<![CDATA[<table>" \
+        "<tr><td>Stream Crossed: </td><td>" + stream + "</td></tr>" \
+        "<tr><td>Bridge Elevation (m): </td><td>" + str(roadelev) + "</td></tr>" \
+        "<tr><td><b>Forecasted Overtopping Results from Model</b></td></tr>" \
+        "<tr><td>Maximum Water Level (m):</td><td>" + str(MaxWL) + "</td></tr>" \
+        "<tr><td>Bridge Overtopped by (m):</td><td>" + str(floodedby) + "</td></tr>" \
+        "<tr><td>Overtopping Starting Date/Time:</td><td>" + "Coming Soon" + "</td></tr>" \
+        "<tr><td>Overtopping Ending Date/Time:</td><td>" + "Coming Soon" + "</td></tr>" \
+        "</table>" \
+        "<img src='http://34.207.240.31/static/area_graph.png' height='100' width='300'>]]>"
+    npo.style.iconstyle.icon.href = \
+        'http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png'
 
     if floodedby > 0.3:
         npo.style.iconstyle.color = simplekml.Color.red
