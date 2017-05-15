@@ -124,10 +124,10 @@ def data_monitor():
 
 
 def main():
-    # scheduler = BlockingScheduler()
-    # scheduler.add_job(data_monitor, 'interval', hours=1)
-    # scheduler.start()
-    data_monitor()
+    scheduler = BlockingScheduler()
+    scheduler.add_job(data_monitor, 'interval', hours=1)
+    scheduler.start()
+
 
 
 if __name__ == "__main__":
