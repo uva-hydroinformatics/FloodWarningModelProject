@@ -70,7 +70,14 @@ def data_monitor():
     dataset, url, date, hour = getData(utc_datetime, delta_T=0)
     print ("Retrieving forecast data from: %s " % url)
 
-    filename =  date +"-" +hour+"0000"
+    # Convert time to EST
+    if int(hour) >= 4:  # If hour is greater than 4 simply subtract 4
+        hour = int(hour) - 4
+    else:  # Otherwise UTC is is the next day, so subtract one from the date also
+        date = int(date) - 1
+        hour = int(hour) - 4 + 24
+
+    filename = str(date) + "-" + str(hour)+"0000"
 
     var = "apcpsfc"
     precip = dataset[var]
@@ -117,9 +124,10 @@ def data_monitor():
 
 
 def main():
-    scheduler = BlockingScheduler()
-    scheduler.add_job(data_monitor, 'interval', hours=1)
-    scheduler.start()
+    # scheduler = BlockingScheduler()
+    # scheduler.add_job(data_monitor, 'interval', hours=1)
+    # scheduler.start()
+    data_monitor()
 
 
 if __name__ == "__main__":
