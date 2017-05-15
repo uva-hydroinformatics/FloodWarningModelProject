@@ -5,6 +5,7 @@ import boto.ec2
 import datetime as dt
 import numpy as np
 from apscheduler.schedulers.blocking import BlockingScheduler
+import csv
 
 """
 Global parameters:
@@ -54,6 +55,12 @@ def gridpt(myVal, initVal, aResVal):
 
 
 def data_monitor():
+
+    with open("forecasts.txt") as f:
+        ran = f.readlines()
+    ran = [x.strip() for x in ran]
+    print ran
+
     # Get newest available HRRR dataset by trying (current datetime - delta time) until
     # a dataset is available for that hour. This corrects for inconsistent posting
     # of HRRR datasets to repository
@@ -62,6 +69,9 @@ def data_monitor():
     # get newest available dataset
     dataset, url, date, hour = getData(utc_datetime, delta_T=0)
     print ("Retrieving forecast data from: %s " % url)
+
+    filename =  date +"-" +hour+"0000"
+
     var = "apcpsfc"
     precip = dataset[var]
     print ("Dataset open")
@@ -81,15 +91,18 @@ def data_monitor():
                 break
             except ServerError:
                 'There was a server error. Let us try again'
-
-    if max(max_precip_value) >= 3.0:
+    if max(max_precip_value) >= 3.0 and filename not in ran:
         print max_precip_value
         print "Max value", max(max_precip_value)
         # In case running the model locally uncomment the following lines to run the batch file
-        filepath="C:/Users/Morsy/Desktop/floodWarningmodelPrototype/runs/run_workflow.bat"
-        p = subprocess.Popen(filepath, shell=True, stdout = subprocess.PIPE)
-        stdout, stderr = p.communicate()
-        print p.returncode
+
+        f = open('forecasts.txt', 'w')
+        f.write(filename + '\n')
+        f.close()
+
+        filepath='"C:/Users/Danny/OneDrive/2nd Year/HydroInformatics/R2S2/floodWarningmodelPrototype/runs/run_workflow.bat" ' + filename
+        p = subprocess.call(filepath, shell=True)
+        print p
 
         # In case running through the AWS instance uncomment the following lines to start
         # the AWS instance that includes the model

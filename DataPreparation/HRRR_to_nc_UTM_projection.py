@@ -221,7 +221,7 @@ def main():
     shutil.copy2(nc_file_name, "../bc_dbase/forecast_rainfall/rainfall_forecast.nc")
 
     # Zip the rainfall data folder to send to AWS S3 then delete the original folder
-    shutil.make_archive('zip', '../bc_dbase/forecast_rainfall/'+loc_datetime_str, loc_datetime_str)
+    shutil.make_archive('../bc_dbase/forecast_rainfall/'+loc_datetime_str, 'zip',  loc_datetime_str)
     shutil.rmtree(loc_datetime_str)
     print "Done with the forecast rainfall data pre-processing!"
 

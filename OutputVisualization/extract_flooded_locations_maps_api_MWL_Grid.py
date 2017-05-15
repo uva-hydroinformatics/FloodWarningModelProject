@@ -127,22 +127,22 @@ for feat in lyr:
 # shapefile for saving space on the AWS instance
 if exists(out_file):
         remove(out_file)
-driver_name = "ESRI Shapefile"
-drv = ogr.GetDriverByName(driver_name)
-if drv is None:
-        print "%s driver not available.\n" % driver_name
-        sys.exit(1)
-out_ds = drv.CreateDataSource(out_file)
-if out_ds is None:
-        print "Creation of output shapefile failed.\n"
-        sys.exit(1)
-proj = lyr.GetSpatialRef()
-out_lyr = out_ds.CreateLayer(splitext(basename(out_file))[0], proj, ogr.wkbPoint)
-for i in range(lyr_defn.GetFieldCount()):
-    out_lyr.CreateField(lyr_defn.GetFieldDefn(i))
-lyr.ResetReading()
-for feat in lyr:
-    out_lyr.CreateFeature(feat)
+# driver_name = "ESRI Shapefile"
+# drv = ogr.GetDriverByName(driver_name)
+# if drv is None:
+#         print "%s driver not available.\n" % driver_name
+#         sys.exit(1)
+# out_ds = drv.CreateDataSource(out_file)
+# if out_ds is None:
+#         print "Creation of output shapefile failed.\n"
+#         sys.exit(1)
+# proj = lyr.GetSpatialRef()
+# out_lyr = out_ds.CreateLayer(splitext(basename(out_file))[0], proj, ogr.wkbPoint)
+# for i in range(lyr_defn.GetFieldCount()):
+#     out_lyr.CreateField(lyr_defn.GetFieldDefn(i))
+# lyr.ResetReading()
+# for feat in lyr:
+#     out_lyr.CreateFeature(feat)
 
 # Create the kmZ file to be visualized on Google maps
 kml = simplekml.Kml()
@@ -181,7 +181,8 @@ for feat in lyr:
     else:
         npo.style.iconstyle.color = simplekml.Color.green
 
-kml.savekmz("../results/flooded_locations/"+"bridges"+time.strftime("%Y%m%d-%H%M%S")+".kmz")
+#Save with a command line parameter as file name. If you would like
+kml.savekmz("../results/flooded_locations/"+"bridges"+str(sys.argv[1])+".kmz")
 
 # Uncomment the following lines for sending emails with flooded locations
 # # Close the shapefiles and ASCII file
