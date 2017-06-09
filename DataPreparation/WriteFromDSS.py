@@ -37,7 +37,7 @@ try:
 			dataset.add(outflow)
 			table = HecDataTableToExcel.newTable()
 			table.createExcelFile(dataset,output_loc+"/%s_outflow.xls" %( outlet ) )
-			print "Outflows written to CSV for element: %s" %( outlet )
+			print "Outflows written to XLS for element: %s" %( outlet )
 
 	#release dss file
 	HecDss.done(dssFile) 
