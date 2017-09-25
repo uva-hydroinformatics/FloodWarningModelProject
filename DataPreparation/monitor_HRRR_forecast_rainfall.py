@@ -4,8 +4,11 @@ import subprocess
 import boto.ec2
 import datetime as dt
 import numpy as np
-from apscheduler.schedulers.blocking import BlockingScheduler
 import csv
+import schedule
+import time
+
+
 
 """
 Global parameters:
@@ -79,6 +82,14 @@ def data_monitor():
 
     filename = str(date) + "-" + str(hour)+"0000"
 
+
+
+
+
+
+
+
+
     var = "apcpsfc"
     precip = dataset[var]
     print ("Dataset open")
@@ -98,7 +109,8 @@ def data_monitor():
                 break
             except ServerError:
                 'There was a server error. Let us try again'
-    if max(max_precip_value) >= 3.0 and filename not in ran:
+    print "Max. Precip Value: ", max(max_precip_value)
+    if  max(max_precip_value) >= 30.0 and filename not in ran:
         print max_precip_value
         print "Max value", max(max_precip_value)
         # In case running the model locally uncomment the following lines to run the batch file
@@ -107,7 +119,7 @@ def data_monitor():
         f.write(filename + '\n')
         f.close()
 
-        filepath='"C:/Users/Danny/OneDrive/2nd Year/HydroInformatics/R2S2/floodWarningmodelPrototype/runs/run_workflow.bat" ' + filename
+        filepath = 'C:/Users/Morsy/Desktop/floodWarningmodelPrototype/runs/run_workflow.bat ' + filename
         p = subprocess.call(filepath, shell=True)
         print p
 
@@ -115,7 +127,9 @@ def data_monitor():
         # the AWS instance that includes the model
         # conn.start_instances(instance_ids=['<instance_ids>'])
 
-    print "Done running the model at", dt.datetime.now()
+        print "Done running the model at", dt.datetime.now()
+    else:
+        print "The model won't run for this hour"
 
 
 ##################################################################################################
@@ -124,9 +138,11 @@ def data_monitor():
 
 
 def main():
-    scheduler = BlockingScheduler()
-    scheduler.add_job(data_monitor, 'interval', hours=1)
-    scheduler.start()
+    schedule.every(1).hour.do(data_monitor)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+    # data_monitor()
 
 
 

@@ -104,7 +104,7 @@ def get_projected_array(grid, hr, directory):
     ds = gdal.Open(projected_file_name)
     precip = ds.ReadAsArray()
     # uncomment the following line to generate dummy rainfall data for testing
-    # precip_flip = np.mgrid[0:37, 0:44][0]*10 + np.arange(0, 44, 1)
+    #precip_flip = np.mgrid[0:37, 0:44][0]*10 + np.arange(0, 44, 1)
     ny, nx = np.shape(precip)
     b = ds.GetGeoTransform()  # bbox, interval
     x = np.arange(nx) * b[1] + (b[0] + b[1]/2.0)
@@ -221,7 +221,7 @@ def main():
     shutil.copy2(nc_file_name, "../bc_dbase/forecast_rainfall/rainfall_forecast.nc")
 
     # Zip the rainfall data folder to send to AWS S3 then delete the original folder
-    shutil.make_archive('../bc_dbase/forecast_rainfall/'+loc_datetime_str, 'zip',  loc_datetime_str)
+    shutil.make_archive('../bc_dbase/forecast_rainfall/'+loc_datetime_str, 'zip', loc_datetime_str)
     shutil.rmtree(loc_datetime_str)
     print "Done with the forecast rainfall data pre-processing!"
 
