@@ -119,7 +119,7 @@ for feat in lyr:
         else:
             feat.SetField('FloodedBy', 0.0)
     else:
-        feat.SetField('FloodedBy', -999)
+        feat.SetField('FloodedBy', 0.0)
     lyr.SetFeature(feat)
 
 # Create new shapefile with flooded bridge locations and data
@@ -159,6 +159,9 @@ for feat in lyr:
     MaxWL = feat.GetField(feat.GetFieldIndex('MaxWL'))
     floodedby = feat.GetField(feat.GetFieldIndex('FloodedBy'))
 
+    if MaxWL == -999.0:
+        MaxWL = 0.0
+
     npo = kml.newpoint(name=roadname, coords=[(xcord, ycord)])
     npo.description = \
         "<![CDATA[<table>" \
@@ -171,15 +174,18 @@ for feat in lyr:
         "<tr><td>Overtopping Ending Date/Time:</td><td>" + "Coming Soon" + "</td></tr>" \
         "</table>" \
         "<img src='http://34.207.240.31/static/area_graph.png' height='100' width='300'>]]>"
-    npo.style.iconstyle.icon.href = \
-        'http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png'
+    #npo.style.iconstyle.icon.href = \
+        #'http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png'
 
     if floodedby > 0.3:
-        npo.style.iconstyle.color = simplekml.Color.red
+        #npo.style.iconstyle.color = simplekml.Color.red
+        npo.style.iconstyle.icon.href = 'http://34.207.240.31/static/red_MarkerF.png'
     elif 0 < floodedby <= 0.30:
-        npo.style.iconstyle.color = simplekml.Color.yellow
+        #npo.style.iconstyle.color = simplekml.Color.yellow
+        npo.style.iconstyle.icon.href = 'http://34.207.240.31/static/yellow_MarkerF.png'
     else:
-        npo.style.iconstyle.color = simplekml.Color.green
+        npo.style.iconstyle.icon.href = 'http://34.207.240.31/static/small_green_circle.png'
+        #npo.style.iconstyle.color = simplekml.Color.green
 
 #Save with a command line parameter as file name. If you would like
 kml.savekmz("../results/flooded_locations/"+"bridges"+str(sys.argv[1])+".kmz")
