@@ -82,14 +82,6 @@ def data_monitor():
 
     filename = str(date) + "-" + str(hour)+"0000"
 
-
-
-
-
-
-
-
-
     var = "apcpsfc"
     precip = dataset[var]
     print ("Dataset open")
@@ -143,7 +135,6 @@ def main():
         schedule.run_pending()
         time.sleep(1)
     # data_monitor()
-
 
 
 if __name__ == "__main__":
