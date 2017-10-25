@@ -37,29 +37,44 @@ initLat = 21.14054700000  # modified that to follow the latest values on the web
 aResLat = 0.027
 
 # this values added to the original bounding box made the retrieved data to be
-lon1_add = -0.147269974 ; lat1_add = -0.110061818
-lon2_add = 0 ; lat2_add = 0
-lon3_add = 0 ; lat3_add = 0
-lon4_add = 0 ; lat4_add = 0
-lon5_add = 0 ; lat5_add = 0
-lon6_add = 0 ; lat6_add = 0
-lon7_add = 0 ; lat7_add = 0
-lon8_add = 0 ; lat8_add = 0
-lon9_add = 0 ; lat9_add = 0
-lon10_add = 0 ; lat10_add = 0
-lon11_add = 0 ; lat11_add = 0
+# values were determined by checking http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrrYYYYMMDD/hrrr_sfc_00z.ascii?apcpsfc[0][GRIDLAT][GRIDLON]
+# and subtracting the reported lat/lon (which were consistently too far north/east of true locations) from true locations
 
-lon1 = -115.792191 ; lat1 = 32.348667
-lon2 = -115.768664 ; lat2 = 32.407003
-lon3 = -115.700826 ; lat3 = 32.452866
-lon4 = -115.668997 ; lat4 = 32.432325
-lon5 = -115.660613 ; lat5 = 32.478863
-lon6 = -115.557831 ; lat6 = 32.315268
-lon7 = -115.491776 ; lat7 = 32.288773
-lon8 = -115.517014 ; lat8 = 32.316781
-lon9 = -115.615601 ; lat9 = 32.480189
-lon10 = -115.611554 ; lat10 = 32.49617
-lon11 = -115.606175 ; lat11 = 32.515787
+lon1_add = -0.462183898 ; lat1_add = -0.141701545
+lon2_add = -0.446984841 ; lat2_add = -0.149337909
+lon3_add = -0.451586726 ; lat3_add = -0.157756091
+lon4_add = -0.4561288 ; lat4_add = -0.143465182 #lon4_add was more effective when replaced with median value of all lon_add values, comapred to manual calculation
+lon5_add = -0.458127857 ; lat5_add = -0.145328818	
+lon6_add = -0.453148423 ; lat6_add = -0.150628818
+lon7_add = -0.454289554 ; lat7_add = -0.134792455
+lon8_add = -0.465349366 ; lat8_add = -0.132483364
+lon9_add = -0.4561288 ; lat9_add = -0.159056091
+lon10_add = -0.448568989 ; lat10_add = -0.141428818
+lon11_add = -0.460549366 ; lat11_add = -0.141174273
+
+lat1 = 36.8443
+lat2 = 37.0003
+lat3 = 37.0737
+lat4 = 36.9789
+lat5 = 37.1134
+lat6 = 36.5081
+lat7 = 36.3603
+lat8 = 36.4717
+lat9 = 37.0724
+lat10 = 37.1173
+lat11 = 37.1721
+
+lon1 = -78.1241
+lon2 = -77.9627
+lon3 = -77.6749
+lon4 = -77.6016
+lon5 = -77.506
+lon6 = -77.4133
+lon7 = -77.239
+lon8 = -77.2793
+lon9 = -77.3578
+lon10 = -77.321
+lon11 = -77.2745
 
 lon1_fix = lon1 + lon1_add ; lat1_fix = lat1 + lat1_add
 lon2_fix = lon2 + lon2_add ; lat2_fix = lat2 + lat2_add
