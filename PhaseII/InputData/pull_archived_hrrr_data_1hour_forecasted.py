@@ -1,5 +1,5 @@
 """
-This script downloads data for a actual rainfall data (layer f00) with a specified date and time from the Utah HRRR archive using cURL.
+This script downloads data for a actual rainfall data (layer f01) with a specified date and time from the Utah HRRR archive using cURL.
 Using 'APCP' as the variable gets the real hourly precipitation amount for each day.
 Utah Archive web page: http://home.chpc.utah.edu/~u0553130/Brian_Blaylock/hrrr_FAQ.html
 
@@ -27,23 +27,18 @@ import numpy as np
 # =============================================================================
 #     Modify these
 # =============================================================================
-start_date_time_str = datetime(2016, 9, 20)
-end_date_time_str = datetime(2016, 10, 24)
+start_date_time_str = datetime(2016, 9, 20) # start date YYYY,MM,DD
+end_date_time_str = datetime(2016, 9, 20) # end date YYYY,MM,DD
 
-shp_filename = './2d_code_05_R.shp'
+shp_filename = './Hampton_Roads_model.shp' # The shapefile used to get the data for
 
 step_date_time=start_date_time_str
 
 
-
-print "done"
-
-DATE = date(2016, 9, 20)    # Model run date YYYY,MM,DD
-hour = 3                # Model initialization hour
-fxx = range(1,2)            # Forecast hour range (Right now there 18 hours forecast including hour
+fxx = range(1,2)           # Forecast hour range (Right now there 18 hours forecast including hour
                            # which indicates the current condition of that hour. So the range for
                            # the data should be range(19). But as we are looking for the actual that
-                           # at each hour so we will use only range(1) to get f00.
+                           # at each hour so we will use only range(1,2) to get f01.
                            # Note: Valid Time is the Date and Hour plus fxx.
 
 model_name = 'hrrr'        # ['hrrr' this is the operational HRRR and collected from NOMADS server,
@@ -78,8 +73,8 @@ while step_date_time <= end_date_time_str:
         outfile_grib = direct + '/GRIB2/%s_h%02d_f%02d_%s.grib2' % (step_date_time.strftime('%Y%m%d'), step_date_time.hour, i, var_to_match.replace(':', '_').replace(' ', '_'))
         outfile_tif = direct + '/TIF/%s_h%02d_f%02d_%s.tif' % (step_date_time.strftime('%Y%m%d'), step_date_time.hour, i, var_to_match.replace(':', '_').replace(' ', '_'))
         outfile_tif_prj = direct + '/TIF/%s_h%02d_f%02d_%s_projected.tif' % (step_date_time.strftime('%Y%m%d'), step_date_time.hour, i, var_to_match.replace(':', '_').replace(' ', '_'))
-        outfile_study_area_tif = direct + '/TIF/%s_%02d.tif' % (step_date_time.strftime('%Y%m%d'), (step_date_time+timedelta(hours=1)).hour)
-        outfile_study_area_ASC = direct + '/ASC/%s_%02d.asc' % (step_date_time.strftime('%Y%m%d'), (step_date_time+timedelta(hours=1)).hour)
+        outfile_study_area_tif = direct + '/TIF/f%02d_%s_%02d.tif' % (i, step_date_time.strftime('%Y%m%d'), step_date_time.hour)
+        outfile_study_area_ASC = direct + '/ASC/f%02d_%s_%02d.asc' % (i, step_date_time.strftime('%Y%m%d'), step_date_time.hour)
 
         # Model file names are different than model directory names.
         if model_name == 'hrrr':
