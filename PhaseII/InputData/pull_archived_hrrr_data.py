@@ -92,11 +92,11 @@ while step_date_time <= end_date_time_str:
         # This is the URL with the Grib2 file metadata. The metadata contains the byte
         # range for each variable. We will identify the byte range in step 2.
         sfile = 'https://api.mesowest.utah.edu/archive/HRRR/%s/%s/%s/%s.t%02dz.wrf%sf%02d.grib2.idx' \
-                 % (model_dir, field, DATE.strftime('%Y%m%d'), model_name, hour, field, i)
+                 % (model_dir, field, step_date_time.strftime('%Y%m%d'), model_name, step_date_time.hour, field, i)
         # This is the URL to download the full GRIB2 file. We will use the cURL command
         # to download the variable of interest from the byte range in step 3.
         pandofile = 'https://pando-rgw01.chpc.utah.edu/HRRR/%s/%s/%s/%s.t%02dz.wrf%sf%02d.grib2' \
-                 % (model_dir, field, DATE.strftime('%Y%m%d'), model_name, hour, field, i)
+                 % (model_dir, field, step_date_time.strftime('%Y%m%d'), model_name, step_date_time.hour, field, i)
 
 
         # 1) Open the Metadata URL and read the lines
