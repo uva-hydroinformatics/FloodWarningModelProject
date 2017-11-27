@@ -27,19 +27,14 @@ import numpy as np
 # =============================================================================
 #     Modify these
 # =============================================================================
-start_date_time_str = datetime(2016, 9, 20)
-end_date_time_str = datetime(2016, 10, 24)
+start_date_time_str = datetime(2016, 9, 20) # start date YYYY,MM,DD
+end_date_time_str = datetime(2016, 10, 24) # end date YYYY,MM,DD
 
-shp_filename = './2d_code_05_R.shp'
+shp_filename = './Hampton_Roads_model.shp' # The shapefile used to get the data for
 
 step_date_time=start_date_time_str
 
 
-
-print "done"
-
-DATE = date(2016, 9, 20)    # Model run date YYYY,MM,DD
-hour = 3                # Model initialization hour
 fxx = range(1)            # Forecast hour range (Right now there 18 hours forecast including hour
                            # which indicates the current condition of that hour. So the range for
                            # the data should be range(19). But as we are looking for the actual that
@@ -58,7 +53,7 @@ var_to_match = 'APCP'      # must be part of a line in the .idx file
 # =============================================================================
 # =============================================================================
 #create directories to store data
-direct = './HRRR_Archive_'+start_date_time_str.strftime('%Y%m%d')+'_'+end_date_time_str.strftime('%Y%m%d')
+direct = './HRRR_Archive_'+start_date_time_str.strftime('%Y%m%d')+'_'+end_date_time_str.strftime('%Y%m%d')+'Prate _mm_hr'
 os.makedirs(direct)
 os.makedirs(direct+"/GRIB2")
 os.makedirs(direct+"/TIF")
@@ -78,8 +73,8 @@ while step_date_time <= end_date_time_str:
         outfile_grib = direct + '/GRIB2/%s_h%02d_f%02d_%s.grib2' % (step_date_time.strftime('%Y%m%d'), step_date_time.hour, i, var_to_match.replace(':', '_').replace(' ', '_'))
         outfile_tif = direct + '/TIF/%s_h%02d_f%02d_%s.tif' % (step_date_time.strftime('%Y%m%d'), step_date_time.hour, i, var_to_match.replace(':', '_').replace(' ', '_'))
         outfile_tif_prj = direct + '/TIF/%s_h%02d_f%02d_%s_projected.tif' % (step_date_time.strftime('%Y%m%d'), step_date_time.hour, i, var_to_match.replace(':', '_').replace(' ', '_'))
-        outfile_study_area_tif = direct + '/TIF/%s_%02d.tif' % (step_date_time.strftime('%Y%m%d'), step_date_time.hour)
-        outfile_study_area_ASC = direct + '/ASC/%s_%02d.asc' % (step_date_time.strftime('%Y%m%d'), step_date_time.hour)
+        outfile_study_area_tif = direct + '/TIF/Prate_%s_%02d.tif' % (step_date_time.strftime('%Y%m%d'), step_date_time.hour)
+        outfile_study_area_ASC = direct + '/ASC/Prate_%s_%02d.asc' % (step_date_time.strftime('%Y%m%d'), step_date_time.hour)
 
         # Model file names are different than model directory names.
         if model_name == 'hrrr':
@@ -92,11 +87,11 @@ while step_date_time <= end_date_time_str:
         # This is the URL with the Grib2 file metadata. The metadata contains the byte
         # range for each variable. We will identify the byte range in step 2.
         sfile = 'https://api.mesowest.utah.edu/archive/HRRR/%s/%s/%s/%s.t%02dz.wrf%sf%02d.grib2.idx' \
-                 % (model_dir, field, DATE.strftime('%Y%m%d'), model_name, hour, field, i)
+                 % (model_dir, field, step_date_time.strftime('%Y%m%d'), model_name, step_date_time.hour, field, i)
         # This is the URL to download the full GRIB2 file. We will use the cURL command
         # to download the variable of interest from the byte range in step 3.
         pandofile = 'https://pando-rgw01.chpc.utah.edu/HRRR/%s/%s/%s/%s.t%02dz.wrf%sf%02d.grib2' \
-                 % (model_dir, field, DATE.strftime('%Y%m%d'), model_name, hour, field, i)
+                 % (model_dir, field, step_date_time.strftime('%Y%m%d'), model_name, step_date_time.hour, field, i)
 
 
         # 1) Open the Metadata URL and read the lines
