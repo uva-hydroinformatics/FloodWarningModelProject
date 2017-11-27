@@ -26,11 +26,11 @@ def zero_pad(inte):
     return '{:02d}'.format(inte)
 
 
-def get_trmm_data(start_date, end_date, dty):
-    lon_lb = (-78.54 - 0.2489797462 / 2)
-    lon_ub = (-76.649286 + 0.455314383 / 2)
-    lat_lb = 36.247
-    lat_ub = 37.257
+def get_trmm_data(start_date, end_date, dty, shapefile):
+    lon_lb = (-76.496 - 0.2489797462 / 2)#FLOOD WARNING MODEL lon_lb = (-78.54 - 0.2489797462 / 2)
+    lon_ub = (-76.244 + 0.455314383 / 2)#FLOOD WARNING MODEL lon_ub = (-76.649286 + 0.455314383 / 2)
+    lat_lb = 36.471#FLOOD WARNING MODEL lat_lb = 36.247
+    lat_ub = 36.98#FLOOD WARNING MODEL lat_ub = 37.257
     st_date = dt.datetime.strptime(start_date, "%Y-%m-%d")
     ed_date = dt.datetime.strptime(end_date, "%Y-%m-%d")
     date_range = pd.date_range(st_date, ed_date, freq='3H')
@@ -40,7 +40,7 @@ def get_trmm_data(start_date, end_date, dty):
         doy = d.timetuple().tm_yday
         if d.hour == 0:
             doy -= 1
-        url = 'https://disc2.gesdisc.eosdis.nasa.gov:443/opendap/TRMM_RT/TRMM_3B42RT.7/{yr}/{doy}/3B42RT.{yr}{mth}{dy}{hr}.7.nc4'.format(
+        url = 'https://disc2.gesdisc.eosdis.nasa.gov:443/opendap/TRMM_RT/TRMM_3B42RT.7/{yr}/{doy}/3B42RT.{yr}{mth}{dy}{hr}.7R2.nc4'.format(
             yr=d.year, mth=zero_pad(d.month), dy=zero_pad(d.day), hr=zero_pad(d.hour), doy=doy)
         print url
         session = setup_session('jsadler2', 'UVa2017!', check_url=url)
@@ -58,14 +58,14 @@ def get_trmm_data(start_date, end_date, dty):
         p = precp_m.T
 
         x, y, precip_proj = get_projected_array(lat_filt,
-                                           lon_filt, p, '{}{}{}_{}'.format(d.year, zero_pad(d.month), zero_pad(d.day), zero_pad(d.hour)), dty)
+                                           lon_filt, p, '{}{}{}_{}'.format(d.year, zero_pad(d.month), zero_pad(d.day), zero_pad(d.hour)), dty, shapefile)
         precip_list.append(precip_proj)
     return x, y, precip_list
 
-def get_projected_array(lats, lons, precip, hr, directory):
+def get_projected_array(lats, lons, precip, hr, directory, shapefile):
     wgs_file = make_wgs_raster(lats, lons, precip, hr, directory)
     projected_file_name = project_to_utm(wgs_file, hr, directory)
-    tif_to_asc(projected_file_name, hr, directory)
+    tif_to_asc(projected_file_name, hr, directory, shapefile)
     ds = gdal.Open(projected_file_name)
     precip = ds.ReadAsArray()
     # uncomment the following line to generate dummy rainfall data for testing
@@ -117,9 +117,11 @@ def project_to_utm(wgs_raster_name, hr, directory):
                                                                            outfilename))
     return outfilename
 
-def tif_to_asc(projected_tif, hr, directory):
+def tif_to_asc(projected_tif, hr, directory, shapefile):
+    outclippedtif = "%s/TIF/clipped_%s.tif" % (directory, hr)
+    os.system('gdalwarp -cutline %s -crop_to_cutline %s %s' % (shapefile, projected_tif, outclippedtif))
     outascfile = "%s/ASC/%s.asc" % (directory, hr)
-    os.system('gdal_translate -co force_cellsize=true  -of AAIGrid %s %s' % (projected_tif, outascfile))
+    os.system('gdal_translate -co force_cellsize=true  -of AAIGrid %s %s' % (outclippedtif, outascfile))
 
 def make_nc_file(x, y, precip_array, start_date_time):
     precip_xarray = xarray.DataArray(precip_array,
@@ -156,8 +158,10 @@ def make_nc_file(x, y, precip_array, start_date_time):
 ##################################################################################################
 
 def main():
-    start_date_time_str = "2016-10-23"
-    end_date_time_str = "2016-10-24"
+    start_date_time_str = "2011-08-22"
+    end_date_time_str = "2011-09-09"
+
+    shp_filename = './Norfolk_flood_model.shp' # The shapefile used to get the data for
 
 
     # make directory to store rainfall data
@@ -169,7 +173,7 @@ def main():
     # to be used as gridded rainfall with TUFLOW
     os.makedirs(direct+"/ASC")
 
-    x, y, precips = get_trmm_data(start_date_time_str, end_date_time_str, direct)
+    x, y, precips = get_trmm_data(start_date_time_str, end_date_time_str, direct, shp_filename)
     make_nc_file(x[:], y[:], precips, start_date_time_str)
     print 'kj'
 
