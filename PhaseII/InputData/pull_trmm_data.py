@@ -27,10 +27,14 @@ def zero_pad(inte):
 
 
 def get_trmm_data(start_date, end_date, dty, shapefile):
-    lon_lb = (-76.496 - 0.2489797462 / 2)#FLOOD WARNING MODEL lon_lb = (-78.54 - 0.2489797462 / 2)
-    lon_ub = (-76.244 + 0.455314383 / 2)#FLOOD WARNING MODEL lon_ub = (-76.649286 + 0.455314383 / 2)
-    lat_lb = 36.471#FLOOD WARNING MODEL lat_lb = 36.247
-    lat_ub = 36.98#FLOOD WARNING MODEL lat_ub = 37.257
+    #Norfolk model(-76.496 - 0.2489797462 / 2)#FLOOD WARNING MODEL lon_lb = (-78.54 - 0.2489797462 / 2)
+    lon_lb = (-125.131 - 0.2489797462 / 2) # USA boundary
+    #Norfolk model(-76.244 + 0.455314383 / 2)#FLOOD WARNING MODEL lon_ub = (-76.649286 + 0.455314383 / 2)
+    lon_ub = (-66.358 + 0.455314383 / 2) # USA boundary
+    #Norfolk model 36.471#FLOOD WARNING MODEL lat_lb = 36.247
+    lat_lb = 23.779 # USA boundary
+    36.98#FLOOD WARNING MODEL lat_ub = 37.257
+    lat_ub = 50.072 # USA boundary
     st_date = dt.datetime.strptime(start_date, "%Y-%m-%d")
     ed_date = dt.datetime.strptime(end_date, "%Y-%m-%d")
     date_range = pd.date_range(st_date, ed_date, freq='3H')
@@ -40,7 +44,7 @@ def get_trmm_data(start_date, end_date, dty, shapefile):
         doy = d.timetuple().tm_yday
         if d.hour == 0:
             doy -= 1
-        url = 'https://disc2.gesdisc.eosdis.nasa.gov:443/opendap/TRMM_RT/TRMM_3B42RT.7/{yr}/{doy}/3B42RT.{yr}{mth}{dy}{hr}.7R2.nc4'.format(
+        url = 'https://disc2.gesdisc.eosdis.nasa.gov:443/opendap/TRMM_RT/TRMM_3B42RT.7/{yr}/{doy}/3B42RT.{yr}{mth}{dy}{hr}.7.nc4'.format(
             yr=d.year, mth=zero_pad(d.month), dy=zero_pad(d.day), hr=zero_pad(d.hour), doy=doy)
         print url
         session = setup_session('jsadler2', 'UVa2017!', check_url=url)
@@ -158,10 +162,10 @@ def make_nc_file(x, y, precip_array, start_date_time):
 ##################################################################################################
 
 def main():
-    start_date_time_str = "2011-08-22"
-    end_date_time_str = "2011-09-09"
+    start_date_time_str = "2016-09-19"
+    end_date_time_str = "2016-10-24"
 
-    shp_filename = './Norfolk_flood_model.shp' # The shapefile used to get the data for
+    shp_filename = './Hampton_Roads_model.shp' # The shapefile used to get the data for
 
 
     # make directory to store rainfall data
