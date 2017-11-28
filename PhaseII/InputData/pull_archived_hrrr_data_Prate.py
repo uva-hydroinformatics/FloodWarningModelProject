@@ -27,8 +27,8 @@ import numpy as np
 # =============================================================================
 #     Modify these
 # =============================================================================
-start_date_time_str = datetime(2016, 9, 20) # start date YYYY,MM,DD
-end_date_time_str = datetime(2016, 10, 24) # end date YYYY,MM,DD
+start_date_time_str = datetime(2016, 9, 21) # start date YYYY,MM,DD
+end_date_time_str = datetime(2016, 9, 22) # end date YYYY,MM,DD
 
 shp_filename = './Hampton_Roads_model.shp' # The shapefile used to get the data for
 
@@ -47,13 +47,13 @@ model_name = 'hrrr'        # ['hrrr' this is the operational HRRR and collected 
 
 field = 'sfc'              # ['sfc', 'prs']
 
-var_to_match = 'APCP'      # must be part of a line in the .idx file
+var_to_match = 'PRATE'      # must be part of a line in the .idx file
                            # Check this URL for a sample of variable names you can match:
                            # https://api.mesowest.utah.edu/archive/HRRR//oper/sfc/20170725/hrrr.t01z.wrfsfcf00.grib2.idx
 # =============================================================================
 # =============================================================================
 #create directories to store data
-direct = './HRRR_Archive_'+start_date_time_str.strftime('%Y%m%d')+'_'+end_date_time_str.strftime('%Y%m%d')+'Prate _mm_hr'
+direct = './HRRR_Archive_'+start_date_time_str.strftime('%Y%m%d')+'_'+end_date_time_str.strftime('%Y%m%d')+'Prate_mm_hr'
 os.makedirs(direct)
 os.makedirs(direct+"/GRIB2")
 os.makedirs(direct+"/TIF")
