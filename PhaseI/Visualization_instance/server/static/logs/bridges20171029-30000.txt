@@ -1,0 +1,2428 @@
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+0...10...20...30...40...50...60...70...80...90...100 - done.
+Open a connection to HRRR to retrieve forecast rainfall data.............
+
+Failed to open : http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr20171029/hrrr_sfc_09z
+Failed to open : http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr20171029/hrrr_sfc_08z
+Retrieving forecast data from: http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr20171029/hrrr_sfc_07z 
+Dataset open
+Projecting file for hour 0 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 0 has been written
+Projecting file for hour 1 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 1 has been written
+Projecting file for hour 2 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 2 has been written
+Projecting file for hour 3 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 3 has been written
+Projecting file for hour 4 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 4 has been written
+Projecting file for hour 5 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 5 has been written
+Projecting file for hour 6 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 6 has been written
+Projecting file for hour 7 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 7 has been written
+Projecting file for hour 8 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 8 has been written
+Projecting file for hour 9 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 9 has been written
+Projecting file for hour 10 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 10 has been written
+Projecting file for hour 11 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 11 has been written
+Projecting file for hour 12 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 12 has been written
+Projecting file for hour 13 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 13 has been written
+Projecting file for hour 14 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 14 has been written
+Projecting file for hour 15 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 15 has been written
+Projecting file for hour 16 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 16 has been written
+Projecting file for hour 17 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 17 has been written
+Projecting file for hour 18 from WSG84 to NAD83 UTM ZONE 18N
+File for hour 18 has been written
+Generated NetCDF file information:
+<xarray.Dataset>
+Dimensions:         (time: 19, x: 44, y: 37)
+Coordinates:
+  * time            (time) float64 0.0 1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 ...
+  * y               (y) float64 4.023e+06 4.025e+06 4.028e+06 4.031e+06 ...
+  * x               (x) float64 2.322e+05 2.35e+05 2.377e+05 2.405e+05 ...
+Data variables:
+    rainfall_depth  (time, y, x) float64 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ...
+Done with the forecast rainfall data pre-processing!
+
+Max CPU threads available = 32
+
+Executable: C:\TUFLOW\Releases\2017-09-AB\w64\TUFLOW_iSP_w64.exe
+ 
+
+Build: 2017-09-AB-iSP-w64
+
+
+            *=========================///========================*
+            |                                                    |
+            |         TTTTT U   U FFFF L     OOO  W   W          |
+            |           T   U   U F    L    O   O W   W          |
+            |           T   U   U FFF  L    O   O W W W          |
+            |           T   U   U F    L    O   O W W W          |
+            |           T    UUU  F    LLLL  OOO   W W           |
+            |                                                    |
+            |              Build: 2017-09-AB-iSP-w64             |
+            |                                                    |
+            |              Copyright BMT WBM Pty Ltd             |
+            |                   www.tuflow.com                   |
+            |                 support@tuflow.com                 |
+            |                                                    |
+            *=========================///========================*
+ 
+
+Trying to open (I) file ..\runs\VU_~s1~_~s2~_~e1~_008.tcf...OK.  File Unit: 901
+
+Full input file name is "C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\VU_~s1~_~s2~_~e1~_008.tcf"
+
+Searching for any Set Variable == commands...
+direct data input to C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\Logic_Scenarios_Variables_006.trd
+
+Trying to open (I) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\Logic_Scenarios_Variables_006.trd...OK.  File Unit: 902
+including scenario "GPU"
+finished including scenario "GPU"
+including scenario "50m"
+Setting value of Variable 2D_TIMESTEP as 10
+Setting value of Variable 2D_CELL_SIZE as 50
+finished including scenario "50m"
+...Closed File Unit: 902
+direct data input to C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\Logic_Scenarios_Variables_006.trd
+
+Trying to open (I) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\Logic_Scenarios_Variables_006.trd...OK.  File Unit: 902
+including scenario "GPU"
+finished including scenario "GPU"
+including scenario "50m"
+finished including scenario "50m"
+...Closed File Unit: 902
+GIS Projection being extracted from C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\Projection.prj
+
+Trying to open (I) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\Projection.prj...OK.  File Unit: 902
+
+SHP Projection: PROJCS["NAD_1983_UTM_Zone_18N",GEOGCS["GCS_North_American_1983",DATUM["D_NORTH_AMERICAN_1983",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-75],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["Meter",1]]
+direct data input to C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\VU_50m_004.tef
+
+Trying to open (I) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\VU_50m_004.tef...OK.  File Unit: 903
+skipping definition for " Sandy"
+skipping definition for " Recorded"
+found definition for "Forecast"
+finished definition for "Forecast"
+...Closed File Unit: 903
+
+Trying to open (O) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008.tlf...OK.  File Unit: 903
+
+Executable: C:\TUFLOW\Releases\2017-09-AB\w64\TUFLOW_iSP_w64.exe (Copyright BMT WBM Pty Ltd)
+
+Computer Name: WIN-TKQU1EO0G3L
+
+Simulation Started: 2017-Oct-29 09:21
+
+
+Compiler: Intel Fortran v17.0; Single Precision; 64-bit
+
+Hazard Routines ID in TUFLOW_USER_DEFINED.dll: Default Hazard Routines
+
+Specified Events:
+-e1  Forecast
+
+Specified Scenarios:
+-s1  50m
+-s2  GPU
+  Set Variable ~S~ == 50m
+  Set Variable ~S1~ == 50m
+  Set Variable ~S2~ == GPU
+  Set Variable ~E~ == Forecast
+  Set Variable ~E1~ == Forecast
+  Set Variable 2D_TIMESTEP == 10
+  Set Variable 2D_CELL_SIZE == 50
+
+Initialising Time of Startup Summary == C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008_start_stats.txt
+
+Trying to open (O) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008_start_stats.txt...OK.  File Unit: 904
+
+Initialising TUFLOW Licence Settings...
+Looking for "C:\TUFLOW\Releases\2017-09-AB\w64\TUFLOW_Licence_Settings.lcf"...not found.
+Looking for "C:\BMT_WBM\TUFLOW_Licence_Settings.lcf"...not found.
+Looking for "C:\BMT_WBM\TUFLOW_Dongle_Settings.dcf"...not found.
+No TUFLOW licence Settings files found.
+
+"C:\BMT_WBM\TUFLOW_Dongle_Settings.dcf" does not exist - default settings assigned.
+Simulations Log Folder == C:\BMT_WBM\log
+WIBU Retry Time == 60
+WIBU Retry Count == 0
+WIBU Dongles Only == OFF  ! If set to ON, searches for WIBU dongles only.
+
+
+Searching for a BMT WBM WIBU (Metal) Dongle...
+
+TUFLOW Engine          Dongle 2943401  Expiry 2018/05/09  LAN   1 of   4 (3 remaining)
+TUFLOW Threads (1)     Dongle 2943401  Expiry 2018/05/09  LAN   1 of   8 (7 remaining)
+
+Trying to open (A) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\_ TUFLOW Simulations.log...OK.  File Unit: 905
+...Closed File Unit: 905
+
+Trying to open (A) file C:\BMT_WBM\log\_ All TUFLOW Simulations.log...OK.  File Unit: 905
+...Closed File Unit: 905
+
+Detected 32 CPUs.
+CPU limiting not activated for WIBU dongles.
+
+Setting up dynamic arrays...
+
+Reading .tcf File .. C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\VU_~s1~_~s2~_~e1~_008.tcf
+
+Trying to open (O) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008.wor...OK.  File Unit: 905
+
+Trying to open (O) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008.qgs...OK.  File Unit: 906
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008_messages.shp
+GIS Layer assigned ID of 1
+
+Trying to open (SB) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008_messages_P.shp...OK.  File Unit: 907
+
+Trying to open (SE) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008_messages_P.shp...OK.  File Unit: 908
+
+Trying to open (SB) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008_messages_P.shx...OK.  File Unit: 909
+
+Trying to open (SE) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008_messages_P.shx...OK.  File Unit: 910
+
+Trying to open (O) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008_messages_P.prj...OK.  File Unit: 911
+
+Trying to open (BO) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008_messages_P.dbf...OK.  File Unit: 912
+...Closed File Unit: 911
+...Closed File Unit: 909
+
+Trying to open (O) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008_messages.csv...OK.  File Unit: 909
+
+Home Folder: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\
+
+Free-Form Input Assumed...
+
+
+tcf>> Model Scenarios == 90m | GPU
+   << Model Scenarios...
+tcf>> Model Events == Forecast
+   << Model Events...
+tcf>> GPU Device IDs == 0, 1, 2, 3
+   << GPU Device IDs...set to   0  1  2  3
+
+tcf>> Read File == ..\model\Logic_Scenarios_Variables_006.trd
+   << Read File...direct data input to C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\Logic_Scenarios_Variables_006.trd
+
+Trying to open (I) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\Logic_Scenarios_Variables_006.trd...OK.  File Unit: 911
+
+tcf>> IF Scenario == GPU
+   << IF Scenario...including scenario "GPU"
+
+tcf>> GPU Solver == ON
+   << GPU Solver...Initialising GPU licence...
+TUFLOW GPU Cards (1)   Dongle 2943401  Expiry 2018/05/09  LAN   1 of   8 (7 remaining)
+switched on
+
+tcf>> Model Precision == SINGLE
+   << Model Precision...set to SINGLE
+
+tcf>> ELSE IF Scenario == CPU
+   << ELSE IF Scenario...finished including scenario "GPU"
+
+tcf>> IF Scenario == 50m
+   << IF Scenario...including scenario "50m"
+
+tcf>> Set Variable 2D_Timestep == 10
+   << Set Variable 2D_Timestep...set to    10.000 seconds
+
+tcf>> Set Variable 2D_CELL_SIZE == 50
+   << Set Variable 2D_CELL_SIZE...
+tcf>> ELSE IF Scenario == 70m
+   << ELSE IF Scenario...finished including scenario "50m"
+...Closed File Unit: 911
+
+tcf>> GIS Format == SHP
+   << GIS Format...processed elsewhere
+
+tcf>> SHP Projection == ..\model\gis\Projection.prj
+   << SHP Projection...processed elsewhere
+
+tcf>> Geometry Control File == ..\model\VU_008.tgc
+   << Geometry Control File...set to  ..\model\VU_008.tgc
+
+tcf>> Read Materials File == ..\model\VU_50m_001.tmf
+   << Read Materials File...setting bed resistance to Manning's n and reading n values...
+
+Trying to open (I) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\VU_50m_001.tmf...OK.  File Unit: 911
+
+  1...Processing: 1, 0.07, , , , , , , -1,
+
+  2...Processing: 9, 0.07, , , , , , , -1,
+
+  3...Processing: 19, 0.06, , , , , , , -1,
+
+  4...Processing: 5, 0.07, , , , , , , -1,
+
+  5...Processing: 4, 0.15, , , , , , , -1,
+
+  6...Processing: 6, 0.15, , , , , , , -1,
+
+  7...Processing: 10, 0.04, , , , , , , -1,
+
+  8...Processing: 21, 0.14, , , , , , , -1,
+
+  9...Processing: 11, 0.07, , , , , , , -1,
+
+ 10...Processing: 22, 0.07, , , , , , , -1,
+
+ 11...Processing: 12, 0.05, , , , , , , -1,
+
+ 12...Processing: 2, 0.15, , , , , , , -1,
+
+ 13...Processing: 13, 0.04, , , , , , , -1,
+
+ 14...Processing: 20, 0.07, , , , , , , -1,
+
+ 15...Processing: 15, 0.06, , , , , , , -1,
+
+ 16...Processing: 7, 0.11, , , , , , , -1,
+
+ 17...Processing: 3, 0.11, , , , , , , -1,
+
+ 18...Processing: 16, 0.04, , , , , , , -1,
+
+ 19...Processing: 18, 0.04, , , , , , , -1,
+
+ 20...Processing: 17, 0.08, , , , , , , -1,
+
+ 21...Processing: 14, 0.08, , , , , , , -1,
+
+ 22...Processing: 8, 0.02, , , , , , , -1,
+...Closed File Unit: 911
+
+tcf>> Start Time == 12.0
+   << Start Time...set to      12.000 hours
+
+tcf>> End Time == 100.0
+   << End Time...set to     100.000 hours
+
+tcf>> Timestep == 10
+   << Timestep...set to    10.000 seconds
+
+tcf>> Read GIS PO == ..\model\gis\2d_po_006_P.shp
+   << Read GIS PO...to be read later on
+
+tcf>> Time Series Output Interval (s) == 300.
+   << Time Series Output Interval (s)...set to   300.000 seconds
+
+tcf>> Grid Output Origin == Model Origin
+   << Grid Output Origin...set to model origin
+
+tcf>> Log Folder == log
+   << Log Folder...processed elsewhere
+
+tcf>> Output Folder == ..\results
+   << Output Folder...set as C:\Users\Administrator\Desktop\floodWarningmodelPrototype\results
+
+tcf>> Map Output Format == XMDF ASC
+   << Map Output Format... using XMDF format
+ using ASC format
+
+tcf>> Map Cutoff Depth == 0.1
+   << Map Cutoff Depth...set to  0.10 m
+
+tcf>> Cell Wet/Dry Depth == 0.0002
+   << Cell Wet/Dry Depth...set to 0.000 meters
+
+tcf>> Map Output Data Types == h V d q z0 RFC RFR
+   << Map Output Data Types...set to  h V d q z0 RFC RFR
+
+tcf>> Start Map Output == 0.0
+   << Start Map Output...set to     0.000 hours
+
+tcf>> Map Output Interval == 3600.0
+   << Map Output Interval...set to  3600.000 seconds
+
+tcf>> Store Maximums and Minimums == ON MAXIMUMS ONLY
+   << Store Maximums and Minimums...set to maximums only
+
+tcf>> ASC Map Output Data Types == h d q z0
+   << ASC Map Output Data Types...set to  h d q z0
+
+tcf>> asc Map Output Interval == 0
+   << asc Map Output Interval...turned off
+
+tcf>> Event File == ..\model\VU_50m_004.tef
+   << Event File...direct data input to C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\VU_50m_004.tef
+
+Trying to open (I) file C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\VU_50m_004.tef...OK.  File Unit: 911
+
+tcf>> Define Event == Sandy
+   << Define Event...skipping definition for " Sandy"
+
+tcf>> Define Event == Recorded
+   << Define Event...skipping definition for " Recorded"
+
+tcf>> Define Event == Forecast
+   << Define Event...found definition for "Forecast"
+
+tcf>> BC Event Source ==  _event_ | Forecast
+   << BC Event Source...set to "  _event_ | Forecast"
+
+tcf>> BC Control File == ..\model\VU_GRID_RF_003.tbc
+   << BC Control File...set to  ..\model\VU_GRID_RF_003.tbc
+
+tcf>> BC Database ==  ..\bc_dbase\bc_dbase_External_Boundaries_Grid_RF_004.csv
+   << BC Database...set as C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\bc_dbase_External_Boundaries_Grid_RF_004.csv
+
+tcf>> Read Grid RF == ..\bc_dbase\forecast_rainfall\rainfall_forecast.nc
+   << Read Grid RF...
+tcf>> Start Time == 0
+   << Start Time...set to       0.000 hours
+
+tcf>> End Time == 18
+   << End Time...set to      18.000 hours
+
+tcf>> END DEFINE
+   << END DEFINE...finished definition for "Forecast"
+...Closed File Unit: 911
+
+Event Sources found:
+ 1  Text = "_event_"  Name = "Forecast"
+
+Start Time (h):.......     0.000
+Finish Time (h):......    18.000
+
+Primary 2D timestep (the largest) set to 10. secs
+Domain: Domain_001    Original Timestep:   10.00  Iterations:   1  Adopted Timestep:   10.00
+
+Start Output (h):.....     0.000
+Output Interval (s):..  3600.000
+Maximums Start Track Time:      0.000
+
+Material Values:
+
+#1 - Material 1:
+Fixed Manning's n = 0.070
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#2 - Material 9:
+Fixed Manning's n = 0.070
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#3 - Material 19:
+Fixed Manning's n = 0.060
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#4 - Material 5:
+Fixed Manning's n = 0.070
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#5 - Material 4:
+Fixed Manning's n = 0.150
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#6 - Material 6:
+Fixed Manning's n = 0.150
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#7 - Material 10:
+Fixed Manning's n = 0.040
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#8 - Material 21:
+Fixed Manning's n = 0.140
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#9 - Material 11:
+Fixed Manning's n = 0.070
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#10 - Material 22:
+Fixed Manning's n = 0.070
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#11 - Material 12:
+Fixed Manning's n = 0.050
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#12 - Material 2:
+Fixed Manning's n = 0.150
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#13 - Material 13:
+Fixed Manning's n = 0.040
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#14 - Material 20:
+Fixed Manning's n = 0.070
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#15 - Material 15:
+Fixed Manning's n = 0.060
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#16 - Material 7:
+Fixed Manning's n = 0.110
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#17 - Material 3:
+Fixed Manning's n = 0.110
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#18 - Material 16:
+Fixed Manning's n = 0.040
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#19 - Material 18:
+Fixed Manning's n = 0.040
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#20 - Material 17:
+Fixed Manning's n = 0.080
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#21 - Material 14:
+Fixed Manning's n = 0.080
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+#22 - Material 8:
+Fixed Manning's n = 0.020
+
+NoXY: WARNING 2783 - Rainfall losses in materials file are not supported with the (old) GPU Solver.
+Use the HPC solver or IL/CL using soil infiltration. Refer to documentation for more information or contact support@tuflow.com.
+IL = 0.0mm,  CL = 0.0mm/h
+Landuse Hazard ID not set.
+SRF (Storage Reduction Factor) = 0.
+Fraction Impervious = 0.
+
+
+Output Files to be Pre-fixed by: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\results\VU_50m_GPU_Forecast_008
+Log and message files to be pre-fixed by: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008
+
+Requesting 3 additional GPU Hardware licences...
+TUFLOW GPU Cards (3)   Dongle 2943401  Expiry 2018/05/09  LAN   2 to   4 (4 remaining)
+...3 additional GPU Hardware licences available and assigned to GPU devices.
+
+Writing summary of .tcf commands to .tlf file...
+...Finished writing summary of .tcf commands.
+
+
+Found 0 User Defined Output Zone(s)
+
+
+Found 1 2D domain(s)
+
+
+Created XMDF file "C:\Users\Administrator\Desktop\floodWarningmodelPrototype\results\VU_50m_GPU_Forecast_008.xmdf"
+
+Found a total of 1 hazard map outputs.
+
+Allocating 1600 Kb of temporary memory (RAM)
+
+Opening BC Control File "C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\VU_GRID_RF_003.tbc" for 2D Domain Domain_001
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_bc_003_L.shp
+GIS Layer assigned ID of 2
+ShapefileX Code: 9994  Length: 54
+ShapefileX Version: 1000  Type: 3
+Shapefile Code: 9994  Length: 110
+Shapefile Version: 1000  Type: 3
+DBF file contains 1 records.
+8 DBF Fields (Name [#/Type/Length]): Type [1/C/2]  Flags [2/C/3]  Name [3/C/100]  f [4/N/16]  d [5/N/16]  td [6/N/16]  a [7/N/16]  b [8/N/16]  
+Number of Input Layers: 1
+Input Layer 1: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_bc_003_L.shp
+
+Closing GIS Layer 2 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_bc_003_L.shp]...
+
+Deallocating temporary memory (RAM)
+
+Allocating 0 Kb of temporary 1D domain memory (RAM)
+
+No ESTRY 1D link specified.
+
+
+Allocating space for output zones based on a resolution factor of 2
+
+tgc>> Origin == 234789.176640, 4118848.528501
+out > Origin...bottom left corner set to       234789.17664,     4118848.52850
+
+tgc>> Orientation Angle == 270.138818
+out > Orientation Angle...see below for calculated angle
+
+tgc>> Grid Size (X,Y) == 95850, 117350
+out > Grid Size (X,Y)...see below for calculated size
+
+tgc>> Cell Size == 50
+out > Cell Size...set to  50.000
+
+Domain_001  : Grid Dimensions (N,M): 2347,1917
+Domain_001  : Geographic Origin:      234789.177     4118848.529
+Domain_001  : Geographic Rotation Angle: 270.138824
+
+NoXY: WARNING 0300 - Problem with reading messages.csv file - please contact support@tuflow.com.                 Some or all non-spatial messages may not appear in _messages GIS layer.
+
+Counting any Variable Zpt, FC and/or Layered FC Shapes...
+
+...Found total of 0 Variable Z Shape Zpts in 2D Domain Domain_001.
+
+...Found total of 0 FC Shape Cell Sides in 2D Domain Domain_001.
+
+...Found total of 0 Layered FC Shape Cell Sides in 2D Domain Domain_001.
+including scenario "GPU"
+finished including scenario "GPU"
+including scenario "50m"
+finished including scenario "50m"
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_po_006_P.shp
+GIS Layer assigned ID of 2
+ShapefileX Code: 9994  Length: 74
+ShapefileX Version: 1000  Type: 1
+Shapefile Code: 9994  Length: 134
+Shapefile Version: 1000  Type: 1
+DBF file contains 6 records.
+3 DBF Fields (Name [#/Type/Length]): Type [1/C/20]  Label [2/C/30]  Comment [3/C/250]  
+
+Rewinding RL / PO layer to look for regions, C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_po_006_P.shp
+
+Rewinding GIS Layer 2...
+DBF file contains 6 records.
+3 DBF Fields (Name [#/Type/Length]): Type [1/C/20]  Label [2/C/30]  Comment [3/C/250]  
+
+Closing GIS Layer 2 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_po_006_P.shp]...
+skipping definition for " Sandy"
+skipping definition for " Recorded"
+found definition for "Forecast"
+finished definition for "Forecast"
+
+Allocated space for 12 Time Series Plot Outputs including Reporting Locations
+
+Allocated space for 0 Time Series Plot Output flow lines including Reporting Locations
+   with a maximum of 1 cell sides plus cell centres along longest line
+
+Allocated space for 0 Longitudinal Plot Line Segments
+   with a maximum of 1 cells along a segment
+
+Allocating 49 Mb of temporary 2D domain memory (RAM)
+FINDING Boundary Conditions:
+
+Allocating additional 9032 Kb of temporary processing of boundary regions.
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_bc_003_L.shp
+GIS Layer assigned ID of 2
+ShapefileX Code: 9994  Length: 54
+ShapefileX Version: 1000  Type: 3
+Shapefile Code: 9994  Length: 110
+Shapefile Version: 1000  Type: 3
+DBF file contains 1 records.
+8 DBF Fields (Name [#/Type/Length]): Type [1/C/2]  Flags [2/C/3]  Name [3/C/100]  f [4/N/16]  d [5/N/16]  td [6/N/16]  a [7/N/16]  b [8/N/16]  
+Number of Input Layers: 1
+Input Layer 1: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_bc_003_L.shp
+
+Found TUFLOW "HT" BC with name "DownStreamBC"...
+Opening Database...
+.Found database line: DownStreamBC,Forecast_DS_BC.csv,DownStreamBC - Time (hrs),DownStreamBC - Wse (m),,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_DS_BC.csv.xf4 file is newer...it is
+...Array size from xf file: 2
+
+Closing GIS Layer 2 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_bc_003_L.shp]...
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_sa_external_inflows_001_R.shp
+GIS Layer assigned ID of 2
+ShapefileX Code: 9994  Length: 94
+ShapefileX Version: 1000  Type: 5
+Shapefile Code: 9994  Length: 798
+Shapefile Version: 1000  Type: 5
+DBF file contains 11 records.
+1 DBF Fields (Name [#/Type/Length]): Name [1/C/100]  
+Reading: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_sa_external_inflows_001_R.shp
+
+Closing GIS Layer 2 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_sa_external_inflows_001_R.shp]...
+...Allocating space for  11 new SA time-series boundaries. Total =  11
+Opening Database...
+.Found database line: 1_42C,Forecast_RF_Point.ts1,,1_42C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+...Array size from xf file: 1336
+Opening Database...
+.Found database line: 2_41C,Forecast_RF_Point.ts1,,2_41C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+...Array size from xf file: 1336
+Opening Database...
+.Found database line: 3_40C,Forecast_RF_Point.ts1,,3_40C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+...Array size from xf file: 1336
+Opening Database...
+.Found database line: 4_39C,Forecast_RF_Point.ts1,,4_39C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+...Array size from xf file: 1336
+Opening Database...
+.Found database line: 5_38C,Forecast_RF_Point.ts1,,5_38C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+...Array size from xf file: 1336
+Opening Database...
+.Found database line: 6_44C,Forecast_RF_Point.ts1,,6_44C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+...Array size from xf file: 1336
+Opening Database...
+.Found database line: 7_37C,Forecast_RF_Point.ts1,,7_37C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+...Array size from xf file: 1336
+Opening Database...
+.Found database line: 8_43C,Forecast_RF_Point.ts1,,8_43C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+...Array size from xf file: 1336
+Opening Database...
+.Found database line: 9_36c,Forecast_RF_Point.ts1,,9_36c,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+...Array size from xf file: 1336
+Opening Database...
+.Found database line: 10_35C,Forecast_RF_Point.ts1,,10_35C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+...Array size from xf file: 1336
+Opening Database...
+.Found database line: 11_34C,Forecast_RF_Point.ts1,,11_34C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+...Array size from xf file: 1336
+            BC ID    nbc    nht    nhs    nhq    nqt    nqc    nvt    nvc    nwp    nst    nsh    nsx    nhx   nvgt
+
+Just Read:      0    169    158      0      0      0      0      0      0      0     11      0      0      0      0
+
+Found 0 possible pit SX connections inside 2D Domain Domain_001
+Ignoring 0 pit SX connections outside 2D Domain Domain_001
+
+Found a total of 11 different SA(ST) inputs
+...with a maximum number of cells per input of 83
+
+De-allocating temporary processing of boundary regions.
+
+Deallocating temporary 2D domain memory (RAM)
+
+Domain_001  : Allocating Memory Pointers:
+Domain_001  : Grid data memory ...............        289 Mb
+Domain_001  : No infiltration data memory required. 
+Domain_001  : Variable Z and Layered FC memory          0 Mb
+Domain_001  : Sub-domain linking memory ......          0 Mb
+Domain_001  : Flow constrictions memory ......          0 Mb
+Domain_001  : Weirs and viscosity factor memory        36 Mb
+Domain_001  : Pressure, wind and waves memory           0 Mb
+Domain_001  : General Memory .................          0 Mb
+Domain_001  : Boundary conditions memory .....         54 Mb
+Domain_001  : Wind & waves boundary memory ...          0 Mb
+Domain_001  : Hydraulic results memory .......        397 Mb
+Domain_001  : Maximums results memory ........        198 Mb
+Domain_001  : Mass balance tracking memory ...          0 Mb
+Domain_001  : Minimums results memory ........          0 Mb
+Domain_001  : 2D grid indexing memory ........        126 Mb
+Domain_001  : SMS High Res format memory .....          0 Mb
+Domain_001  : Plot output (PO) memory ........          0 Mb
+Domain_001  : Longitudinal output (LP) memory           0 Mb
+ 
+Memory requested for 2D domain Domain_001 = 1102 Mb
+Total Memory requested thus far = 1102 Mb
+Checking TUFLOW Licence 1 (please wait)...Done.  Dongle 2943401.
+
+No sub-domains found
+External 1D Scheme arrays memory ..............          0 Mb
+Cyclone track array memory ....................          0 Mb
+Tri-diagonal matrix memory ....................          0 Mb
+
+Outside extent of model output: 234789.1766, 4022998.806, 352371.1093, 4119132.902
+
+Setting Grid Output Cell Size to: 25.
+
+Grid output dimensions: 3845 rows by 4703 columns
+Grid output memory ............................        289 Mb
+TIN and output mesh memory ....................        523 Mb
+Mass balance tracking memory ..................          0 Mb
+
+No (evacuation) routes found.
+Route array memory ............................          0 Mb
+
+Number of Gauges ... 6
+
+Number of GIS Objects/Receptors ... 0
+Output Gauge array memory .....................          0 Mb
+Miscellaneous array memory ....................          0 Mb
+Maximum boundary table size ... 1336
+Temporary arrays memory .......................          0 Mb
+
+Total 2D Domain(s) Real SP Memory requested ...       1084 Mb
+Total 2D Domain(s) Real DP Memory requested ...        144 Mb
+Total 2D Domain(s) Integer Memory requested ...        487 Mb
+Total 2D Domain(s) Logical Memory requested ...        198 Mb
+Total 2D Domain(s) Character Memory requested .           0 Mb
+
+
+________________________________________________________________________________
+2D Domain Cell Sizes:        50.00, 
+2D Domain Timesteps:        10.000, 
+
+________________________________________________________________________________
+
+
+Deallocating temporary 1D domain memory (RAM)
+mmc  =               271111372
+mmci =               121960807
+mmcl =                49679188
+mmc8 =                18065981
+mmcc =                    1513
+
+Allocating                    1915 Mb of dynamic memory (RAM)
+
+Allocation successful.
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\results\plot\gis\VU_50m_GPU_Forecast_008_PLOT.shp
+GIS Layer assigned ID of 2
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\results\plot\gis\VU_50m_GPU_Forecast_008_PLOT.shp
+GIS Layer assigned ID of 3
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\results\plot\gis\VU_50m_GPU_Forecast_008_PLOT.shp
+GIS Layer assigned ID of 4
+
+________________________________________________________________________________
+CPU Time:        0:00:01  [0.000433 h]
+Clock Time:      0:00:02  [0.000556 h]
+
+Domain_001: Reading Geometry File ... C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\VU_008.tgc
+
+tgc>> Set Code == 0
+out>> Set Code...global value of     0.000 being applied
+
+tgc>> Read GIS Code == gis\2d_code_05_R.shp
+out>> Read GIS Code... Opening Read GIS Code File: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_code_05_R.shp
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_code_05_R.shp
+GIS Layer assigned ID of 5
+Reading Read GIS Code File: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_code_05_R.shp
+ShapefileX Code: 9994  Length: 54
+ShapefileX Version: 1000  Type: 5
+Shapefile Code: 9994  Length: 49310
+Shapefile Version: 1000  Type: 5
+DBF file contains 1 records.
+1 DBF Fields (Name [#/Type/Length]): Code [1/N/9]  
+ 2310145
+       1 objects read
+
+Closing GIS Layer 5 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_code_05_R.shp]...
+
+tgc>> Set Mat == 14
+out>> Set Mat...global value of    14.000 being applied
+
+tgc>> Read GIS MAT == gis\2d_mat_001_R.shp
+out>> Read GIS MAT... Opening Read GIS MAT File: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_mat_001_R.shp
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_mat_001_R.shp
+GIS Layer assigned ID of 5
+Reading Read GIS MAT File: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_mat_001_R.shp
+ShapefileX Code: 9994  Length: 25438
+ShapefileX Version: 1000  Type: 5
+Shapefile Code: 9994  Length: 3533100
+Shapefile Version: 1000  Type: 5
+DBF file contains 6347 records.
+1 DBF Fields (Name [#/Type/Length]): MAT [1/N/2]  
+       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0     344       0      15     151      35      11     290     215     328     118     423      33     102      23     327    1038    1328     849     959      20      14     673    2855     357    2332       1      20      97     361     559     513     959      33      29    1243      50     251     297    7143     136       7     567    1370    3968     755    2839     347     649     270    1072     144      41      77     342     527    1235     477    1434     115       4     123      76    2496    5332    1463    2173      47      12    6400    1153    1702    2937     652     883   12814    1322     440    2829    1310      22     331    1463     211    5349     488      61     148     112     157      51      36      84      40    1102     299      20    1211    1427     241     925     102      35      22    2925     116      28     477      39      26     355      45     601     447    1814     980     904      91     174     104      59      19    2175    1089     594     956    1582     225    1005     121     272    1043     976    4346      75     376     141     134     117     134     115     410    1174    2421     179     790     450    7532     596    1515    1255     162     135     758    7104    4040     228    1985     982     373      39     405    1185     315     207    1717    5597     670    1498   11217     118    2201     233     307     252     631    2788     739     589     407       6     906    1746     178     597    1091     787     166     308     801     941     208    8264     353     342     111    6011    3145     540   19120     384     408     309     372     896     188     218     214    2542    2548    1244     306    2173    2080    1349     544    1888     241     432     306    2476     538     294    1363    2352     798     474     248     588    1867    2056     209    2516     660    1948     659     189     693     408     194   36573     758    1726     205     844   10368      62     110    3957     896     747    1467    1149     206     427     185      71     655     673     342     208    1234    5326    3968    4675      13    7091     397     758     266    1061    1836    1095     874     467     365     460    1845     353     311     549     608    1346     301   19323    1516     943     256     835     264    8372     473   10374     392     310    1011    7975     263     867    3531    2335    2139    1438     679    2902    1377     438     901     333    2707     809    2168    1062    1802    1421     224     283     377     811     132     892    1256     298    2131     575    4076     355     430     233    2615     254    1234     306    1462    5165     773     655     143     235   12375     117     262    1991      58     343    2916    2161    1126     387    1472    1570    2518     227     283    3054    2777     730     653    3073     471     716     684     386     679     362     573     702     346    1785     266     228     362    1677    1166    1603     668     641     350     515    1320    3667     931     239     256     309   50968     419    9716     579    3466     693     360     401     538   23235    1436     469     800     676     425    2195     431     487     211   21750    1194     956       3    1134     403    1186     480     744     850     498     996       7     663       4      44       1      35    1746    1088     240     175    1728     752     238    3064     150      37     523    2425    3433      75     480    1222     165     117     797      15     728      55    1216     816    2167    3719     567    1773     613     917     559     942    2089    7496    3000     267     995    2150     219    5318    2400      13     527     820    1331     605      72     311     474     274     442      41      10     221    4480      13    1397     464       1     226     160     488     509    7302    1952     482     159    1072     144     470     485     284     661     256     551     229    6594     477     232    5350    2151    3122    1546      42     259      13     307     274     473     125     162     126    1306     261     662     505     944    1103    6833    1692    5807     659     808     645    2278     203     428     470     568    2006     230     358    1105      87    1025     901     999    5625    1802     220      98    1637     266     402    1043    1579     125     338     909     980     214     471     208    1523     331     580     361     142    1558     515    4071     139    1642     881   23647     176     295     466    3060     758    6691     924    1733     935    2362     790     420     891     223     531      83     545     400    1438     275     285     709      70    9847    1175    6164     105     168       9      25    1409    3909     908    2021    5023     517     928     163     195     251    8484     245    1395     245    1133    2010     238     561    2733     421     169     800     389    5262     857    1175     448     409       4    2256     229     547     128    1596     490     354    1028     629   20298     813    2206    2444     121     224     107     509   10373     297    2290    1462     530     913     316     139     205    5623   10306    1020     636     242     415    1139     259     656      17     114    1092     268     314    1987     332    2528    2951    2420     427    2084     549    8600    1143     798     663     204     505     967     402    3406    1183     394     427    5673     262     669     159    4211    1146     462    1976     385     507     660    2349    2766     832     422     835     774     285    1516    1245     239    1002    5063     359     443     526     202     384     165     653    1554    1513     831    7598     453    1252     414     695     226   14794    3990     231    3496     418    2412     151     222     472    1248     616     328     251    2767     350    3996     227     486    4415     381     136    3636     829     223    1107     910    3201     433     942     219   11455     375     550     260     179     288     621     292     211    1970    1363     189     378     339     281     531     250     765    1832    1233     467     802    1734     511    2998     332     363     251   20575     671    2570    2224   19014    1807    1103     782     207    1469     483     661     504   16113     540     501      15      31      87    1193     776    1570    1260     413     147    1838    1964    3185     243     485     263     655     379     638     285     459     326    3748    8412    1373     814     921    1048      57    4273     326     648     517     244     336     688    2706    1202    6540     229     983    1281    1893     138    1158    6533     497     201     277    2973    1786     983      21    3139    6155       3     972    2076     776    7065      22      74    1435     113    1039       1     301    1815     288      29     675      14    1168     442       1   31072      46      22     112       9      21     297     609    2235     336    1709     442     841    1195      21    4840     782    3418    3372     442     522    2157     977     691    1604     391     309     437    5903     286     700     268     213     569    2029     588     289    4125     222     253    6879     578      10     272      23     723    2731      47      14     919      14     860      11    4485     106    5622      45    1395     807     714      52      67     496      27     497      91     521      33     354     584     196     106     202      24     817     182     727     123      65      82      15     250     962     277    4846     679      38    1497      86     591    2054    2389      54     786     339     186    2180     293     149     205     217     182    1106     477     236     659     520     430     264     276     365   44065     484    1080     444     181    1237     382    8592    5339     173     284     618     230     965     331     361     504     247     212     363    1372     602      63     210    5472    1648    1616    2280     168     175     455     488     400   11245     646    2269    1980     732    1322    2269     183    2075     192    1904     258     277     304     349     210     217    1459    1087     529    5320     552     293     735     245     388     181     361     648     346     182      76     381     461     376     183     407     280     182  121384     531   13148     497     219    1199     390    2431     197     610    1662    1250    5039     710     450    2360     333     657    3139    4948     360     244     478     649    2560     594   11566     666    1501     396    1094    7029    3804     250     450     586     187     578     831     252     101    4591    1348    8878     280    6480     863     638     236   12303     241    1891     192     299    6278     169     221    1751      59     178      86     546    2514    2365     642    2167     416     957     112    1562    2105     381     506    3684    2280     886    5771    1157     926     467     283     400     242     447     247     208     529   41022     274    1038    1864    1669     397    1032    1608    2685     670     287    6259     439     185    8688     395    1952     791    1161     477     393    1994    3792     628     685    1411    1438    1424     818    2861   25103    1667     502     314     507     215     656    1234     480     189     210     460     253     655    1892     926     485    1076     153      68     483     684     799     908    1903    2579     419    2134     405     577    4550     171     336    2011     725    1659     571     648    1364    8010     196    6890     823     689    3643    1647    1980    4959    3646     264      76     607   15461    2345     766     386     739     233     680     602     297     657    3040   27256     598     246    1973    1123     345    1853     760     239     662    1286     403     449     167     770     305    1595     307     441     670     377     582     318     250     431   50103    1105     279     167     193    9036     180    1467     785     884     725     486     223     203       2       3       2     397     245    4098     234     316    4031    1893    2743     679     219     670     375     319    1016     897     522     262    1172    3030    2080    4813    4615     821    3811    3898   10343    2518       5     252      22     981     496     535     304     703      21     864      33      65     585      83       8    3471    7041      85       5     434    1776     431     106    2482     340     105     389      24      48     188      30      12    1194     153     196     270    1707    6842     205      71     128    3473     707     995       7    1012    2609     178      52    2119      11     634     102     293     945     120    1362     533    4837     780     188    2253     495    1102     567    9552     393     532     240     200    5785     838     665    4492    2869     534    1379    5992    1170     446     504     262    1964    1648     909      78     272     263    3593     706     367    3677    6924     339     245     267   10220     157    4209     881     115     747     218     934    1425     318     559     497    1163     255   10914    2531     195    1078     256     193     930     112   12603    2778      86     402    1279    4327    4749    1657    1178     955    1235     258     195     385     268    3350     272     796     261    3813     687     374     285     231     212    4047     302     584     255     250     146    1007    3682     422    2995     353     402     295   34445     430     744    1957    5212     604     232     585     331    2536     581    1268    1473     376    3182    3679    9238      88    1812     241     559     305   36326    1107    6168     118     786    8411     767    5762     614     216     311     753   10911    1055     202    1110     392    7288     305     354    1282    1146    1106     877   17185    2368     394     955     377   33320     682     575     741     329     516    1384     525    5609     469     370     534     484     616     660     263     115     605     222     212     405     226     111    4918     631     463     198   27617     622     325    6080     231     684     765     646    1889    1091     512     230   26608     204    1054    7851     256     876    5319     518    1438    9162    3215    1054     315     334     329     720     733     228    5209     303     581     351     366     587     531     437     783     384    1056     289     463     652     434     667  120834     287     452    2916     409     776   16284    1784     252     683    1129     159    1329    5798     379     161   12571     214       2       3       9     971      73     414     423       2    3351     705    7071       0       0       0       0       0       0       0     501    8586     680    2199     449    5901     623     209     249     752      49      97      27     185     422    2354     130     146     169     117      74      80     112     702    1238     495     759       0       0       0       0       0       0       0     433    2305    3444     727    1118   10047    3293       3      34    2232     175     278     420     773    1444     321      84    1584     295    1230    1654    4267    1720     325    4470    2607     273    1271    1611     255      54    1397     980     691     839     558    1164     579     405    2332     206    5201     298    7319     459    6292     372     327     358     432     118   15066     504     832     605     216     450    8028     457     116     526    1482    1791     836   19696   45717    1079     973    1196     808    4544     964     332     351     318    4875    3581    5513    1021     737   11342    1059    7859    6363     416    3549    2717     386     102     386     281     162    9763     346     408     109     291    2157     309    1614   10743    2087     668     243     242    1589     334     971   10576     293    1579     577     416     368     882     624     380    1034     253    2112     198     317     561     292     858     633     399     727    9978     514     302     605    2617     749    3961     312    2386     674     185    2547     255     461     454     326     274    6745   21027    2333     406     791     821     250     127    1952     252     246    3638     177    1265     376   14543    1156     638     321     944    1364     293    1934    1234    1618     625     362     368    2666     834    1439     744     190     469     249     210     182     277     197     443     718     516    1811     587     911   41594     436      25     315      25     651    2783    1650      85     671     673     795     581     273     499     483   20321     568     253    8088     370     546     309       0     276       0     237      17     779       0      10    6504       0       0    1738       0       0       0    1004     294       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0    2364     197     131       9     488     450     273     279     161     157     724      56      59    1410     618     218    3096    1310    1397    4093     246     612     224     910      54      14      42    1159     416    1574     807     175    1124     442    1645   12944     777     444      91    1056    3237     260     856       9     667    1990    2134     557    3855     715      92     117      82    1256     589    2266     841    1226      33    1027      93      26       8     820     281      26      27     107     130      62      50      98    2192      35      68      23      11      32     367      46      39      54      10      22     190     201     272     460     527     557     380    1127     503     453     797     695   31079    1399     509     223     196    1317     200     179    1002     196    1508     851    1042     415     604     502    8476    1410    3765     690     195    9543     324     393     246    1609     349    1161    2965     479     204    3207     517      57     294     184     931    4381    1937    3458    8128    1659    1055     242     316    2305    2994     190     221     309     229     271     142     525      91   10076     894     280    1045     301     322     754    2612     221     586   22584     315     119    1536     395    1021     160     585   15683    7002     201     223    2705     578     219    4891     651    6520     666     205     131   19013     139    1436     387    1506     659     170    1184    7039     354     321     501     298     436     740     627     324     424    1080     319    3333     630     631     181     325     365    1757    1831     208    3371    1411    4992    1465     215    1372    8396     900     792      45     777     256    1008   38873     246     215     349     389     613     258     236     182    1617    1531     534     301     179     693     352   12037     169   10372    2270    1460    2384     677     406     544     272     282     663     168      95     369     194     388    1905     883     315     246    3886     752     611    2023     280     537     360    1293     556     287     144     573    3774     138     581     623     260     534     641    1998     627    9289     286     284     885     509    2130    1169    1028    1570     594     225     519     557     209     310     955     707     193     221     259     220     380    1146    1857     897     216     304     235    1448    1154     445     491     240     490     630     340     218     744    1788     257     268     850    1543     272     204      67    8029     731     539     236    1749     413     230    2080     303     334     981     360     360     378     279    1154     341     263    2109    1386     977  243093     927     299     344     211     221    2417    2814     935    2049     451     661    2349    6360     427    1419     359    1618    1569     506     703     745     109     316    1058    1630    1441    2493    1754    1601    1133     296    2281     706     264     566    1265     678     958     480   60452     223     209    2227    2691    2064    3354    4295    2368    2339       3    1191     801     445     121   10216    1374    3480       9      10      26      56    2098    2729     141       6      43       5      21       5       1      62      38     870     154    1941     243     426     358    2960     111     152    3998    4187      38     155     244    4919      43     317    3858    2076     107    1244     136      85    8930    1588     106     105     249     918    5413     513     134     244      10    2381    1305    2557    3644    1160    1062    1767    2147      61     796     372    1721     122      21      34      99      16     288    5227    6398     565    1290    2737     339     548     147     344     268      60    1563     800    1110     192    3098    1531    1445    2357    1743     963     695     687     663    1265     638    1536     452     711     505    1391     360     189     467     999    7285     160     808    3056     173     741     341     786     191     923     188     433     222     292   36884    2859    2907     192     334     330     617     169    1056     298   10088     271    2954   20398     703    4444     226     852    1634     354     931     787     722    2019     265    1893     104     361      80     845    1070   29831     355    1640     265     539    3211     597     369    8396    1284    1375     235    1230     278     437     501     430     515    1547    1729    3184    1909    2220     901     298    2270     192    1200     190     210     441     740     306     528     548     355    1184    3084     238     646   71847     245    2746    2287     784     606     852     259     174     709    2665   14112   10034     187     742     162   10765     649    1084    1262     181     535     504     853    5064     218    7099     401   10153   10050    1423     206    1242     402     253   16322   10895     806    4129     469     186    1049    1913     194    1314    6353    3137    1656    1076     226   14725     577    2048     759    4453    1183     301     420     155     626     588     348     265     797     143     998     541    2257     690    1403    1410    7836    2806    1120     370    2845     228     486    1504     289    1197     480    2313    3201     673     297     314     266     178     682    9061     136    3995     336    1894    4548    4796     897     211    5014     816    2244     306     377     339     189     317     245     448     301    1935     277    1329     323     249     255     340    1195     218    1522     484     998     286     835     338     674     816     396     246     582  123028    1612     519     302     233    2176   13677     560    1291     298    2077    1018    2757     911    3857     316    7197     125    3293       0   13092     653     179    2965     165    2563      26    1867     109     730     328     335      27       2      31    2197     235     309    3954     172    1091     502    1595     270    3168    1236    1157     529     428     513    4552    7322    2277      81     277     161      65       4     121     860     191    5028     668    4942      20       4      10      76       0       0       0       0       0       0    1860      91      81    4580     485    2768     488    7097       0       0       0     368       0       0       0       0       0    2243    3432    1085     300    9401     417     636     485     396     386    4518     243      66    2891     383    1206    1030    1111     117    1903    2224     668     250     260     366     432     278    9616    1601     202     359    1002   13555     204     985     418    1269    1666     130     488     419     328     210     192     356     182     388   27595    2284     813     276    1148      22      33     664    1731     406     700    1706     139     941     201   13533    7310     154     447     592     531     525    2336     333     485     512    1103     343     262     227    1410      90     765     525     109     233     282     182    5521     670     594     166    4493     897     379     284     352    1806    4538     176     683     369     195    1250    2170     436     241    1664    1459    2594    1037     168     881     406    3396     577     961    7367     302     352    3750     141     346     265    9919     677     531    2808     298     120     424     456   11557     451     467     528     211     448     846     582     233     424   64351     242     366    3534    2607     430     296     223    1301     287     238     190   25125    1041      85     426     370     899     532    3169      76   13470     309     444     760     418    1122    1412     518    1206    3000     452     587     348      95    2860      90     305    1320      24     438     222     821     702     226     283     125     163     525     454    1261    1524     536     684    1732    1408    2840     258     623     351     309     201    4237    1037     355     479     367     625     837    1213    1517    1313      75     934     160    1501     186     279     320     333    4870     431    1675       0     459     167   10181     336     155    4876     275    2889     168       0       0       0       0      70       0     534   23175       0       0       0       0      98       0       0       0      20       0       0       0       0       0       0       0       0       0       0       0       0       0       0    1167       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0   35488       3    4184     110      28     426    2383      23     733      93     779      87       7      84     204    5825    3383    1322     363     633    9171     281     150     612     280   12755      16      51      95      17      58     315     213     172      26      70     840     776     484      42    1310     721     862     299     196     588    1329     243    8444    3123      76     818    1257     208     200    2157      48     197     827     117    7401     110     332     248      38     254      92    4211     136     106      15     305      74     450     350      31      17     311     377     909    1426    1900    2661    1231    3152      76    1325     281    6520    2729    4514     384     891     682     146     272     231     531     757    3506    5630     849     386      93     284     636     383     401     601   12047     248     565     412     204      79     644    1592    3457     856     321    2254     286   11594     414     112     264    1836     209     601    1463    7595    1424     187    1142     533     404     662     238     344    8847     267     301     636    1023     142     215    1337     145      96     339   29150    5697     781    1537     902     385     288     270     171     453     980      81     381     174     218     213     645    7750     311     765     393     475     450    1944     714   17911    7054      67    1527    5184     687     141    1401     141     411     203   11404     457     206    1984    1193     186    2121     673     269     276     338     634    1987     882     210     209     182    1840     375    1055    1073     279    1837     651    6861     250     239     209     188     468     467    5436     567    2754    4183     184    1210     220     235    1043     242    8011     338     705    4370     416     242     141     736     392     280    1019     329     485     669    8682     458     985     164     210     764     473     589     151    1315     559    2300    2254    4036    1397     944     406     423     255     206    3057    1508     453     199     344     179     280     146     654     272    1130     425     180     501     329     183     353     343     682    1012     166     599     677    1485    2137     235     459     495    1274     699     301    3033     817     826    2242    1313     197     102    1318     424     658     403     210      68    1428     659     186     189    6734     322     925     414     367     728     140     215     762  351479   42058    1043    5358      12       6    2116      94      10      21      23     719     188      25     247    1128    1909    2760      14      81      43      17       6     130      43     200     227     223     163      81      71     706    1761     252     794      25     102      68     107     228      71       1      10      38    1452     272     472     336    1811     140     394     119     219    1275    1399     914     226    1112    7263    1451     836     332     235    1678    1047     742     405     117     189     262     299   11225     622     928     655    1014     194    1469     264    5866   11701     618     592     562      62     377     701     621     517   12205     228    5539     319     301    1463    6365     500    4202     308     241     270     526    2443     106     345     761    1940     282    4144     426     456    1121     657    1318     758    1685    1405     136     385     312     227     919     570     708     299    1374     801     625     316     514     155     484     570    6521     233      61    1913     300     861     718    3242    1701     338     718     198     568     119     217     159      98    6403     762    6543     264     981     943     632    2512    2445     117     490     680    8952    1237    2907     716    1114     308     856     560     284    1013     369     289     880     125     446     203    1081    1731     186    7852    1626     644     339     565    2698     517     453     565    4696     178    1410     704     173     338     296     225     363     496     271     428     432     543     745    1482     560     418    1970     595     294     757     215     259     432  119610     314     518     476    6061     180     786    2810     273     840    1781     263     155     198   18900    2125    2352     756    1284    1106     747     168     108    1388     872   15715    1260     485     493     308     225   14900     845     232     842      78    1321    2224     376     210     135     885     395     364     229    2183     487     702     142     325    2059     887    4567     640   53635   10779    1904     358     118    1568     494    1016   12189    8013    7299     245    2397     464    1032   13048    1099     245    1224     204     576     198    1118   13833     153    1113     417     115     768     726   17574    2007    3698     990     416      96     511    5290     803    2375     299    3296    1325     945     528      56     531    1629     309     197     291     324     606     487     766     363    3563     441     173   86317     509    3033     776     432     340     295     283     180     396   26168    6986    1684     185     349     204     144     404      11     248   29512     109     476     911     533     176      10      12       4      24      34      52     103    1004     263     513      50      12     266      24      48     923    1043     239    1316     381     307     145     108      66    1338     659     437    1497      65      98     195     571      25     859    3506     350       2       2     254     305     184       1     357    7080     208      12    1055   10366     334     475    6730    1430       0       0       0       0    4643    7915    4033     238     655      58     160      19     282    2227    9406    1254    2444     611     671     428       0       9    1768      34     197    1387    1597    2749     906     613     315     520     481    1510     280    1714     291    1019     473    1077     474     444     720    1661     263     360    1023    1265    1176    2200   98101       0       0     310    1986      53    2473    1414      69    4136     559     110     449     107     140     562     500     109       0       0       0    4398    1858     258    9336     381    1667     108    4164     528     920     372     309     646    1180     634       0     562   45439       0    3622      99     331      81     257     117     238      35     637     311     108    1076    1064    1011     576     621    1083     857     331     144       0       0     223     867      52     303    1450     353     451     192     273    1424      93       0       0       0    1496       0     958    4725     338   13175     253     647    9549    1514     263    2788     108     506    2887    1258    2797    4058     114       0       0       0       0    1756     459    1066     976    3786     973     440     916     581    2996     929    1349     358     445     583     183    3492     213     320       0       0       0     544     475     288     681     746     196     269     703     938      91   56358     893    1917     832     598      89     737     449      55    1378    9491       0       0       0       0    3314     483     189     413    1201    4317     725     909     752     225     950    2190     104     782     675     251    1283       0     158       0       0    4819    1262    1159     130      59     236    2118    1437     222     498     361      68     697      68    1379    1933     611      16       0       0       0    2293     675       1     201     356    1634     333     828    2870     913     662     296     259     327    1419    1338     568     321     320     362     470     667   98737    1267     266     135     254     529    1260     293     131     287     328    9419     391      98     440     403       0    2302       0    2196    5493     228     300       0       0       0       0    6246     920     350     401     205     332     349     148    1362    3587     321     251     501     335    5963     355     924     249    1269    4638     222     244     342     214       0    2593     141     133     246     111     116    1942    1253     522      59     223     429     706     646     898    1388     156      19       3      23     184    4057     171      62     273    3912      33    4199    1015    2096    4414     290     787     784     609     355     328     304   13280     419    1475      16       0     514     871      46     144    1083     174       0       0     910     304     648    3207     245     940     140     473     402    8370    1381       0       0       0       0       0       0     163     587    1382     336     833    1401     803     335     607     487   66347     523    1597    1923     565     440    1254   36521     672    3319    1499    1589     541       0     344     768     498     466     496     520       0       0     404    1275     444     242       0     323    2617     753   57137       0   12471     462     599     361    1477    2186    1118    2291    2303    1011     261    2271     409     342     147     387     303     414     203       4     223     796       0       0     327    3163     563     372     983       5    1754     826    2300    1224    1109     643     520     459     912     416     566     551     325     940     664      20     199     329    1277    1769     145      63    1577    1218     156     365   99794     694     112    3864    1149      92     461       8     557      40     204      12     647     216     175      66      34     265     526     400       1      34     895     246     371    6934     602       0    3418     195     689       0     125    1203     227     319    1795    1622     528     133     451     330     246     223    1129    2179    4949    2125     336     242       0       1      27   52031       0     910    6485     184     260    1360   35163     458     520      74    4503     806      21      55       2      30      29     959    1862    1313     265    4410    1088    5485     229    6843     196     211     657     131     392   11779      20      34     133    1114      18     611    5964      53       3      17      59      88     561     626     381     704     642     468     268     334    1253     788     431    2034      80    1382    5481     997     816    5246      18     103    1865    1126     337     501      39   18965     384     255     705     357     815    1164    1198     576     655     468     123     198     960     282     397    4041      95     378     257     557    1619     961     253     167     154     203    4567    1084     453     370     307     263    1170     737     667    2527     874     494    1191     224     115     168    1125     226     517    1179     137      99     232     531    2188     477     296     769     239     110     316     499      62     230    1644     760    1048     470     788     495     741     207       9    1123       1     617     194     308      39    3034      36  169034     635     162    6638     118     217     448   11876     176   19833     123     622    1018     504     777    4880     424     272     221     378    5660    1122     472    1107    1530    1422     939    4207     376     277     118    9965     561     926     160    2841    1017     214     204    5276      97     143      33    3787     366    3982     787     283     157     864     527     469     311     252    1528     813     331     303     265     656     277     562     259     197     195     377     230     170   73287     122    1745     107       0       0       0       0       0       0      11      15      27      20    1683       0      53      70      13       4      26     149    1837     237    2723     424     140       0     439     575     636     171    5716     588      11      40      13     635     181     135     163     985     150    8874       0       0       0       0       0     507     365     536      36     359     736       0       0       0       0       0       0       0       0       0       0     193     447     112     103    1109     759    2855    2656     212     277     195     207     373     204     118     418      96     189     309     301    2385     208     311     457     195      94    2827     211    1624     106    1436     324    1098     792     394    2826     140     166    9736     367     184     255    2655     212     473     993      79     435     366     406     413     500     814     829     172     219     169    1185     243     232     317    1021     741    1210     891    2250    1047     760     284    1048     567     282     117      54     217     203    1434     104    8543     215     384     862      33    1679       0       0       0    2925     653     300     710    1220       0       0     727     436   10295    6833     510       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0     183     393     252    2324     437     112     253      54    1325     231      94     276     607      82     111     244      39     224     782     280     520     429     269      88     850     240     625     139    2908     616      99      98     631     719     693     478     133     735     294     540     418     171     304     258     670     187     493     147     474     212    1667    6283     349    2616     421     236     259     379     291     386     678    1163     159     432    1081     169     772    1096    1339    2019    4981     366    9368     502     356     416     680     528     499     306    1016     398     187     277    1128     830     409    2786    1245    1428     172     280     351     228     496     637    1846    1224     385     373     408     277     454     599     239     291     558     450     405     339     544      65     359     328     999    1324     194    2365     490     365      83     905     702     223     218    1582     907     260    1429      68     959    1087    1295     592     801     679     312     237     859     384     451     432     221     413     301     325     475     607     403     536     680     139     447     509      14       0       0  394639     561     166       0     102      37    2166      48    2213    3222     786     818     218     136       0    1253       0       0       0    1712      31       0       5       0     989     244     231      20      72     213     497     310    3242      10     203      25     208    1404     633     127     149     309    7712     379    2402     519     469      39     276     914     234     131    1380       8     199     178      22    2540     142      48    1675      40     323     790    1305     538    2367       0       0       0       0       0       0     132      29       0       0       0     137     181     910    1289     710     257     400     924     230     835     175     739     196     957     432     208     445     626     512     682     609     926     214     212     809     942     933     449     321     178     331     147     333     698     168     315     374     131      67     344     129    6151     105     723     226      47     175      84      64     167     689     522     144      67       1       8     156       0  125531       0       0       0       0       0       0       0       0     204     236     189     178     427     151       0     296       0       0      86    1917     160     232     151     390     371     238     337      40     100      79     275     157      40    1089     126     586     662     396     210     199     700     223    2983     828     137      45     176     429     235     250     918    5721      39     218     384      41     479    3492      74     188     112     132      99     285     156     252     623     276     316     243    2301     301     889     569     211     452    2501     458     126     296    1637    1419     754     904      63     251    1539    1971    2510    1342     378     739     182    1633     418    1081     139    1941      92     773     161     228    1529     192     226     910     250     404    2063     972    6625    2090     594     320    2496     415    1888     781     289     229    1427      49      25     622     333     210    2689     439    4411    1013     869      32     997     305    1727     173    1117     447     906    1319    2231     635     410    1001     473     106    1955     451     477     302     226    3591      51     423     527    3583    1486    2300      51     635     774     219     130     687    2532     420    1152    1143     248     226     239     175     303     491    1262     201     205     399     556     462     686     201     519     207     255     273      77     112     691     401     480     348     397     449    1036    1300     647    1449     500     856     279     424     870     678      87     308     196      45     398     401    1124     670     249     656     322     245     303     893     694    1115     243     158     175     177    1053     158     960     701     667     391     326     260     235     255    1218     147     348     245     887     488     742     396     445    1256     427     211    1468     692     340    1428     430     533     414     136     269    1333     399     548     414     257     163     150  264500     207     113     595     461     205    1618       2      34     390     228      57    1745     467      20     355     363      63      10      24      52    2081     910     642     490     228    2806       0     843       0       0     276   13661       0       0      74     109     647     289     714       0     125     253    1719    6365    1463     389      84    4843    3740      23    1457    3525    1118    1884    4489    2220     146    2899     533    6252     450     125    1246    1084    1254    1323     569     427    2516     428      59     945     241     129     544      69     495     201     598     333    1681     759     989    2120     748     301    1826     273    1913     621     298     442      47     555      10     107     160     128     307     698    1375    1101    1049     299     378     238     457     228    3123    1113    4178      61       0     300      51       0      34     405      38     664     131     218     397     334     292     373     294    1514     479    1904     226    1716    2094     453    3510     279     412     386     239      70      49    1223     247     444     388    2423     200    1115    1120     625     339     507     349     162    2517     164     287     321     491     199     503     213     569     109      77     224     134     289     617    3603     508     571     308     535     264     270     245    1117     172     196     842     376     573     311     281     313     452     304     308    2950     931     723     883    1074     269     443     405     373     324    1203     327    1970     480     813     154     202     198     668      72     156      26    3487     383      46       0  412492     171     577     527    1751     927     660    1714     661    1576     121     899    1674    3076     272     109    1084     366      78     131    7892     327       0       0       0       0       0      49     307       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       0
+    6347 objects read
+
+Closing GIS Layer 5 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_mat_001_R.shp]...
+
+tgc>> Read Grid Zpts == grid\Original10DEM.asc
+out>> Read Grid Zpts....Reading XF file...
+
+Processing 16058399 temporary points...
+Assigned 16058399 Zpts an elevation.
+...16058399 Zpts read
+
+tgc>> Read GIS Z Shape == \gis\2d_zsh_Roadways_at_Bridges_001_L.shp  | \gis\2d_zsh_Roadways_at_Bridges_001_P.shp
+out>> Read GIS Z Shape...Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_zsh_Roadways_at_Bridges_001_L.shp
+GIS Layer assigned ID of 5
+ShapefileX Code: 9994  Length: 1858
+ShapefileX Version: 1000  Type: 3
+Shapefile Code: 9994  Length: 36938
+Shapefile Version: 1000  Type: 3
+DBF file contains 452 records.
+4 DBF Fields (Name [#/Type/Length]): Z [1/N/2]  dZ [2/N/1]  Shape_Widt [3/N/1]  Shape_Opti [4/C/1]  
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_zsh_Roadways_at_Bridges_001_P.shp
+GIS Layer assigned ID of 6
+ShapefileX Code: 9994  Length: 3666
+ShapefileX Version: 1000  Type: 1
+Shapefile Code: 9994  Length: 12706
+Shapefile Version: 1000  Type: 1
+DBF file contains 904 records.
+4 DBF Fields (Name [#/Type/Length]): Z [1/F/5]  dZ [2/N/1]  Shape_Widt [3/N/1]  Shape_Opti [4/C/1]  
+Layer 1: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_zsh_Roadways_at_Bridges_001_L.shp
+Layer 2: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_zsh_Roadways_at_Bridges_001_P.shp
+Read 904 elevation points.
+
+No TIN Lines found.
+Processing Read GIS Shape objects...
+
+Rewinding GIS Layer 5...
+DBF file contains 452 records.
+4 DBF Fields (Name [#/Type/Length]): Z [1/N/2]  dZ [2/N/1]  Shape_Widt [3/N/1]  Shape_Opti [4/C/1]  
+     452 objects processed.
+
+Rewinding GIS Layer 6...
+DBF file contains 904 records.
+4 DBF Fields (Name [#/Type/Length]): Z [1/F/5]  dZ [2/N/1]  Shape_Widt [3/N/1]  Shape_Opti [4/C/1]  
+     904 objects processed.
+
+Closing GIS Layer 5 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_zsh_Roadways_at_Bridges_001_L.shp]...
+
+Closing GIS Layer 6 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_zsh_Roadways_at_Bridges_001_P.shp]...
+
+tgc>> Read GIS Z Shape == \gis\2d_zsh_StreamZLines_001_L.shp | \gis\2d_zsh_StreamZLines_001_P.shp
+out>> Read GIS Z Shape...Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_zsh_StreamZLines_001_L.shp
+GIS Layer assigned ID of 5
+ShapefileX Code: 9994  Length: 3670
+ShapefileX Version: 1000  Type: 3
+Shapefile Code: 9994  Length: 362318
+Shapefile Version: 1000  Type: 3
+DBF file contains 905 records.
+4 DBF Fields (Name [#/Type/Length]): Z [1/N/2]  dZ [2/N/1]  Shape_Widt [3/N/3]  Shape_Opti [4/C/1]  
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_zsh_StreamZLines_001_P.shp
+GIS Layer assigned ID of 6
+ShapefileX Code: 9994  Length: 3674
+ShapefileX Version: 1000  Type: 1
+Shapefile Code: 9994  Length: 12734
+Shapefile Version: 1000  Type: 1
+DBF file contains 906 records.
+4 DBF Fields (Name [#/Type/Length]): Z [1/F/9]  dZ [2/N/1]  Shape_Widt [3/N/1]  Shape_Opti [4/C/1]  
+Layer 1: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_zsh_StreamZLines_001_L.shp
+Layer 2: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_zsh_StreamZLines_001_P.shp
+Read 906 elevation points.
+
+No TIN Lines found.
+Processing Read GIS Shape objects...
+
+Rewinding GIS Layer 5...
+DBF file contains 905 records.
+4 DBF Fields (Name [#/Type/Length]): Z [1/N/2]  dZ [2/N/1]  Shape_Widt [3/N/3]  Shape_Opti [4/C/1]  
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 1078 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 4714 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 1979 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 2216 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 3165 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 267 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 283 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 440 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 619 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 70 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 9333 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 35 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 20 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 260 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 898 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 550 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 1673 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 565 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 780 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 155 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 1917 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 92 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 1233 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 114 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 1374 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 291 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 15 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 24 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 197 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 1125 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 405 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 88 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 24 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 134 Zpts
+Allocating RAM for 3D breakline analysis...
+
+Z Wide Line Shape modified 172 Zpts
+     905 objects processed.
+
+Rewinding GIS Layer 6...
+DBF file contains 906 records.
+4 DBF Fields (Name [#/Type/Length]): Z [1/F/9]  dZ [2/N/1]  Shape_Widt [3/N/1]  Shape_Opti [4/C/1]  
+     906 objects processed.
+
+Closing GIS Layer 5 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_zsh_StreamZLines_001_L.shp]...
+
+Closing GIS Layer 6 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_zsh_StreamZLines_001_P.shp]...
+...Finished Reading Geometry File
+ 
+
+Domain_001: Searching .tcf file for data ... 
+including scenario "GPU"
+finished including scenario "GPU"
+including scenario "50m"
+finished including scenario "50m"
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_po_006_P.shp
+GIS Layer assigned ID of 5
+ShapefileX Code: 9994  Length: 74
+ShapefileX Version: 1000  Type: 1
+Shapefile Code: 9994  Length: 134
+Shapefile Version: 1000  Type: 1
+DBF file contains 6 records.
+3 DBF Fields (Name [#/Type/Length]): Type [1/C/20]  Label [2/C/30]  Comment [3/C/250]  
+
+Rewinding RL / PO layer to look for regions, C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_po_006_P.shp
+
+Rewinding GIS Layer 5...
+DBF file contains 6 records.
+3 DBF Fields (Name [#/Type/Length]): Type [1/C/20]  Label [2/C/30]  Comment [3/C/250]  
+
+Closing GIS Layer 5 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_po_006_P.shp]...
+skipping definition for " Sandy"
+skipping definition for " Recorded"
+found definition for "Forecast"
+finished definition for "Forecast"
+...Finished Searching .tcf File
+Identifying cells within user defined output zones...
+...Finished identifying cells within user defined output zones...
+
+Setting instability water level...
+...Instability water level limit set to   148.879
+
+Assigning any Variable Z Shape 1D Trigger Nodes...
+...Finished
+
+...direct data input to C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\Logic_Scenarios_Variables_006.trd
+including scenario "GPU"
+finished including scenario "GPU"
+including scenario "50m"
+finished including scenario "50m"
+...direct data input to C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\VU_50m_004.tef
+skipping definition for " Sandy"
+skipping definition for " Recorded"
+found definition for "Forecast"
+
+Reading rainfall grid information from .nc file...C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\forecast_rainfall\rainfall_forecast.nc
+
+No time variable name specified for .nc file, using "time".
+
+No rainfall variable name specified for .nc file, using "rainfall_depth".
+
+Getting dimensions from netdf file.
+Dimension: time
+Dimension: y
+Dimension: x
+
+Finished Getting dimensions from netdf file.
+
+Getting variables from netdf file.
+Variable 1 name: x
+Variable 2 name: y
+Variable 3 name: rainfall_depth
+Variable 4 name: time
+End of variables, found 4 variables
+
+Found rainfall variable.
+
+Found time variable.
+
+Getting times from netcdf file.
+
+Number of times: 19
+Reading times.
+Times: 
+    1 Time       0.000
+    2 Time       1.000
+    3 Time       2.000
+    4 Time       3.000
+    5 Time       4.000
+    6 Time       5.000
+    7 Time       6.000
+    8 Time       7.000
+    9 Time       8.000
+   10 Time       9.000
+   11 Time      10.000
+   12 Time      11.000
+   13 Time      12.000
+   14 Time      13.000
+   15 Time      14.000
+   16 Time      15.000
+   17 Time      16.000
+   18 Time      17.000
+   19 Time      18.000
+
+Number of columns: 44
+Reading x coords.
+
+Number of rows: 37
+Reading y coords.
+
+Rainfall Grid Origin (lower left) == 230832.7446, 4021153.357
+
+Rainfall Grid Cell Size == 2759.32949
+Found 19 rainfall grids
+
+finished definition for "Forecast"
+...direct data input to C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\Logic_Scenarios_Variables_006.trd
+including scenario "GPU"
+finished including scenario "GPU"
+including scenario "50m"
+finished including scenario "50m"
+...direct data input to C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\VU_50m_004.tef
+skipping definition for " Sandy"
+skipping definition for " Recorded"
+found definition for "Forecast"
+finished definition for "Forecast"
+...direct data input to C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\Logic_Scenarios_Variables_006.trd
+including scenario "GPU"
+finished including scenario "GPU"
+including scenario "50m"
+finished including scenario "50m"
+...direct data input to C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\VU_50m_004.tef
+skipping definition for " Sandy"
+skipping definition for " Recorded"
+found definition for "Forecast"
+finished definition for "Forecast"
+
+________________________________________________________________________________
+CPU Time:        0:00:09  [0.002752 h]
+Clock Time:      0:00:14  [0.003889 h]
+
+Domain_001: Reading Boundary File: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\VU_GRID_RF_003.tbc
+
+READING Boundary Conditions:
+
+            BC ID    nbc    nht    nhs    nhq    nqt    nqc    nvt    nvc    nwp    nst    nsh    nsx    nhx   nvgt
+Requested:           169    158      0      0      0      0      0      0      0     11      0      0      0      0
+
+
+Allocating additional 9032 Kb of temporary processing of boundary regions.
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_bc_003_L.shp
+GIS Layer assigned ID of 5
+ShapefileX Code: 9994  Length: 54
+ShapefileX Version: 1000  Type: 3
+Shapefile Code: 9994  Length: 110
+Shapefile Version: 1000  Type: 3
+DBF file contains 1 records.
+8 DBF Fields (Name [#/Type/Length]): Type [1/C/2]  Flags [2/C/3]  Name [3/C/100]  f [4/N/16]  d [5/N/16]  td [6/N/16]  a [7/N/16]  b [8/N/16]  
+Number of Input Layers: 1
+Input Layer 1: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_bc_003_L.shp
+...Reading coordinates of any 1D connections from Layer 1
+Found     0 1D connections
+
+Rewinding GIS Layer 5...
+DBF file contains 1 records.
+8 DBF Fields (Name [#/Type/Length]): Type [1/C/2]  Flags [2/C/3]  Name [3/C/100]  f [4/N/16]  d [5/N/16]  td [6/N/16]  a [7/N/16]  b [8/N/16]  
+
+Processing TUFLOW "HT" BC with name "DownStreamBC"...
+Opening Database...
+.Found database line: DownStreamBC,Forecast_DS_BC.csv,DownStreamBC - Time (hrs),DownStreamBC - Wse (m),,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_DS_BC.csv.xf4 file is newer...it is
+Looking for data in columns 1, 2 of xf file.
+Extracting Data...
+...Finished Extracting Data
+Checking ascending order of Column 1...OK
+Applying time shift of ...................:       0.000
+Applying value addition factor of ........:       0.000
+Applying value multiplication factor of ..:       1.000
+Column 1 ranges from        0.000 to      200.000
+Column 2 ranges from        0.000 to        0.000
+
+Closing GIS Layer 5 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_bc_003_L.shp]...
+            BC ID    nbc    nht    nhs    nhq    nqt    nqc    nvt    nvc    nwp    nst    nsh    nsx    nhx   nvgt
+     Read:      0    158    158      0      0      0      0      0      0      0      0      0      0      0      0
+Requested:           169    158      0      0      0      0      0      0      0     11      0      0      0      0
+
+Checking all connection objects are used...
+...Finished.
+
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_sa_external_inflows_001_R.shp
+GIS Layer assigned ID of 5
+ShapefileX Code: 9994  Length: 94
+ShapefileX Version: 1000  Type: 5
+Shapefile Code: 9994  Length: 798
+Shapefile Version: 1000  Type: 5
+DBF file contains 11 records.
+1 DBF Fields (Name [#/Type/Length]): Name [1/C/100]  
+      24      44       5      83       5       4      26      78      14      20      77
+
+Closing GIS Layer 5 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\model\gis\2d_sa_external_inflows_001_R.shp]...
+...Found    11 new SA/RF time-series boundaries. Total =     11
+Opening Database...
+.Found database line: 1_42C,Forecast_RF_Point.ts1,,1_42C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+Extracting XF (TS1) Hydrograph: 1_42C from column 3 and rows 1 to 1336
+Checking ascending order of Column 1...OK
+Applying time shift of ...................:       0.000
+Applying value addition factor of ........:       0.000
+Applying value multiplication factor of ..:       1.000
+Column 1 ranges from        0.000 to      333.750
+Column 2 ranges from       40.000 to       40.000
+Opening Database...
+.Found database line: 2_41C,Forecast_RF_Point.ts1,,2_41C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+Extracting XF (TS1) Hydrograph: 2_41C from column 4 and rows 1 to 1336
+Checking ascending order of Column 1...OK
+Applying time shift of ...................:       0.000
+Applying value addition factor of ........:       0.000
+Applying value multiplication factor of ..:       1.000
+Column 1 ranges from        0.000 to      333.750
+Column 2 ranges from       18.000 to       18.000
+Opening Database...
+.Found database line: 3_40C,Forecast_RF_Point.ts1,,3_40C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+Extracting XF (TS1) Hydrograph: 3_40C from column 5 and rows 1 to 1336
+Checking ascending order of Column 1...OK
+Applying time shift of ...................:       0.000
+Applying value addition factor of ........:       0.000
+Applying value multiplication factor of ..:       1.000
+Column 1 ranges from        0.000 to      333.750
+Column 2 ranges from       12.000 to       12.000
+Opening Database...
+.Found database line: 4_39C,Forecast_RF_Point.ts1,,4_39C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+Extracting XF (TS1) Hydrograph: 4_39C from column 6 and rows 1 to 1336
+Checking ascending order of Column 1...OK
+Applying time shift of ...................:       0.000
+Applying value addition factor of ........:       0.000
+Applying value multiplication factor of ..:       1.000
+Column 1 ranges from        0.000 to      333.750
+Column 2 ranges from       78.000 to       78.000
+Opening Database...
+.Found database line: 5_38C,Forecast_RF_Point.ts1,,5_38C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+Extracting XF (TS1) Hydrograph: 5_38C from column 7 and rows 1 to 1336
+Checking ascending order of Column 1...OK
+Applying time shift of ...................:       0.000
+Applying value addition factor of ........:       0.000
+Applying value multiplication factor of ..:       1.000
+Column 1 ranges from        0.000 to      333.750
+Column 2 ranges from       64.000 to       64.000
+Opening Database...
+.Found database line: 6_44C,Forecast_RF_Point.ts1,,6_44C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+Extracting XF (TS1) Hydrograph: 6_44C from column 8 and rows 1 to 1336
+Checking ascending order of Column 1...OK
+Applying time shift of ...................:       0.000
+Applying value addition factor of ........:       0.000
+Applying value multiplication factor of ..:       1.000
+Column 1 ranges from        0.000 to      333.750
+Column 2 ranges from       17.000 to       17.000
+Opening Database...
+.Found database line: 7_37C,Forecast_RF_Point.ts1,,7_37C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+Extracting XF (TS1) Hydrograph: 7_37C from column 9 and rows 1 to 1336
+Checking ascending order of Column 1...OK
+Applying time shift of ...................:       0.000
+Applying value addition factor of ........:       0.000
+Applying value multiplication factor of ..:       1.000
+Column 1 ranges from        0.000 to      333.750
+Column 2 ranges from       32.000 to       32.000
+Opening Database...
+.Found database line: 8_43C,Forecast_RF_Point.ts1,,8_43C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+Extracting XF (TS1) Hydrograph: 8_43C from column 10 and rows 1 to 1336
+Checking ascending order of Column 1...OK
+Applying time shift of ...................:       0.000
+Applying value addition factor of ........:       0.000
+Applying value multiplication factor of ..:       1.000
+Column 1 ranges from        0.000 to      333.750
+Column 2 ranges from       27.000 to       27.000
+Opening Database...
+.Found database line: 9_36c,Forecast_RF_Point.ts1,,9_36c,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+Extracting XF (TS1) Hydrograph: 9_36C from column 11 and rows 1 to 1336
+Checking ascending order of Column 1...OK
+Applying time shift of ...................:       0.000
+Applying value addition factor of ........:       0.000
+Applying value multiplication factor of ..:       1.000
+Column 1 ranges from        0.000 to      333.750
+Column 2 ranges from       10.000 to       10.000
+Opening Database...
+.Found database line: 10_35C,Forecast_RF_Point.ts1,,10_35C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+Extracting XF (TS1) Hydrograph: 10_35C from column 1 and rows 1 to 1336
+Checking ascending order of Column 1...OK
+Applying time shift of ...................:       0.000
+Applying value addition factor of ........:       0.000
+Applying value multiplication factor of ..:       1.000
+Column 1 ranges from        0.000 to      333.750
+Column 2 ranges from       12.100 to       12.100
+Opening Database...
+.Found database line: 11_34C,Forecast_RF_Point.ts1,,11_34C,,,,,
+
+Checking if C:\Users\Administrator\Desktop\floodWarningmodelPrototype\bc_dbase\xf\Forecast_RF_Point.ts1.xf4 file is newer...it is
+Extracting XF (TS1) Hydrograph: 11_34C from column 2 and rows 1 to 1336
+Checking ascending order of Column 1...OK
+Applying time shift of ...................:       0.000
+Applying value addition factor of ........:       0.000
+Applying value multiplication factor of ..:       1.000
+Column 1 ranges from        0.000 to      333.750
+Column 2 ranges from       21.000 to       21.000
+            BC ID    nbc    nht    nhs    nhq    nqt    nqc    nvt    nvc    nwp    nst    nsh    nsx    nhx   nvgt
+     Read:      0    169    158      0      0      0      0      0      0      0     11      0      0      0      0
+Requested:           169    158      0      0      0      0      0      0      0     11      0      0      0      0
+
+Checking all connection objects are used...
+...Finished.
+
+
+    Final:           169    158      0      0      0      0      0      0      0     11      0      0      0      0
+            BC ID    nbc    nht    nhs    nhq    nqt    nqc    nvt    nvc    nwp    nst    nsh    nsx    nhx   nvgt
+
+
+De-allocating temporary processing of boundary regions.
+
+...Finished Reading Boundary File for Domain Domain_001
+
+________________________________________________________________________________
+CPU Time:        0:00:10  [0.002812 h]
+Clock Time:      0:00:14  [0.003889 h]
+
+Domain_001: Initialising 2D Data (Stage 1)...
+
+Completing unit conversions...
+
+Setting up linear and spline interpolation tables...
+   HT Boundaries...  158
+   HQ Boundaries...    0
+   QT Boundaries...    0
+   QTA Boundaries...    0
+   ST Boundaries...   11
+   SH and SD Boundaries...    0
+   VG Boundaries...    0
+   VT Boundaries...    0
+   WT Boundaries...    0
+
+Checking Material and Manning's n values...
+
+Setting default computational array values...
+
+...Finished Initialising Data (Stage 1) for Domain Domain_001
+
+________________________________________________________________________________
+CPU Time:        0:00:11  [0.003254 h]
+Clock Time:      0:00:15  [0.004167 h]
+
+Domain_001: Initialising 2D Data (Stage 2)...
+
+Assigning 2D cell codes...
+
+Pre-processing any SA regions...
+
+Setting invert levels for distributing SX flows...
+
+Setting flow constriction lids...
+
+Initialising any tgc FC obverts...
+
+Checking storage reduction factors...
+
+Setting initial wet/dry flags...
+
+Pre-processing bed resistance values...
+
+Checking for any uninitialised Zpt values...
+
+...Finished Initialising Data (Stage 2) for Domain Domain_001
+
+________________________________________________________________________________
+
+Domain_001: Checking 2D Input Data...
+...Finished Checking Input Data for Domain Domain_001
+
+Checking any 1D/2D and 2D/2D Link Elevations...
+...Finished.
+
+________________________________________________________________________________
+
+Domain_001: Setting up any 2D structure flow group and reporting location links... 
+...Finished setting up any 2D structure flow group and reporting location links
+
+Found a total of 0 structure groups.
+
+________________________________________________________________________________
+
+Writing any remaining check files...
+...Finished writing any remaining check files
+
+Checking Zpt values are within Zpt Range Check values of -9998.000 and 99998.000...
+
+Zpts range from -18.875 to 125.606 m.
+
+...Finished.  All active Zpt values are within Zpt Range Check.
+
+Isolating redundant perimeter sections of 2D domain Domain_001...
+...Reduced computational grid by 2%.  Now extends from [14,8] to [2339,1908].
+...Reduced output grid by 2%.  Now extends from [14,8] to [2339,1908].
+
+________________________________________________________________________________
+CPU Time:        0:00:14  [0.003935 h]
+Clock Time:      0:00:18  [0.005 h]
+
+Processing 1D/2D mesh and writing mesh file(s) where applicable...
+...Processing 2D Domain Domain_001
+
+Allocating 90325Kb memory for temporary mesh node arrays...
+Processing mesh nodes for domain...    100000    200000    300000    400000    500000    600000    700000    800000    900000   1000000   1100000   1200000   1300000   1400000   1500000   1600000   1700000   1800000   1900000   2000000   2100000   2200000   2300000
+Processing cell centre nodes for domain...
+Processing mesh elements for domain...    100000    200000    300000    400000    500000    600000    700000    800000    900000   1000000   1100000   1200000   1300000   1400000   1500000   1600000   1700000   1800000   1900000   2000000   2100000   2200000   2300000
+...found 2310215 cells and 4627713 nodes
+
+Mesh statistics for Output Zone 
+  Number 1D WLL Elements:            0
+  Number 1D WLL Nodes:               0
+  Number 2D Cells:             2310215
+  Number 2D Mesh Elements:     9240860
+  Number 2D Mesh Nodes:        4627713
+
+...Finished Writing 2DM File
+
+
+No check DEMs requested.
+
+Calculating grid interpolation factors...
+Element:     10000    20000    30000    40000    50000    60000    70000    80000    90000   100000   110000   120000   130000   140000   150000   160000   170000   180000   190000   200000   210000   220000   230000   240000   250000   260000   270000   280000   290000   300000   310000   320000   330000   340000   350000   360000   370000   380000   390000   400000   410000   420000   430000   440000   450000   460000   470000   480000   490000   500000   510000   520000   530000   540000   550000   560000   570000   580000   590000   600000   610000   620000   630000   640000   650000   660000   670000   680000   690000   700000   710000   720000   730000   740000   750000   760000   770000   780000   790000   800000   810000   820000   830000   840000   850000   860000   870000   880000   890000   900000   910000   920000   930000   940000   950000   960000   970000   980000   990000  1000000  1010000  1020000  1030000  1040000  1050000  1060000  1070000  1080000  1090000  1100000  1110000  1120000  1130000  1140000  1150000  1160000  1170000  1180000  1190000  1200000  1210000  1220000  1230000  1240000  1250000  1260000  1270000  1280000  1290000  1300000  1310000  1320000  1330000  1340000  1350000  1360000  1370000  1380000  1390000  1400000  1410000  1420000  1430000  1440000  1450000  1460000  1470000  1480000  1490000  1500000  1510000  1520000  1530000  1540000  1550000  1560000  1570000  1580000  1590000  1600000  1610000  1620000  1630000  1640000  1650000  1660000  1670000  1680000  1690000  1700000  1710000  1720000  1730000  1740000  1750000  1760000  1770000  1780000  1790000  1800000  1810000  1820000  1830000  1840000  1850000  1860000  1870000  1880000  1890000  1900000  1910000  1920000  1930000  1940000  1950000  1960000  1970000  1980000  1990000  2000000  2010000  2020000  2030000  2040000  2050000  2060000  2070000  2080000  2090000  2100000  2110000  2120000  2130000  2140000  2150000  2160000  2170000  2180000  2190000  2200000  2210000  2220000  2230000  2240000  2250000  2260000  2270000  2280000  2290000  2300000  2310000  2320000  2330000  2340000  2350000  2360000  2370000  2380000  2390000  2400000  2410000  2420000  2430000  2440000  2450000  2460000  2470000  2480000  2490000  2500000  2510000  2520000  2530000  2540000  2550000  2560000  2570000  2580000  2590000  2600000  2610000  2620000  2630000  2640000  2650000  2660000  2670000  2680000  2690000  2700000  2710000  2720000  2730000  2740000  2750000  2760000  2770000  2780000  2790000  2800000  2810000  2820000  2830000  2840000  2850000  2860000  2870000  2880000  2890000  2900000  2910000  2920000  2930000  2940000  2950000  2960000  2970000  2980000  2990000  3000000  3010000  3020000  3030000  3040000  3050000  3060000  3070000  3080000  3090000  3100000  3110000  3120000  3130000  3140000  3150000  3160000  3170000  3180000  3190000  3200000  3210000  3220000  3230000  3240000  3250000  3260000  3270000  3280000  3290000  3300000  3310000  3320000  3330000  3340000  3350000  3360000  3370000  3380000  3390000  3400000  3410000  3420000  3430000  3440000  3450000  3460000  3470000  3480000  3490000  3500000  3510000  3520000  3530000  3540000  3550000  3560000  3570000  3580000  3590000  3600000  3610000  3620000  3630000  3640000  3650000  3660000  3670000  3680000  3690000  3700000  3710000  3720000  3730000  3740000  3750000  3760000  3770000  3780000  3790000  3800000  3810000  3820000  3830000  3840000  3850000  3860000  3870000  3880000  3890000  3900000  3910000  3920000  3930000  3940000  3950000  3960000  3970000  3980000  3990000  4000000  4010000  4020000  4030000  4040000  4050000  4060000  4070000  4080000  4090000  4100000  4110000  4120000  4130000  4140000  4150000  4160000  4170000  4180000  4190000  4200000  4210000  4220000  4230000  4240000  4250000  4260000  4270000  4280000  4290000  4300000  4310000  4320000  4330000  4340000  4350000  4360000  4370000  4380000  4390000  4400000  4410000  4420000  4430000  4440000  4450000  4460000  4470000  4480000  4490000  4500000  4510000  4520000  4530000  4540000  4550000  4560000  4570000  4580000  4590000  4600000  4610000  4620000  4630000  4640000  4650000  4660000  4670000  4680000  4690000  4700000  4710000  4720000  4730000  4740000  4750000  4760000  4770000  4780000  4790000  4800000  4810000  4820000  4830000  4840000  4850000  4860000  4870000  4880000  4890000  4900000  4910000  4920000  4930000  4940000  4950000  4960000  4970000  4980000  4990000  5000000  5010000  5020000  5030000  5040000  5050000  5060000  5070000  5080000  5090000  5100000  5110000  5120000  5130000  5140000  5150000  5160000  5170000  5180000  5190000  5200000  5210000  5220000  5230000  5240000  5250000  5260000  5270000  5280000  5290000  5300000  5310000  5320000  5330000  5340000  5350000  5360000  5370000  5380000  5390000  5400000  5410000  5420000  5430000  5440000  5450000  5460000  5470000  5480000  5490000  5500000  5510000  5520000  5530000  5540000  5550000  5560000  5570000  5580000  5590000  5600000  5610000  5620000  5630000  5640000  5650000  5660000  5670000  5680000  5690000  5700000  5710000  5720000  5730000  5740000  5750000  5760000  5770000  5780000  5790000  5800000  5810000  5820000  5830000  5840000  5850000  5860000  5870000  5880000  5890000  5900000  5910000  5920000  5930000  5940000  5950000  5960000  5970000  5980000  5990000  6000000  6010000  6020000  6030000  6040000  6050000  6060000  6070000  6080000  6090000  6100000  6110000  6120000  6130000  6140000  6150000  6160000  6170000  6180000  6190000  6200000  6210000  6220000  6230000  6240000  6250000  6260000  6270000  6280000  6290000  6300000  6310000  6320000  6330000  6340000  6350000  6360000  6370000  6380000  6390000  6400000  6410000  6420000  6430000  6440000  6450000  6460000  6470000  6480000  6490000  6500000  6510000  6520000  6530000  6540000  6550000  6560000  6570000  6580000  6590000  6600000  6610000  6620000  6630000  6640000  6650000  6660000  6670000  6680000  6690000  6700000  6710000  6720000  6730000  6740000  6750000  6760000  6770000  6780000  6790000  6800000  6810000  6820000  6830000  6840000  6850000  6860000  6870000  6880000  6890000  6900000  6910000  6920000  6930000  6940000  6950000  6960000  6970000  6980000  6990000  7000000  7010000  7020000  7030000  7040000  7050000  7060000  7070000  7080000  7090000  7100000  7110000  7120000  7130000  7140000  7150000  7160000  7170000  7180000  7190000  7200000  7210000  7220000  7230000  7240000  7250000  7260000  7270000  7280000  7290000  7300000  7310000  7320000  7330000  7340000  7350000  7360000  7370000  7380000  7390000  7400000  7410000  7420000  7430000  7440000  7450000  7460000  7470000  7480000  7490000  7500000  7510000  7520000  7530000  7540000  7550000  7560000  7570000  7580000  7590000  7600000  7610000  7620000  7630000  7640000  7650000  7660000  7670000  7680000  7690000  7700000  7710000  7720000  7730000  7740000  7750000  7760000  7770000  7780000  7790000  7800000  7810000  7820000  7830000  7840000  7850000  7860000  7870000  7880000  7890000  7900000  7910000  7920000  7930000  7940000  7950000  7960000  7970000  7980000  7990000  8000000  8010000  8020000  8030000  8040000  8050000  8060000  8070000  8080000  8090000  8100000  8110000  8120000  8130000  8140000  8150000  8160000  8170000  8180000  8190000  8200000  8210000  8220000  8230000  8240000  8250000  8260000  8270000  8280000  8290000  8300000  8310000  8320000  8330000  8340000  8350000  8360000  8370000  8380000  8390000  8400000  8410000  8420000  8430000  8440000  8450000  8460000  8470000  8480000  8490000  8500000  8510000  8520000  8530000  8540000  8550000  8560000  8570000  8580000  8590000  8600000  8610000  8620000  8630000  8640000  8650000  8660000  8670000  8680000  8690000  8700000  8710000  8720000  8730000  8740000  8750000  8760000  8770000  8780000  8790000  8800000  8810000  8820000  8830000  8840000  8850000  8860000  8870000  8880000  8890000  8900000  8910000  8920000  8930000  8940000  8950000  8960000  8970000  8980000  8990000  9000000  9010000  9020000  9030000  9040000  9050000  9060000  9070000  9080000  9090000  9100000  9110000  9120000  9130000  9140000  9150000  9160000  9170000  9180000  9190000  9200000  9210000  9220000  9230000  9240000
+Finished calculating grid interpolation factors.
+
+Number of WARNINGs:    _messages layer =      45     Total =      45
+Number of CHECKs:      _messages layer =       0     Total =       0
+
+________________________________________________________________________________
+CPU Time:        0:00:32  [0.008974 h]
+Clock Time:      0:00:36  [0.01 h]
+Closing Time of Startup Summary...
+   Done
+
+......................................... Running TUFLOW GPU 2016-03 Solver
+
+
+Initialising GPU data...
+...Finished initialising GPU data
+
+Allocating 18065Kb memory for temporary GPU arrays Stage 1...
+
+Checking boundary data to be sent...
+...Finished checking boundary data to be sent to GPU
+
+Sending GPU .tlf filename...
+
+Identifying GPU solver...
+GPU Solver Build: 0.6.10
+
+Sending initialisation data to GPU...
+
+Found 4 usable GPU devices.
+GPU memory initialised and graphics card is compatible with GPU solver.
+GPU: Log file = C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008.gpu.tlf
+GPU: Version 0.6.10 - single precision - win64
+GPU: Interrogating CUDA enabled GPUs ...
+GPU: Found 4 CUDA enabled device(s)
+GPU: Device 0 has compute capability = 3.0
+GPU: Adding device 0 to list of available CUDA devices
+GPU: Device 1 has compute capability = 3.0
+GPU: Adding device 1 to list of available CUDA devices
+GPU: Device 2 has compute capability = 3.0
+GPU: Adding device 2 to list of available CUDA devices
+GPU: Device 3 has compute capability = 3.0
+GPU: Adding device 3 to list of available CUDA devices
+GPU: Hardware option = GPU
+GPU: Requested device 0 found in available device list
+GPU: Requested device 1 found in available device list
+GPU: Requested device 2 found in available device list
+GPU: Requested device 3 found in available device list
+GPU: Initialising model ...
+GPU: Setting units to [m s]
+GPU: Setting ny = 2351
+GPU: Padding ny to 2352
+GPU: Setting nx = 1921
+GPU: Selecting spatial scheme 3
+GPU: Selecting temporal scheme 4: fourth order time integration
+GPU: Setting display write interval = 100
+GPU: maximum step retries = 10
+GPU: Selecting spatial interpolation to first order (upwind)
+GPU: number of user defined depth thresholds = 0
+GPU: Number plot output times = 223
+GPU: Setting wet dry depth = 0.0002 m
+GPU: Setting nut_m = 0.500
+GPU: Setting nut_c = 0.050
+GPU: Eddie viscosity is on
+GPU: Setting dy =   50.00 m
+GPU: Setting dx =   50.00 m
+GPU: Start time =    0:00:00
+GPU: NaN counting on
+GPU: Adaptive time stepping on
+GPU: Target control number N = 1.000
+GPU: Initial time step = 1.000 s
+GPU: Setting uLimit =   15.0 m/s
+GPU: Setting floodDepthThreshold =   0.000 m
+GPU: Plot output start time =    0:00:00
+GPU: Plot output report interval = 300 s
+GPU: HT boundary form loss = 0
+GPU: HT viscosity multiplier = 1
+GPU: Store maximums on
+GPU: Model requires capture of hazard UH maximum
+GPU: No infiltration field requested
+GPU: Model has gridded rainfall source
+GPU: Model has hyetograph indexing
+GPU: nxInternal_[0] = 480
+GPU: nxExternal_[0] = 484
+GPU: deviceInternalOffset_[0] = 2
+GPU: deviceExternalOffset_[0] = 0
+GPU: Selecting deviceId 0
+GPU: Device 0 selected
+GPU: Device 0 total GPU memory = 4096 Mb, free memory = 3870 Mb
+GPU: Required memory = 99 Mb
+GPU: nxInternal_[1] = 480
+GPU: nxExternal_[1] = 484
+GPU: deviceInternalOffset_[1] = 482
+GPU: deviceExternalOffset_[1] = 480
+GPU: Selecting deviceId 1
+GPU: Device 1 selected
+GPU: Device 1 total GPU memory = 4096 Mb, free memory = 3870 Mb
+GPU: Required memory = 99 Mb
+GPU: nxInternal_[2] = 480
+GPU: nxExternal_[2] = 484
+GPU: deviceInternalOffset_[2] = 962
+GPU: deviceExternalOffset_[2] = 960
+GPU: Selecting deviceId 2
+GPU: Device 2 selected
+GPU: Device 2 total GPU memory = 4096 Mb, free memory = 3870 Mb
+GPU: Required memory = 99 Mb
+GPU: nxInternal_[3] = 477
+GPU: nxExternal_[3] = 481
+GPU: deviceInternalOffset_[3] = 1442
+GPU: deviceExternalOffset_[3] = 1440
+GPU: Selecting deviceId 3
+GPU: Device 3 selected
+GPU: Device 3 total GPU memory = 4096 Mb, free memory = 3870 Mb
+GPU: Required memory = 99 Mb
+GPU: Selecting deviceId 0
+GPU: Copying constant data to GPU ...
+GPU:     ... done
+GPU: Beginning GPU memory allocations ...
+GPU:     allocating nan counter ...
+GPU:     allocating a, z, h, u, v ...
+GPU:     allocating hyetographType hyetographSource1 hyetographSource2 ...
+GPU:     allocating uMax, vMax, eMax, tMax ...
+GPU:     allocating UHMax ...
+GPU:     allocating sh ...
+GPU:     allocating hyetographIndexLayer ...
+GPU:     allocating boundary data vectors ...
+GPU:     allocating hDot, uDot, vDot, h0, u0, v0, h_, u_, v_ ...
+GPU:     allocating dataReductionBlock ...
+GPU:     ... done memory allocations
+GPU: Selecting deviceId 1
+GPU: Copying constant data to GPU ...
+GPU:     ... done
+GPU: Beginning GPU memory allocations ...
+GPU:     allocating nan counter ...
+GPU:     allocating a, z, h, u, v ...
+GPU:     allocating hyetographType hyetographSource1 hyetographSource2 ...
+GPU:     allocating uMax, vMax, eMax, tMax ...
+GPU:     allocating UHMax ...
+GPU:     allocatingParameters initialised.
+...Finished sending initialisation data
+
+Sending model elevation data...
+...Finished sending model elevation data
+
+Sending any plot output locations...
+Finished sending any plot output locations
+
+Transferring material parameters...
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+...Finished transferring Material Parameters.
+
+Transferring Material IDs...
+ sh ...
+GPU:     allocating hyetographIndexLayer ...
+GPU:     allocating boundary data vectors ...
+GPU:     allocating hDot, uDot, vDot, h0, u0, v0, h_, u_, v_ ...
+GPU:     allocating dataReductionBlock ...
+GPU:     ... done memory allocations
+GPU: Selecting deviceId 2
+GPU: Copying constant data to GPU ...
+GPU:     ... done
+GPU: Beginning GPU memory allocations ...
+GPU:     allocating nan counter ...
+GPU:     allocating a, z, h, u, v ...
+GPU:     allocating hyetographType hyetographSource1 hyetographSource2 ...
+GPU:     allocating uMax, vMax, eMax, tMax ...
+GPU:     allocating UHMax ...
+GPU:     allocating sh ...
+GPU:     allocating hyetographIndexLayer ...
+GPU:     allocating boundary data vectors ...
+GPU:     allocating hDot, uDot, vDot, h0, u0, v0, h_, u_, v_ ...
+GPU:     allocating dataReductionBlock ...
+GPU:     ... done memory allocations
+GPU: Selecting deviceId 3
+GPU: Copying constant data to GPU ...
+GPU:     ... done
+GPU: Beginning GPU memory allocations ...
+GPU:     allocating nan counter ...
+GPU:     allocating a, z, h, u, v ...
+GPU:     allocating hyetographType hyetographSource1 hyetographSource2 ...
+GPU:     allocating uMax, vMax, eMax, tMax ...
+GPU:     allocating UHMax ...
+GPU:     allocating sh ...
+GPU:     allocating hyetographIndexLayer ...
+GPU:     allocating boundary data vectors ...
+GPU:     allocating hDot, uDot, vDot, h0, u0, v0, h_, u_, v_ ...
+GPU:     allocating dataReductionBlock ...
+GPU:     ... done memory allocations
+GPU:  ... done model initialisation
+GPU: z range = -18.874529 ... 99999.000000
+GPU: Input depth data positive (range = 0.000100 ... 18.874529)
+GPU: Copying z h u v data to device 0 ...
+GPU: Copying z h u v data to device 1 ...
+GPU: Copying z h u v data to device 2 ...
+GPU: Copying z h u v data to device 3 ...
+GPU: Number plot output points = 12
+GPU: Copying plot output data to device 0 ...
+GPU: Copying plot output data to device 1 ...
+GPU: Copying plot output data to device 2 ...
+GPU: Copying plot output data to device 3 ...
+GPU: Adding material number   1, fraction impervious = 0.0000, mannings n =  0.070 s/m^(1/3)
+GPU: Adding material number   2, fraction impervious = 0.0000, mannings n =  0.070 s/m^(1/3)
+GPU: Adding material number   3, fraction impervious = 0.0000, mannings n =  0.060 s/m^(1/3)
+GPU: Adding material number   4, fraction impervious = 0.0000, mannings n =  0.070 s/m^(1/3)
+GPU: Adding material number   5, fraction impervious = 0.0000, mannings n =  0.150 s/m^(1/3)
+GPU: Adding material number   6, fraction impervious = 0.0000, mannings n =  0.150 s/m^(1/3)
+GPU: Adding material number   7, fraction impervious = 0.0000, mannings n =  0.040 s/m^(1/3)
+GPU: Adding material number   8, fraction impervious = 0.0000, mannings n =  0.140 s/m^(1/3)
+GPU: Adding material number   9, fraction impervious = 0.0000, mannings n =  0.070 s/m^(1/3)
+GPU: Adding material number  10, fraction impervious = 0.0000, mannings n =  0.070 s/m^(1/3)
+GPU: Adding material number  11, fraction impervious = 0.0000, mannings n =  0.050 s/m^(1/3)
+GPU: Adding material number  12, fraction impervious = 0.0000, mannings n =  0.150 s/m^(1/3)
+GPU: Adding material number  13, fraction impervious = 0.0000, mannings n =  0.040 s/m^(1/3)
+GPU: Adding material number  14, fraction impervious = 0.0000, mannings n =  0.070 s/m^(1/3)
+GPU: Adding material number  15, fraction impervious = 0.0000, mannings n =  0.060 s/m^(1/3)
+GPU: Adding material number  16, fraction impervious = 0.0000, mannings n =  0.110 s/m^(1/3)
+GPU: Adding material number  17, fraction impervious = 0.0000, mannings n =  0.110 s/m^(1/3)
+GPU: Adding material number  18, fraction impervious = 0.0000, mannings n =  0.040 s/m^(1/3)
+GPU: Adding material number  19, fraction impervious = 0.0000, mannings n =  0.040 s/m^(1/3)
+GPU: Adding material number  20, fraction impervious = 0.0000, mannings n =  0.080 s/m^(1/3)
+GPU: Adding material number  21, fraction impervious = 0.0000, mannings n =  0.080 s/m^(1/3)
+GPU: Adding material number  22, fraction impervious = 0.0000, mannings n =  0.020 s/m^(1/3)
+GPU: Setting material layer ...
+GPU: Material typ...Finished transferring Material IDs.
+
+No Storage Reduction Factors (SRF) to transfer...
+
+No Cell Width Factors (CWF) to transfer...
+
+No Form Loss Coefficients (FLC) to transfer...
+
+No soils information to be transfered.
+
+No Time Output Cutoff Depth(s) to transfer...
+
+Layered Flow Constrictions not yet supported...
+
+No Variable Z Shapes to transfer...
+
+________________________________________________________________________________
+CPU Time:        0:00:35  [0.00972 h]
+Clock Time:      0:00:39  [0.01083 h]
+
+Sending boundary data to GPU...
+
+Allocating 216781Kb memory for temporary GPU arrays Stage 2...
+
+Sending active/inactive cell data to GPU...
+...Finished sending active/inactive cell data to GPU
+
+No stream order data to send to GPU.
+...Finished sending boundary data to GPU
+
+________________________________________________________________________________
+CPU Time:        0:00:35  [0.009754 h]
+Clock Time:      0:00:39  [0.01083 h]
+
+________________________________________________________________________________
+e   2 referenced by      14939 cells
+GPU: Material type   3 referenced by        197 cells
+GPU: Material type   4 referenced by    1009277 cells
+GPU: Material type   5 referenced by      62742 cells
+GPU: Material type   6 referenced by     591429 cells
+GPU: Material type   7 referenced by     234288 cells
+GPU: Material type   8 referenced by         95 cells
+GPU: Material type   9 referenced by       1976 cells
+GPU: Material type  11 referenced by       1029 cells
+GPU: Material type  12 referenced by    1633320 cells
+GPU: Material type  13 referenced by        953 cells
+GPU: Material type  14 referenced by        105 cells
+GPU: Material type  15 referenced by        276 cells
+GPU: Material type  16 referenced by       1898 cells
+GPU: Material type  17 referenced by      71166 cells
+GPU: Material type  18 referenced by       8741 cells
+GPU: Material type  19 referenced by       1723 cells
+GPU: Material type  20 referenced by       2366 cells
+GPU: Material type  21 referenced by     864891 cells
+GPU: Material type  22 referenced by      14860 cells
+GPU: Adding boundary level graph number     1, gpu_bc_type =  1, interpolationType = 2, nPoints =    2
+GPU: Adding hydrograph number     1, gpu_bc_type = 34, interpolationType = 2, nPoints = 1336
+GPU:                               triggerIndex =   0, triggerDirection = 0, triggerValue = 0
+GPU: Adding hydrograph number     2, gpu_bc_type = 34, interpolationType = 2, nPoints = 1336
+GPU:                               triggerIndex =   0, triggerDirection = 0, triggerValue = 0
+GPU: Adding hydrograph number     3, gpu_bc_type = 34, interpolationType = 2, nPoints = 1336
+GPU:                               triggerIndex =   0, triggerDirection = 0, triggerValue = 0
+GPU: Adding hydrograph number     4, gpu_bc_type = 34, interpolationType = 2, nPoints = 1336
+GPU:                               triggerIndex =   0, triggerDirection = 0, triggerValue = 0
+GPU: Adding hydrograph number     5, gpu_bc_type = 34, interpolationType = 2, nPoints = 1336
+GPU:                               triggerIndex =   0, triggerDirection = 0, triggerValue = 0
+GPU: Adding hydrograph number     6, gpu_bc_type = 34, interpolationType = 2, nPoints = 1336
+GPU:                               triggerIndex =   0, triggerDirection = 0, triggerValue = 0
+GPU: Adding hydrograph number     7, gpu_bc_type = 34, interpolationType = 2, nPoints = 1336
+GPU:                               triggerIndex =   0, triggerDirection = 0, triggerValue = 0
+GPU: Adding hydrograph number     8, gpu_bc_type = 34, interpolationType = 2, nPoints = 1336
+GPU:                               triggerIndex =   0, triggerDirection = 0, triggerValue = 0
+GPU: Adding hydrograph number     9, gpu_bc_type = 34, interpolationType = 2, nPoints = 1336
+GPU:                               triggerIndex =   0, triggerDirection = 0, triggerValue = 0
+GPU: Adding hydrograph number    10, gpu_bc_type = 34, interpolationType = 2, nPoints = 1336
+GPU:                               triggerIndex =   0, triggerDirection = 0, triggerValue = 0
+GPU: Adding hydrograph number    11, gpu_bc_type = 34, interpolationType = 2, nPoints = 1336
+GPU:                               triggerIndex =   0, triggerDirection = 0, triggerValue = 0
+GPU: Setting active layer ...
+GPU: Number active cells = 2310057
+GPU: Boundary level graph   1 referenced by        158 cells
+GPU: Number sealed wall cells = 2206056
+GPU: Adding hydrograph index layer 1 ...
+GPU: Hydrograph     1 referenced by         23 cells
+GPU: Hydrograph     2 referenced by         32 cells
+GPU: Hydrograph     3 referenced by          5 cells
+GPU: Hydrograph     4 referenced by         55 cells
+GPU: Hydrograph     5 referenced by          5 cells
+GPU: Hydrograph     6 referenced by          4 cells
+GPU: Hydrograph     7 referenced by         23 cells
+GPU: Hydrograph     8 referenced by         64 cells
+GPU: Hydrograph     9 referenced by         14 cells
+GPU: Hydrograph    10 referenced by         13 cells
+GPU: Hydrograph    11 referenced by         77 cells
+GPU: Zero hydrograph referenced by 4515956 cells
+GPU: Hyetograph[1] (type SA_DEFAULT|SA_PROPORTION_TO_DEPTH) referenced by 0 stream cells, finding seed cell of lowest elevation ...
+GPU:  ... lowest elevation of 1.92233 found at (1811, 1708) for Hyetograph[1] (type SA_DEFAULT/SA_PROPORTION_TO_DEPTH)
+GPU: Hyetograph[2] (type SA_DEFAULT|SA_PROPORTION_TO_DEPTH) referenced by 0 stream cells, finding seed cell of lowest elevation ...
+GPU:  ... lowest elevation of 5.07596 found at (1628, 1457) for Hyetograph[2] (type SA_DEFAULT/SA_PROPORTION_TO_DEPTH)
+GPU: Hyetograph[3] (type SA_DEFAULT|SA_PROPORTION_TO_DEPTH) referenced by 0 stream cells, finding seed cell of lowest elevation ...
+GPU:  ... lowest elevation of 14.4193 found at (1481, 1086) for Hyetograph[3] (type SA_DEFAULT/SA_PROPORTION_TO_DEPTH)
+GPU: Hyetograph[4] (type SA_DEFAULT|SA_PROPORTION_TO_DEPTH) referenced by 0 stream cells, finding seed cell of lowest elevation ...
+GPU:  ... lowest elevation of 35.6267 found at (1056, 561) for Hyetograph[4] (type SA_DEFAULT/SA_PROPORTION_TO_DEPTH)
+GPU: Hyetograph[5] (type SA_DEFAULT|SA_PROPORTION_TO_DEPTH) referenced by 0 stream cells, finding seed cell of lowest elevation ...
+GPU:  ... lowest elevation of 38.6736 found at (708, 680) for Hyetograph[5] (type SA_DEFAULT/SA_PROPORTION_TO_DEPTH)
+GPU: Hyetograph[6] (type SA_DEFAULT|SA_PROPORTION_TO_DEPTH) referenced by 0 stream cells, finding seed cell of lowest elevation ...
+GPU:  ... lowest elevation of 32.7405 found at (562, 860) for Hyetograph[6] (type SA_DEFAULT/SA_PROPORTION_TO_DEPTH)
+GPU: Hyetograph[7] (type SA_DEFAULT|SA_PROPORTION_TO_DEPTH) referenced by 0 stream cells, finding seed cell of lowest elevation ...
+GPU:  ... lowest elevation of 22.674 found at (506, 947) for Hyetograph[7] (type SA_DEFAULT/SA_PROPORTION_TO_DEPTH)
+GPU: Hyetograph[8] (type SA_DEFAULT|SA_PROPORTION_TO_DEPTH) referenced by 0 stream cells, finding seed cell of lowest elevation ...
+GPU:  ... lowest elevation of 20.9453 found at (445, 1033) for Hyetograph[8] (type SA_DEFAULT/SA_PROPORTION_TO_DEPTH)
+GPU: Hyetograph[9] (type SA_DEFAULT|SA_PROPORTION_TO_DEPTH) referenced by 0 stream cells, finding seed cell of lowest elevation ...
+GPU:  ... lowest elevation of 23 found at (351, 1169) for Hyetograph[9] (type SA_DEFAULT/SA_PROPORTION_TO_DEPTH)
+GPU: Hyetograph[10] (type SA_DEFAULT|SA_PROPORTION_TO_DEPTH) referenced by 0 stream cells, finding seed cell of lowest elevation ...
+GPU:  ... lowest elevation of 26.333 found at (246, 1380) for Hyetograph[10] (type SA_DEFAULT/SA_PROPORTION_TO_DEPTH)
+GPU: Hyetograph[11] (type SA_DEFAULT|SA_PROPORTION_TO_DEPTH) referenced by 0 stream cells, finding seed cell of lowest elevation ...
+GPU:  ... lowest elevation of 19.1249 found at (198, 1476) for Hyetograph[11] (type SA_DEFAULT/SA_PROPORTION_TO_DEPTH)
+GPU: Copying active index layer to device 0 memory ... 
+GPU: Copying stream order to 0 ...
+GPU: Copying 11 hyetographTypes to device 0 ...
+GPU: Copying boundaryLevelGraphTypes to device 0 ...
+GPU: Copying 1 hydrograph index layers to device 0 ...
+GPU: Copying 22 material types to device 0 ... 
+GPU: Copying switches (0x00040437) to device 0 memory ... 
+GPU: Copying active index layer to device 1 memory ... 
+GPU: Copying stream order to 1 ...
+GPU: Copying 11 hyetographTypes to device 1 ...
+GPU: Copying boundaryLevelGraphTypes to device 1 ...
+GPU: Copying 1 hydrograph index layers to device 1 ...
+GPU: Copying 22 material types to device 1 ... 
+GPU: Copying switches (0x00040437) to device 1 memory ... 
+GPU: Copying active index layer to device 2 memory ... 
+GPU: Copying stream order to 2 ...
+GPU: Copying 11 hyetographTypes to device 2 ...
+GPU: Copying boundaryLevelGraphTypes to device 2 ...
+GPU: Copying 1 hydrograph index layers to device 2 ...
+GPU: Copying 22 material types to device 2 ... 
+GPU: Copying switches (0x00040437) to device 2 memory ... 
+GPU: Copying active index layer to device 3 memory ... 
+GPU: Copying stream order to 3 ...
+GPU: Copying 11 hyetographTypes to device 3 ...
+GPU: Copying boundaryLevelGraphTypes to device 3 ...
+GPU: Copying 1 hydrograph index layers to device 3 ...
+GPU: Copying 22 material types to device 3 ... 
+GPU: Copying switches (0x0      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Checking TUFLOW Licence 1 (please wait)...Done.  Dongle 2943401.
+Checking TUFLOW Threads Licence 1 (please wait)...Done.  Dongle 2943401.
+Checking TUFLOW GPU Cards Licence 1 (please wait)...Done.  Dongle 2943401.
+Checking TUFLOW GPU Cards Licence 2 (please wait)...Done.  Dongle 2943401.
+Checking TUFLOW GPU Cards Licence 3 (please wait)...Done.  Dongle 2943401.
+Checking TUFLOW GPU Cards Licence 4 (please wait)...Done.  Dongle 2943401.
+Writing GPU Output at: 0:00:00  Clock Time: 0:00:39  CPU Time: 0:00:35
+Wet:        8550  Vol:                 0.0
+GPU Solver at time       0.000  GL*********
+Writing GPU Output at: 1:00:00  Clock Time: 0:01:10  CPU Time: 0:01:05
+Wet:        9352  Vol:          89082148.5
+GPU Solver at time       1.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 2:00:00  Clock Time: 0:01:41  CPU Time: 0:01:35
+Wet:     2310239  Vol:         125017454.8
+GPU Solver at time       2.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 3:00:00  Clock Time: 0:02:18  CPU Time: 0:02:13
+Wet:     2308069  Vol:         173553813.6
+GPU Solver at time       3.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 4:00:00  Clock Time: 0:02:56  CPU Time: 0:02:50
+Wet:     2275512  Vol:         194500868.6
+GPU Solver at time       4.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+0040437) to device 3 memory ... 
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:      iStep        time  maxNu  maxNc  maxNd  maxNh         nWet      vol          dt
+GPU:        100     0:07:53  0.114  1.570  0.050  0.585         8516    87437'      5.769
+GPU:        200     0:17:30  0.114  1.570  0.053  0.716         8672    87629'      5.769
+GPU:        300     0:27:07  0.110  1.570  0.056  0.420         8776    87820'      5.769
+GPU:        400     0:36:44  0.138  1.570  0.065  0.460         8894    88011'      5.769
+GPU:        500     0:46:21  0.141  1.570  0.065  0.324         9011    88202'      5.769
+GPU:        600     0:55:58  0.141  1.570  0.069  0.334         9114    88393'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:        700     1:05:35  0.141  1.570  0.073  0.358      2307951    91818'      5.769
+GPU:        800     1:15:12  0.135  1.570  0.070  0.207      2310055    97584'      5.769
+GPU:        900     1:24:48  0.129  1.570  0.067  0.192      2310054   103347'      5.769
+GPU:       1000     1:34:25  0.147  1.570  0.068  0.322      2310056   109108'      5.769
+GPU:      iStep        time  maxNu  maxNc  maxNd  maxNh         nWet      vol          dt
+GPU:       1100     1:44:02  0.137  1.571  0.074  0.163      2310056   114866'      5.769
+GPU:       1200     1:53:39  0.136  1.571  0.073  0.136      2310056   120623'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:       1300     2:03:16  0.134  1.571  0.073  0.179      2310057   127069'      5.769
+GPU:       1400     2:12:53  0.142  1.571  0.072  0.266      2310021   134858'      5.769
+GPU:       1500     2:22:30  0.148  1.571  0.074  0.103      2309887   142644'      5.769
+GPU:       1600     2:32:07  0.208  1.572  0.106  0.159      2309686   150426'      5.769
+GPU:       1700     2:41:44  0.196  1.572  0.099  0.097      2309372   158205'      5.769
+GPU:       1800     2:51:21  0.222  1.572  0.112  0.104      2308966   165979'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:       1900     3:00:58  0.191  1.572  0.114  0.464      2307741   173309'      5.769
+GPU:       2000     3:10:35  0.181  1.572  0.108  0.178      2305545   176670'      5.769
+GPU:      iStep        time  maxNu  maxNc  maxNd  maxNh         nWet      vol          dt
+GPU:       2100     3:20:12  0.174  1.572  0.100  0.162      2301344   180029'      5.769
+GPU:       2200     3:29:48  0.227  1.572  0.101  0.344      2295275   183387'      5.769
+GPU:       2300     3:39:25  0.237  1.572  0.119  0.103      2287258   186744'      5.769
+GPU:       2400     3:49:02  0.167  1.572  0.089  0.279      2277725   190101'      5.769
+GPU:       2500     3:58:39  0.184  1.572  0.099  0.792      2266759   193456'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:       2600     4:08:16  0.200  1.572  0.101  0.234      2251938   194093'      5.769
+GPU:       2700     4:17:53  0.146  1.572  0.129  0.260      2235154   194288'      5.769
+GPU:       2800     4:27:30  0.148  1.572  0.141  0.266Writing GPU Output at: 5:00:00  Clock Time: 0:03:33  CPU Time: 0:03:26
+Wet:     2200037  Vol:         195719709.1
+GPU Solver at time       5.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 6:00:00  Clock Time: 0:04:09  CPU Time: 0:04:03
+Wet:     2118332  Vol:         196736084.5
+GPU Solver at time       6.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 7:00:00  Clock Time: 0:04:46  CPU Time: 0:04:39
+Wet:     2047864  Vol:         197783221.3
+GPU Solver at time       7.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 8:00:00  Clock Time: 0:05:22  CPU Time: 0:05:15
+Wet:     2010833  Vol:         199014770.9
+GPU Solver at time       8.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 9:00:00  Clock Time: 0:05:59  CPU Time: 0:05:51
+Wet:     2033267  Vol:         202072090.2
+GPU Solver at time       9.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+      2215511   194483'      5.769
+GPU:       2900     4:37:07  0.188  1.572  0.136  0.488      2193811   194678'      5.769
+GPU:       3000     4:46:44  0.168  1.572  0.132  0.188      2170300   194874'      5.769
+GPU:      iStep        time  maxNu  maxNc  maxNd  maxNh         nWet      vol          dt
+GPU:       3100     4:56:21  0.211  1.572  0.126  0.413      2145218   195070'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:       3200     5:05:58  0.263  1.572  0.126  0.182      2119179   195244'      5.769
+GPU:       3300     5:15:35  0.182  1.572  0.120  0.213      2091862   195404'      5.769
+GPU:       3400     5:25:12  0.170  1.572  0.084  0.489      2063950   195565'      5.769
+GPU:       3500     5:34:48  0.170  1.572  0.084  0.173      2035820   195728'      5.769
+GPU:       3600     5:44:25  0.214  1.572  0.084  0.215      2007975   195893'      5.769
+GPU:       3700     5:54:02  0.192  1.572  0.084  0.443      1979985   196059'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:       3800     6:03:39  0.154  1.572  0.087  0.179      1951960   196224'      5.769
+GPU:       3900     6:13:16  0.144  1.572  0.084  0.293      1924268   196389'      5.769
+GPU:       4000     6:22:53  0.192  1.572  0.097  0.170      1896547   196555'      5.769
+GPU:      iStep        time  maxNu  maxNc  maxNd  maxNh         nWet      vol          dt
+GPU:       4100     6:32:30  0.143  1.572  0.084  0.579      1869271   196722'      5.769
+GPU:       4200     6:42:07  0.291  1.572  0.148  0.118      1843284   196892'      5.769
+GPU:       4300     6:51:44  0.202  1.572  0.098  0.210      1817093   197062'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:       4400     7:01:21  0.147  1.572  0.084  0.146      1897017   197237'      5.769
+GPU:       4500     7:10:58  0.215  1.572  0.105  0.166      1882225   197431'      5.769
+GPU:       4600     7:20:35  0.143  1.572  0.084  0.260      1867099   197627'      5.769
+GPU:       4700     7:30:12  0.175  1.572  0.084  0.155      1853320   197825'      5.769
+GPU:       4800     7:39:48  0.236  1.572  0.121  0.106      1839075   198023'      5.769
+GPU:       4900     7:49:25  0.197  1.572  0.103  0.133      1825057   198222'      5.769
+GPU:       5000     7:59:02  0.172  1.572  0.083  0.223      1812506   198422'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:      iStep        time  maxNu  maxNc  maxNd  maxNh         nWet      vol          dt
+GPU:       5100     8:08:39  0.241  1.573  0.101  0.117      2018658   198881'      5.769
+GPU:       5200     8:18:16  0.237  1.573  0.098  0.084      2011791   199370'      5.769
+GPU:       5300     8:27:53  0.188  1.573  0.087  0.068      2005245   199860'      5.769
+GPU:       5400     8:37:30  0.217  1.573  0.117  0.272      1998871   200350'      5.769
+GPU:       5500     8:47:07  0.209  1.573  0.112  0.115      1992263   200841'      5.769
+GPU:       5600     8:56:44  0.192  1.573  0.102  0.278      1986310   201333'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:       5700     9:06:21  0.185  1.573  0.095  0.060      2095187   202012'      5.769
+GPU:       5800     9:15:58  0.216  1.573  0.111  0.089      2091352   202787'      5.769
+GWriting GPU Output at: 10:00:00  Clock Time: 0:06:35  CPU Time: 0:06:28
+Wet:     2072041  Vol:         206911389.9
+GPU Solver at time      10.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 11:00:00  Clock Time: 0:07:12  CPU Time: 0:07:04
+Wet:     2296793  Vol:         213906718.9
+GPU Solver at time      11.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 12:00:00  Clock Time: 0:07:49  CPU Time: 0:07:41
+Wet:     2310189  Vol:         225103551.3
+GPU Solver at time      12.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 13:00:00  Clock Time: 0:08:27  CPU Time: 0:08:18
+Wet:     2310170  Vol:         237539737.7
+GPU Solver at time      13.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 14:00:00  Clock Time: 0:09:04  CPU Time: 0:08:55
+Wet:     2310227  Vol:         255912164.6
+GPU Solver at time      14.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+PU:       5900     9:25:35  0.187  1.573  0.086  0.097      2088177   203562'      5.769
+GPU:       6000     9:35:12  0.197  1.573  0.105  0.448      2084846   204338'      5.769
+GPU:      iStep        time  maxNu  maxNc  maxNd  maxNh         nWet      vol          dt
+GPU:       6100     9:44:48  0.318  1.573  0.175  0.159      2081446   205114'      5.769
+GPU:       6200     9:54:25  0.278  1.573  0.109  0.482      2078582   205891'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:       6300    10:04:02  0.377  1.573  0.121  0.296      2305763   206812'      5.769
+GPU:       6400    10:13:39  0.352  1.573  0.117  0.099      2305734   207935'      5.769
+GPU:       6500    10:23:16  0.275  1.573  0.108  0.151      2305698   209057'      5.769
+GPU:       6600    10:32:53  0.363  1.573  0.185  0.726      2305673   210179'      5.769
+GPU:       6700    10:42:30  0.175  1.573  0.104  0.132      2305717   211300'      5.769
+GPU:       6800    10:52:07  0.206  1.573  0.087  1.153      2305691   212420'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:       6900    11:01:44  0.437  1.573  0.228  0.213      2309997   213662'      5.769
+GPU:       7000    11:11:21  0.333  1.573  0.178  0.144      2310002   215458'      5.769
+GPU:      iStep        time  maxNu  maxNc  maxNd  maxNh         nWet      vol          dt
+GPU:       7100    11:20:58  0.240  1.573  0.137  0.240      2310000   217254'      5.769
+GPU:       7200    11:30:35  0.298  1.573  0.151  0.230      2310009   219050'      5.769
+GPU:       7300    11:40:12  0.463  1.573  0.240  0.225      2310003   220844'      5.769
+GPU:       7400    11:49:48  0.458  1.574  0.243  0.173      2310008   222638'      5.769
+GPU:       7500    11:59:25  0.431  1.574  0.228  0.155      2310014   224431'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:       7600    12:09:02  0.365  1.574  0.198  0.289      2309979   226414'      5.769
+GPU:       7700    12:18:39  0.296  1.574  0.162  0.262      2309977   228408'      5.769
+GPU:       7800    12:28:16  0.285  1.575  0.156  0.149      2309985   230402'      5.769
+GPU:       7900    12:37:53  0.279  1.575  0.153  0.330      2309979   232396'      5.769
+GPU:       8000    12:47:30  0.290  1.575  0.146  0.092      2309983   234388'      5.769
+GPU:      iStep        time  maxNu  maxNc  maxNd  maxNh         nWet      vol          dt
+GPU:       8100    12:57:07  0.263  1.575  0.144  0.091      2309976   236381'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:       8200    13:06:44  0.260  1.576  0.142  0.088      2310048   239041'      5.769
+GPU:       8300    13:16:21  0.257  1.576  0.141  0.086      2310046   241987'      5.769
+GPU:       8400    13:25:58  0.414  1.576  0.210  0.165      2310046   244933'      5.769
+GPU:       8500    13:35:35  0.254  1.576  0.139  0.302      2310046   247878'      5.769
+GPU:       8600    13:45:12  0.308  1.577  0.157  0.124      2310046   250823'      5.769
+GPU:       8700    13:54:48  0.253  1.577  0.130  0.082      2310047   253768'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:       8800    14:04:25  0.224  1.577  0.124  0.128      2309767   255822'      5.769
+GPU:       8900    14:14:02  0.219  1Writing GPU Output at: 15:00:00  Clock Time: 0:09:41  CPU Time: 0:09:32
+Wet:     2305767  Vol:         262216865.8
+GPU Solver at time      15.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 16:00:00  Clock Time: 0:10:19  CPU Time: 0:10:09
+Wet:     2291789  Vol:         265854456.8
+GPU Solver at time      16.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 17:00:00  Clock Time: 0:10:56  CPU Time: 0:10:47
+Wet:     2274898  Vol:         268985915.8
+GPU Solver at time      17.000  GL    0.000
+      40     140     240     340     440     540     640     740     840     940    1040    1140    1240    1340    1440    1540    1640    1740    1840    1940    2040    2140    2240    2340
+Writing GPU Output at: 18:00:00  Clock Time: 0:11:33  CPU Time: 0:11:23
+Wet:     2279822  Vol:         275068783.4
+
+________________________________________________________________________________
+CPU Time:        0:11:36  [0.1935 h]
+Clock Time:      0:11:46  [0.1961 h]
+
+Finished GPU Solution.
+
+Receiving tracked maximums from GPU.
+
+Allocating 18065Kb memory for temporary GPU array containing any NaN locations...
+
+Total number of NaNs (instabilities) causing a timestep correction was 0.
+
+Receiving Maximum Water Levels, Velocities and Times of Peak Levels from GPU solver...
+Finished.
+
+Receiving Maximum Z0 (VxD) values from GPU solver...
+Finished.
+
+Processing GPU PO.  Number of GPU PO times = 217 (218)
+
+Processing maximums from GPU...
+
+Finished processing of GPU results.
+
+Run Finished ..... Steps completed: 18
+   Total Negative Depths: 0
+Simulation took 0.194 CPU hours
+One hour of model time takes 0.011 CPU hours
+
+________________________________________________________________________________
+Checking TUFLOW Licence 1 (please wait)...Done.  Dongle 2943401.
+Releasing TUFLOW Licence...Done.
+Checking TUFLOW Threads Licence 1 (please wait)...Done.  Dongle 2943401.
+Releasing 1 TUFLOW Threads...Done.
+Checking TUFLOW GPU Cards Licence 1 (please wait)...Done.  Dongle 2943401.
+Checking TUFLOW GPU Cards Licence 2 (please wait)...Done.  Dongle 2943401.
+Checking TUFLOW GPU Cards Licence 3 (please wait)...Done.  Dongle 2943401.
+Checking TUFLOW GPU Cards Licence 4 (please wait)...Done.  Dongle 2943401.
+Releasing 4 TUFLOW GPU Cards...Done.
+
+________________________________________________________________________________
+
+Writing maximums...
+
+Writing ASC grid...
+    3000    2000    1000
+Finished writing ASC grid.
+
+Writing ASC grid...
+    3000    2000    1000
+Finished writing ASC grid.
+
+Writing ASC grid...
+    3000    2000    1000
+Finished writing ASC grid.
+
+Writing ASC grid...
+    3000    2000    1000
+Finished writing ASC grid.
+
+Writing ASC grid...
+    3000    2000    1000
+Finished writing ASC grid.
+
+No minimums to write.
+
+Closing map output files...
+
+No TUFLOW 1D output to write.
+
+Writing any PO output...
+Opening GIS Layer: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\results\VU_50m_GPU_Forecast_008_TS.shp
+GIS Layer assigned ID of 5
+
+Closing GIS Layer 5 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\results\VU_50m_GPU_Forecast_008_TS.shp]...
+
+Finished writing PO output...
+
+Closing GIS Layer 2 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\results\plot\gis\VU_50m_GPU_Forecast_008_PLOT.shp]...
+
+Closing GIS Layer 3 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\results\plot\gis\VU_50m_GPU_Forecast_008_PLOT.shp]...
+
+Closing GIS Layer 4 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\results\plot\gis\VU_50m_GPU_Forecast_008_PLOT.shp]...
+
+Closing GIS Layer 1 [C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008_messages.shp]...
+
+Closing any unclosed GIS layers...
+
+
+-------------------------------
+--    Simulation FINISHED    --
+-------------------------------
+
+                         PRIOR TO SIMULATION
+  Number of WARNINGs:    _messages layer =      45     Total =      45
+  Number of CHECKs:      _messages layer =       0     Total =       0
+
+                          DURING SIMULATION
+  Number of WARNINGs:    _messages layer =       0     Total =       0
+  Number of CHECKs:      _messages layer =       0     Total =       0
+
+CPU Time:        0:12:12  [0.2034 h]
+Clock Time:      0:12:22  [0.2061 h]
+
+Closing all file units...
+
+_____________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________
+
+SIMULATION SUMMARY
+
+Input File: C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\VU_~s1~_~s2~_~e1~_008.tcf
+Log File:   C:\Users\Administrator\Desktop\floodWarningmodelPrototype\runs\log\VU_50m_GPU_Forecast_008.tlf
+
+Start Time (h): 0.
+End Time (h):   18.
+CPU Time:        0:12:12  [0.2034 h]
+Clock Time:      0:12:22  [0.2061 h]
+
+Simulation FINISHED
+
+Total 1D Negative Depths: 0
+Total 2D Negative Depths: 0
+
+WARNINGs prior to simulation:    45  [0 not in _messages layer]
+WARNINGs during simulation:       0  [0 not in _messages layer]
+CHECKs prior to simulation:       0  [0 not in _messages layer]
+CHECKs during simulation:         0  [0 not in _messages layer]
+
+_____________________________________________________________________________________________________________
+.577  0.112  0.092      2308582   256833'      5.769
+GPU:       9000    14:23:39  0.283  1.578  0.133  0.173      2307029   257843'      5.769
+GPU:      iStep        time  maxNu  maxNc  maxNd  maxNh         nWet      vol          dt
+GPU:       9100    14:33:16  0.248  1.578  0.116  0.140      2305886   258854'      5.769
+GPU:       9200    14:42:53  0.257  1.578  0.117  0.251      2305064   259865'      5.769
+GPU:       9300    14:52:30  0.208  1.578  0.112  0.194      2304492   260876'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:       9400    15:02:07  0.207  1.578  0.110  0.107      2299898   261792'      5.769
+GPU:       9500    15:11:44  0.250  1.579  0.111  0.144      2293024   262375'      5.769
+GPU:       9600    15:21:21  0.234  1.579  0.111  0.115      2285027   262958'      5.769
+GPU:       9700    15:30:58  0.248  1.579  0.110  0.096      2276221   263541'      5.769
+GPU:       9800    15:40:35  0.246  1.579  0.109  0.161      2266949   264124'      5.769
+GPU:       9900    15:50:12  0.288  1.579  0.146  0.127      2257187   264708'      5.769
+GPU:      10000    15:59:48  0.306  1.579  0.160  0.203      2247449   265291'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:      iStep        time  maxNu  maxNc  maxNd  maxNh         nWet      vol          dt
+GPU:      10100    16:09:25  0.198  1.579  0.103  0.400      2246720   265793'      5.769
+GPU:      10200    16:19:02  0.305  1.580  0.154  0.169      2236472   266294'      5.769
+GPU:      10300    16:28:39  0.258  1.580  0.121  0.122      2226775   266796'      5.769
+GPU:      10400    16:38:16  0.261  1.580  0.131  0.662      2217277   267299'      5.769
+GPU:      10500    16:47:53  0.275  1.580  0.107  0.172      2208373   267801'      5.769
+GPU:      10600    16:57:30  0.285  1.580  0.113  0.138      2200117   268304'      5.769
+GPU: Setting gridded rainfall ...
+GPU: Copying gridded rainfall to device 0 ...
+GPU: Copying gridded rainfall to device 1 ...
+GPU: Copying gridded rainfall to device 2 ...
+GPU: Copying gridded rainfall to device 3 ...
+GPU:      10700    17:07:07  0.293  1.580  0.116  0.074      2273077   269158'      5.769
+GPU:      10800    17:16:44  0.298  1.580  0.119  0.295      2268102   270135'      5.769
+GPU:      10900    17:26:21  0.302  1.580  0.121  0.162      2263547   271111'      5.769
+GPU:      11000    17:35:58  0.305  1.580  0.143  0.107      2259176   272086'      5.769
+GPU:      iStep        time  maxNu  maxNc  maxNd  maxNh         nWet      vol          dt
+GPU:      11100    17:45:35  0.307  1.581  0.125  0.075      2255219   273060'      5.769
+GPU:      11200    17:55:12  0.310  1.581  0.126  0.100      2251510   274033'      5.769
+GPU: Memory released
+Extracting the bridges.......
+
+bridges20171029-30000.kmz | 4 kB |   4.0 kB/s | ETA: 00:00:05 |  15%bridges20171029-30000.kmz | 25 kB |  25.5 kB/s | ETA: 00:00:00 | 100%
+Completed 25.5 KiB/25.5 KiB (32.1 KiB/s) with 1 file(s) remainingupload: ..\results\flooded_locations\bridges20171029-30000.kmz to s3://floodwarningmodeldata/bridgekmzs/bridges20171029-30000.kmz
+Completed 256.0 KiB/486.7 KiB (364.7 KiB/s) with 1 file(s) remainingCompleted 486.7 KiB/486.7 KiB (624.0 KiB/s) with 1 file(s) remainingupload: ..\bc_dbase\forecast_rainfall\20171029-092028.zip to s3://floodwarningmodeldata/forecast_rainfall/20171029-092028.zip

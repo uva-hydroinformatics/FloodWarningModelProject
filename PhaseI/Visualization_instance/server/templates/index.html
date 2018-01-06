@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block container %}
+    <div id="map"> </div>
+    <div id="legend"><h4>Legend</h4>
+      <img src="{{url_for("static",filename="small_green_circle.png")}}" width="20%" height = "20%"> <p>
+        Flooding not expected
+      </p>
+      <img src="{{url_for("static",filename="yellow_MarkerF.png")}}" ><p>
+Flooding Possible
+      </p>
+      <img src="{{url_for("static",filename="red_MarkerF.png")}}" > <p>
+        High Probability of Flooding
+      </p>
+    </div>
+    <script>
+        var map;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+            });
+            var boundary = new google.maps.KmlLayer({
+                url: "http://" + window.location.hostname + "/{{url_for('static',filename='studyarea/Boundary.kml')}}",
+                preserveViewport: false,
+                map: map,
+                clickable: false
+            });
+            var stream = new google.maps.KmlLayer({
+                url: "http://" + window.location.hostname + "/{{url_for('static',filename='studyarea/streamline.kmz')}}",
+                preserveViewport: true,
+                map: map,
+                clickable: false
+            });
+            {% if not archived %}
+            var kmz_Layer = new google.maps.KmlLayer({
+                url: "http://" + window.location.hostname + "/{{url_for('static',filename=kmz)}}" + "?dummy=" + (new Date()).getTime(),
+                preserveViewport: true
+            });
+            {% else %}
+            var kmz_Layer = new google.maps.KmlLayer({
+                url: "http://floodwarningmodeldata.s3.amazonaws.com/{{kmz}}" + "?dummy=" + (new Date()).getTime(),
+                preserveViewport: true
+            });
+            {% endif %}
+
+            // var div = document.createElement('div');
+            // div.innerHTML = '<img src="{{url_for("static",filename="small_green_circle.png")}}" width="20%" height = "20%"> Flooding not expected';
+            // legend.appendChild(div);
+            // var div = document.createElement('div');
+            // div.innerHTML = '<img src="{{url_for("static",filename="yellow_MarkerF.png")}}" > Flooding Possible';
+            // legend.appendChild(div);
+            // var div = document.createElement('div');
+            // div.innerHTML = '<img src="{{url_for("static",filename="red_MarkerF.png")}}" > High Probability of Flooding';
+            // legend.appendChild(div);
+
+            kmz_Layer.setMap(map);
+            map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push
+(document.getElementById('legend'));
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz4za-JT70aI0YcgzQGf88mAncalvW9bo&callback=initMap" async defer></script>
+{% endblock %}

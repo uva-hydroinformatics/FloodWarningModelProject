@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <title> Flood Prediction and Emergency Notification </title>
+  <style>
+    #map {
+      height: 95%;
+    }
+
+/*    .alert {
+      height: 50px;
+      line-height: 50px;
+      padding: 7px 25px;
+    } */
+  #legend {
+    background: #fff;
+    padding: 4px;
+    margin: 4px;
+    border-radius: 15px;
+  }
+  #legend h3 {
+      margin-top: 0;
+    }
+    html,
+    body {
+      height: 100%;
+    }
+    .navbar { margin-bottom: 0 }
+
+    .scrollable-menu {
+      height: auto;
+      max-height: 200px;
+      overflow-x: hidden;
+    }
+    table {border-collapse: collapse;}
+    td    {padding: 3px;}
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+	<li><a  href="/">Current Conditions</a></li>
+
+
+	<li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Recent Flood Warnings <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {% for file in items %}
+              <li><a href="/view/{{file.file}}">{{file.time}}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% if current_user.is_authenticated %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Archived Flood Warnings <span class="caret"></span></a>
+            <ul class="dropdown-menu scrollable-menu">
+              {% for file in archivedItems %}
+              <li><a href="/view/{{file.file}}">{{file.time}}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endif %}
+          <li><a href="/log/{{logfile}}">Computational Output</a></li>
+          {% if current_user.is_authenticated %}
+          <li><a href="/run">Run Model Now!</a></li>
+          {% endif %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#myModal" data-toggle="modal" data-target="#myModal">Register</a></li>
+          {% if not current_user.is_authenticated %}
+          <li><a href="/login">Login </a></li>
+          {% endif %} {% if current_user.is_authenticated %}
+          <li><a href="/logout">Logout </a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid" style = "position: absolute; width: 100%; z-index: 5"  id="alerts">
+    <div class="row">
+      		<div class="col-md-4 col-md-offset-4">
+
+        <div class="text-center  alert alert-info alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h5> Flooding risk to bridges and culverts over the next 18 hours.<br/> Last updated  {{title}}</h5>
+        </div>
+     </div>
+<!--      <div class="col-lg-6">
+        {% if alert == 0 %}
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h5> The model is up to date with the latest forcast.</h5>
+        </div>
+        {% endif %} {% if alert == 1 %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h5> The model is currently being re-run with the latest forecast. Check back Soon!</h5>
+        </div>
+        {% endif %} {% if alert == 2 %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4> Flooding is possible </h4>
+        </div>
+        {% endif %}
+      </div> -->
+    </div>
+  </div>
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Enter your email to recieve email updates: </h4>
+        </div>
+        <div class="modal-body">
+          <form action='/register' method='POST'>
+            <label for="email" class="sr-only">Email</label>
+            <input type="text"  name='email' id="email" class="form-control" placeholder="" required autofocus>
+            <br>
+            <button class="btn btn-lg btn-primary btn-block" name = "submit" type="submit">Register</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {% block container %} {% endblock %}
+</body>
+
+</html>
