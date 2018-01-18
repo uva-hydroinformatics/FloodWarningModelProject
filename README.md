@@ -8,4 +8,5 @@ This folder contians the batch file and python scripts located on the model serv
 This folder contains the python flask application to run on the visualization server.
 
 The Master branch represent the project phase I. The implementation of this phase can be accessed through this link http://54.175.206.52/
+
 Currently, we are working on phase II of this project, GitHub branch "phaseII." This phase can be accessed through this link http://35.196.115.22/
