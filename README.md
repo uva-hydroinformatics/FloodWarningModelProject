@@ -6,7 +6,11 @@ In this repo, each Github branch represents a project phase. For an example, Mas
 ### Model_instance
 This folder contians the batch file and python scripts located on the model server to pull and pre-process the forecast data, run the model, and post-process and prepare the output for the vizualization purposes.
 ### Visualization_instance
-This folder contains the python flask application to run on the visualization server.
+This folder contains the python flask application to run on the visualization server.All the required libraries can be installed automatically using the provided requirements_Dec2017.txt:
+
+```bash
+pip install -r requirements_Dec2017.txt
+```
 
 The Master branch represents the project phase I. The implementation of this phase can be accessed through this link http://54.175.206.52/
 
