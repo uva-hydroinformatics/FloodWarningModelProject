@@ -12,6 +12,10 @@ This folder contains the python flask application to run on the visualization se
 pip install -r requirements_Dec2017.txt
 ```
 
+### Powershell Script
+Aws.ps1 is a proof of concept script to be run on a users local machine to either trigger the model run from the cloud or run the model locally. It will also install all necessary dependecies for both scenarios. 
+
+
 The Master branch represents the project phase I. The implementation of this phase can be accessed through this link http://54.175.206.52/
 
 Currently, we are working on phase II of this project, GitHub branch "phaseII." This phase can be accessed through this link http://35.196.115.22/
