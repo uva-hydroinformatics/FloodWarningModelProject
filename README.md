@@ -2,9 +2,9 @@
 
 This repository contains code for a prototype cloud based flood warning system. This system provide warnings for flooded transportation infrastructure in coastal virginia, specifically, Hampton Road District. The system contains 3 components: A windows server to run the model, a linux webserver to visualize the results in a browser, and a storage bucket for data archival.
 
-The Master branch represents the project phase I. The implementation of this phase can be accessed through this link http://54.175.206.52/
+The Master branch represents the project phase I. The implementation of this phase can be accessed through this link http://vfis-aws.uvahydroinformatics.org/
 
-Currently, we are working on phase II of this project, GitHub branch "phaseII." This phase can be accessed through this link http://35.196.115.22/
+Currently, we are working on phase II of this project, GitHub branch "phaseII." This phase can be accessed through this link http://vfis.uvahydroinformatics.org/
 
 ## Deployment
 There are three main parts to our cloud based workflow: A visualization instance, a model instance, and a storage bucket. Below are instructions for reproducing the model and visualization instances. 
