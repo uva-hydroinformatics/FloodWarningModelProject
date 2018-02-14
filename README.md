@@ -1,4 +1,4 @@
-# Vriginia Flood Information System (VFIS) - A Cloud-Based Real-time Decision support Modeling System for Flood Impact Warning 
+# Virginia Flood Information System (VFIS) - A Cloud-Based Real-time Decision support Modeling System for Flood Impact Warning 
 
 This repository contains code for a prototype cloud based flood warning system. This system provide warnings for flooded transportation infrastructure in coastal virginia, specifically, Hampton Road District. The system contains 3 components: A windows server to run the model, a linux webserver to visualize the results in a browser, and a storage bucket for data archival.
 
