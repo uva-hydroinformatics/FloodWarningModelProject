@@ -28,7 +28,8 @@ ftp.cwd(nwm_data)
 # The currently available folders are ['analysis_assim', 'forcing_analysis_assim',
 # 'forcing_medium_range', 'forcing_short_range', 'long_range_mem1', 'long_range_mem2',
 # 'long_range_mem3', 'long_range_mem4', 'medium_range', 'short_range', 'usgs_timeslices']
-target_data_folder = ['short_range']
+target_data_folder = ftp.nlst()
+print target_data_folder
 
 # download the available data for the target date and data folder/s
 for data_type in target_data_folder:
@@ -39,7 +40,6 @@ for data_type in target_data_folder:
     ftp.cwd(data_type_path)
     filelist=ftp.nlst()
     print filelist
-    raw_input("hi")
 
     # download the available files in the target folder/s
     for file in filelist:
