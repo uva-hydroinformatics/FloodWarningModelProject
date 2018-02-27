@@ -3,6 +3,8 @@ from ftplib import FTP
 from datetime import datetime, timedelta
 from pydap.client import open_url
 from pydap.exceptions import ServerError
+import xarray as xr
+import numpy as np
 
 
 def get_hrrr_data_info(current_date_utc, delta_time):
@@ -23,6 +25,31 @@ def get_hrrr_data_info(current_date_utc, delta_time):
         print "Failed to open : %s" % url
         return get_hrrr_data_info(current_date_utc, delta_time + 1)
 
+def write_tuflow_bc_ts1_file(file_name, dictionary, array_name):
+    bc_file = open(file_name+'.ts1', 'w')
+    bc_file.write("! Forecasted boundary condition from the NWM\n")
+    bc_file.write("11,1336\n")
+    bc_file.write("Start_Index,1,1,1,1,1,1,1,1,1,1,1\n")
+    bc_file.write("End_Index,1336,1336,1336,1336,1336,1336,1336,1336,1336,1336,1336\n")
+    bc_file.write("Time")
+    for key in dictionary:
+        bc_file.write(','+ key)
+    bc_file.write("\n")
+    hr = 0
+    bc_file.write(str(hr * 60))
+    for j in range(len((array_name)[0])):
+        bc_file.write(',' + str(array_name[0][j]))
+    bc_file.write("\n")
+    hr += 1
+    for i in range(3, len(array_name)):
+        bc_file.write(str(hr * 60))
+        for j in range(len((array_name)[i])):
+            bc_file.write(',' + str(array_name[i][j]))
+        bc_file.write("\n")
+        hr += 1
+    bc_file.close()
+
+
 ##################################################################################################
 # ***************************************** Main Program *****************************************
 ##################################################################################################
@@ -31,6 +58,17 @@ def main():
     # define the NWM main FTP URL.
     ftp = FTP("ftpprd.ncep.noaa.gov")
     ftp.login()
+    # dictionary to includes the boundary condition feature names and the corresponding Reach ID
+    # or COMID from the NWM that represent the streamflow for the model boundary
+    bc_items = {"10_35C":"11583062","11_34C":"11583342","1_42C":"8746119","2_41C":"8745499",
+                "3_40C":"8742901","4_39C":"8741071","5_38C":"8725803","6_44C":"8724029",
+                "7_37C":"8723783","8_43C":"8723533","9_36C":"8719585"}
+
+    ext_data_rt = np.zeros((3,11))  # extracted realtime streamflows from t00, t01, and t02
+    ext_data_fc = np.zeros((18,11))  # extracted forecasted streamflows from the short range 18 lyrs
+    ext_data = np.zeros((21,11))  # extracted forecasted streamflows from the short range 18 lyrs
+    i=0
+    j=0
 
     # create a local folder to store the downloaded data.
     destination="./NWM/"
@@ -75,7 +113,21 @@ def main():
             file_info = file.split(".")
             if file_info[1] == 't'+str(hour_utc)+'z' and file_info[3] == "channel_rt":
                 ftp.retrbinary("RETR "+file, open(os.path.join(dest_data_path,file),"wb").write)
+                ds = xr.open_dataset(os.path.join(dest_data_path,file))
+                df = ds.to_dataframe()
+                for val in bc_items.itervalues():
+                    x = df.ix[int(val), ['streamflow']]
+                    ext_data[i][j] = str(x).split(" ")[-1]
+                    j += 1
+                j = 0
+                i += 1
+
                 print file + " downloaded"
+
+
+    write_tuflow_bc_ts1_file('test_2', bc_items, ext_data)
+
+
 
     print "Done downloading the NWM data for the target data!"
 
