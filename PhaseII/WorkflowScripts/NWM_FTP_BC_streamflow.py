@@ -73,7 +73,7 @@ def main():
     j=0
 
     # create a local folder to store the downloaded data.
-    destination="./NWM/"
+    destination = "../bc_dbase/NWM/"
     if not os.path.exists(destination):
         os.makedirs(destination)
 
@@ -114,11 +114,15 @@ def main():
         # check at least one file is available for the specific hour in hour_utc
         if data_type == 'analysis_assim':
             while not "nwm.t"+str(hour_utc)+"z.analysis_assim.channel_rt.tm00.conus.nc" in filelist:
-                time.sleep(5)
+                print "Waiting for the updated data in analysis_assim"
+                time.sleep(30)
+                filelist=ftp.nlst()
 
         if data_type == 'short_range':
             while not "nwm.t"+str(hour_utc)+"z.short_range.channel_rt.f001.conus.nc" in filelist:
-                time.sleep(5)
+                print "Waiting for the updated data in short_range"
+                time.sleep(30)
+                filelist=ftp.nlst()
 
         # download the available files in the target folder/s
         for file in filelist:
@@ -136,8 +140,8 @@ def main():
 
                 print file + " downloaded"
 
-    # write the apropriate boundary condition file for the 2D model
-    write_tuflow_bc_ts1_file('Forecast_RF_Point', bc_items, ext_data)
+    # write the appropriate boundary condition file for the 2D model
+    write_tuflow_bc_ts1_file(destination+'Forecast_RF_Point', bc_items, ext_data)
     print "Done downloading and preparing the NWM data as boundary condition file for the 2D model!"
 
 
