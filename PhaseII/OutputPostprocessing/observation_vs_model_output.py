@@ -23,16 +23,21 @@ def local_to_utc(local_tz, local_dt):
 # ***************************************** Main Program *****************************************
 ##################################################################################################
 
-matplotlib.rcParams.update({'font.size': 6})
+matplotlib.rcParams.update({'font.size': 8})
 # modelled start and end date/time in the local time zone using the format of %Y-%m-%dT%H:%M:%SZ
 start_datetime = "2016-10-07T00:00:00Z"
 end_datetime = "2016-10-24T00:00:00Z"
 local_tz = pytz.timezone('US/Eastern')
 
-# read the USGS station observations
+# locate the USGS station observations
 data_directory = "./Data adjusted to the vertical datum/"
 
-# create empty list to append the filename in the target directory
+# locate the model output time series file
+output_file = "VU_30m_HPC_GPU_Nicole_2016_011_PO.csv"
+
+output_timeseries = pd.read_csv(output_file, low_memory=False, usecols=range(1,20))
+
+# create empty list to append the filename in the target USGS observation data directory
 filename_var = []
 
 # extract the file names and convert them to variable with dataframes include each file info
@@ -67,30 +72,15 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 x = eval(filename_var[0])['ISO 8601 UTC'][(start_datetime_index):(end_datetime_index)]
 y = eval(filename_var[0])['Water Level (m)'][(start_datetime_index):(end_datetime_index)]
-ax.plot(x, y)
-start, end = ax.get_xlim()
+ax.plot(x, y, '.')
+ax.set_xlabel("Date/Time in UTC", fontweight='bold')
+ax.set_ylabel("Water Elevation (m)", fontweight='bold')
+gage_id = filename_var[0].split("_")[2]
+start_data_utc = str(x.values[0]).split("T")[0]
+end_data_utc = str(x.values[-1]).split("T")[0]
+ax.set_title("USGS Gage "+gage_id+" ("+start_data_utc+" - "+end_data_utc+")",
+             fontweight='bold', fontsize=10)
 plt.xticks(rotation=90)
 fig.tight_layout()
 plt.show()
 
-
-
-
-
-
-
-
-
-# get index --> eval(filename_var[0]).index[eval(filename_var[0])['ISO 8601 UTC'] == '2003-10-01T05:00:00Z'].tolist()
-
-# extract column value based on another column pandas dataframe --> eval(filename_var[0]).loc[eval(filename_var[0])['ISO 8601 UTC'] == '2003-10-01T05:00:00Z', 'Water Level (m)']
-
-# d= dt.strptime((eval(filename_var[0])['ISO 8601 UTC'][0]), '%Y-%m-%dT%H:%M:%SZ')
-# d.strftime('%Y-%m-%d')
-# Out[20]: '2003-10-01'
-
-# eval(filename_var[0])[eval(filename_var[0])['ISO 8601 UTC'].astype(str).str.contains('2003-10-01T04:00:00Z')]
-
-# '2003-10-01T04:00:00Z' in eval(filename_var[0]).values
-
-# gety values for specific index -->  eval(filename_var[0]).iloc[0]
