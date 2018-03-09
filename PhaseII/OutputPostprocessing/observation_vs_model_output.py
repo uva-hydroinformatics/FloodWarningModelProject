@@ -60,10 +60,6 @@ if start_datetime_utc in eval(filename_var[0]).values and \
 
 print start_datetime_index, type(start_datetime_index), end_datetime_index, type(end_datetime_index)
 
-
-# print eval(filename_var[0])
-
-# raw_input("TEST")
 # # for i in range(len(filename_var)):
 eval(filename_var[0])['ISO 8601 UTC'] = pd.to_datetime(eval(filename_var[0])['ISO 8601 UTC'],
                                                         format='%Y-%m-%dT%H:%M:%SZ')
@@ -73,22 +69,8 @@ x = eval(filename_var[0])['ISO 8601 UTC'][(start_datetime_index):(end_datetime_i
 y = eval(filename_var[0])['Water Level (m)'][(start_datetime_index):(end_datetime_index)]
 ax.plot(x, y)
 start, end = ax.get_xlim()
-#
-# print start, end
-#
-# # raw_input("TEST")
-# x_ticks2 = np.arange(start, end, 96)
-# x_ticks = np.arange(start_datetime_index, end_datetime_index, 96)
-# ax.set_xticks(x_ticks2)
-#ax.set_xticklabels(eval(filename_var[0])['ISO 8601 UTC'][x_ticks].dt.strftime('%Y-%m-%d'), rotation='vertical')
+plt.xticks(rotation=90)
 fig.tight_layout()
-# # plt.xt
-#
-#
-#
-# eval(filename_var[0])[(start_datetime_index):(end_datetime_index)].plot(x='ISO 8601 UTC', y='Water Level (m)', style='.', legend=None)
-# plt.xlabel("TEST")
-
 plt.show()
 
 
