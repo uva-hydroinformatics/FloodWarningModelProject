@@ -19,13 +19,14 @@ def local_to_utc(local_tz, local_dt):
     return utc_dt.strftime('%Y-%m-%dT%H:%M:%SZ')
 
 
-def plot_obs_vs_mod_output(x, y, x_output, y_output, gage_id, start_data_utc,
-                           end_data_utc, directory):
+def plot_obs_vs_mod_output(x, y, x_output, y_output, x_output_original, y_output_original, gage_id, start_data_utc,
+                           end_data_utc, directory, grid_res, run_version):
     matplotlib.rcParams.update({'font.size': 8})
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.plot(x, y, '.', label='Observation')
-    ax.plot(x_output, y_output, color='r', label='Simulation')
+    ax.plot(x_output, y_output, color='r', label='Simulation '+grid_res+' version:'+run_version)
+    ax.plot(x_output_original, y_output_original, color='g', label='Simulation '+grid_res+' version:Original Model')
     ax.set_xlim(x.values[0], x.values[-1])
     ax.set_xlabel("Date/Time in UTC", fontweight='bold')
     ax.set_ylabel("Water Elevation (m)", fontweight='bold')
@@ -50,7 +51,13 @@ local_tz = pytz.timezone('US/Eastern')
 data_directory = "./Data adjusted to the vertical datum/"
 
 # locate the model output time series file
-output_file = "VU_30m_HPC_GPU_Nicole_2016_011_PO.csv"
+output_file = "VU_30m_HPC_GPU_Nicole_2016_013_PO.csv"
+grid_res = output_file.split('_')[1]
+run_version = output_file.split('_')[6]
+
+# locate the old model version output
+output_file_original = "VU_30m_HPC_GPU_Nicole_2016_010_PO.csv"
+
 
 # plots directory
 destination = output_file.split(".")[0]
@@ -72,9 +79,15 @@ end_datetime_utc = local_to_utc(local_tz, end_datetime)
 
 # convert the model output to variable with dataframes and convert the hours to date/time
 output_timeseries = pd.read_csv(output_file, low_memory=False, usecols=range(1,20))
+output_timeseries_original = pd.read_csv(output_file_original, low_memory=False, usecols=range(1,20))
 x_output = []
+x_output_original = []
 for hours in output_timeseries[[0]].values[1:]:
     x_output.append(dt.strptime(start_datetime_utc, '%Y-%m-%dT%H:%M:%SZ') +
+                    timedelta(hours=float(hours)))
+
+for hours in output_timeseries_original[[0]].values[1:]:
+    x_output_original.append(dt.strptime(start_datetime_utc, '%Y-%m-%dT%H:%M:%SZ') +
                     timedelta(hours=float(hours)))
 
 # get the index for the start and end data from the observation dataset to retrieve
@@ -106,14 +119,20 @@ for station in filename_var:
         station_wo_modeled_wl = []
 
         # change the range to range(1,10) for the new version of the model i.e. 013 and up
-        for i in range(1,19,2):
+        for i in range(1,10):
             if '0'+str(int(output_timeseries[[i]].values[0])) == gage_id:
                 y_output = []
                 for wl_val in output_timeseries[[i]].values[1:]:
                     y_output.append(float(wl_val))
 
-                plot_obs_vs_mod_output(x, y, x_output, y_output, gage_id, start_data_utc,
-                                       end_data_utc, destination)
+        for i in range(1,10):
+            if '0'+str(int(output_timeseries_original[[i]].values[0])) == gage_id:
+                y_output_original = []
+                for wl_val in output_timeseries_original[[i]].values[1:]:
+                    y_output_original.append(float(wl_val))
+
+                plot_obs_vs_mod_output(x, y, x_output, y_output, x_output_original, y_output_original, gage_id,
+                                       start_data_utc, end_data_utc, destination, grid_res, run_version)
             else:
                 if gage_id not in station_wo_modeled_wl:
                     print 'No modeled water elevation timeseries for USGS station No.'+gage_id
