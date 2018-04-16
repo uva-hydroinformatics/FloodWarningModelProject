@@ -18,7 +18,7 @@ def get_hrrr_data_info(current_date_utc, delta_time):
         dataset = open_url(url)
         if len(dataset.keys()) > 0:
             print "Succeeded to open : %s" % url
-            return hour
+            return hour, date
         else:
             print "Back up method - Failed to open : %s" % url
             return get_hrrr_data_info(current_date_utc, delta_time + 1)
@@ -82,17 +82,18 @@ def main():
     # "timedelta(days=0)": download the current date
     # "timedelta(days=1)": download one day older from the current date
     target_date_time_utc = datetime.utcnow()
-    target_date = str(target_date_time_utc.date()- timedelta(days=0)).replace("-","")
+    #target_date = str(target_date_time_utc.date()- timedelta(days=0)).replace("-","")
+
+    # check the available hrrr forecast rainfall data to retrieve the appropriate boundary condition
+    # from the NWM
+    hour_utc, target_date = get_hrrr_data_info(target_date_time_utc, 0)
+
     if not os.path.exists(destination+"/"+target_date):
         os.makedirs(destination+"/"+target_date)
 
     # get the whole list of the available data for the target day
     nwm_data="/pub/data/nccf/com/nwm/prod/nwm."+target_date+"/"
     ftp.cwd(nwm_data)
-
-    # check the available hrrr forecast rainfall data to retrieve the appropriate boundary condition
-    # from the NWM
-    hour_utc = get_hrrr_data_info(target_date_time_utc, 0)
 
     # by default, all the data folder will be downloaded. In case you would like to download
     # a specific folder, change the following line from "target_data_folder = ftp.nlst()" to
