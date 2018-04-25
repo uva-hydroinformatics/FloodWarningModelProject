@@ -45,12 +45,15 @@ def make_wgs_raster(lats, lons, precip_array, hr, directory):
     projected_srs.ImportFromEPSG(4269)
     projected_srs.SetUTM(18, True)
     gt = [ulx, xres, 0, uly, 0, yres]
-    print precip_array
+    #print precip_array
+    print "1"
 
     # raw_input("TEST")
     #precip_array = precip_array.astype(np.float64)
     precip_array = np.array(precip_array, dtype=np.float64)
+    print "2"
     latlonfile = '%s/TIF/%s.tif' % (directory, hr)
+    print "3"
     print hr
     ds = driver.Create(latlonfile, xsize, ysize, 1, gdal.GDT_Float64, )
     ds.SetProjection(srs.ExportToWkt())
@@ -62,10 +65,12 @@ def make_wgs_raster(lats, lons, precip_array, hr, directory):
                           np.std(precip_array))
     outband.WriteArray(precip_array)
     ds = None
+    print "4"
     return latlonfile
 
 
 def project_to_utm(wgs_raster_name, hr, directory):
+    print "5"
     outfilename = "%s/TIF/projected%s.tif" % (directory, hr)
     print ("Projecting file for hour {} from WSG84 to NAD83 UTM ZONE 18N".format(hr))
     # Added -tr to fix the output raster resoltuion to match with the one projected in ArcMap
@@ -108,7 +113,7 @@ ftp = FTP("ftpprd.ncep.noaa.gov")
 ftp.login()
 
 # create a local folder to store the downloaded data.
-destination = "../bc_dbase/forecast_rainfall/"
+destination = "../bc_dbase/realtime_rainfall/"
 if not os.path.exists(destination):
     os.makedirs(destination)
 
@@ -171,4 +176,4 @@ for data_type in target_data_folder:
 
 
             shp_filename = '../InputData/Hampton_Roads_model.shp'
-            x, y, precip_proj = get_projected_array(lats, lons, precp_hr, 't0', data_type_path, shp_filename)
+            x, y, precip_proj = get_projected_array(lats, lons, precp_hr, 't0', dest_data_path, shp_filename)
