@@ -22,7 +22,7 @@ def get_hrrr_data_info(current_date_utc, delta_time):
         dataset = open_url(url)
         if len(dataset.keys()) > 0:
             print "Succeeded to open : %s" % url
-            return hour
+            return hour, date
         else:
             print "Back up method - Failed to open : %s" % url
             return get_hrrr_data_info(current_date_utc, delta_time + 1)
@@ -40,7 +40,7 @@ def make_wgs_raster(lats, lons, precip_array, hr, directory):
     uly = lats[0] - (yres / 2.)
     driver = gdal.GetDriverByName('GTiff')
     srs = osr.SpatialReference()
-    srs.ImportFromEPSG(9802)
+    srs.ImportFromEPSG(102009)
     projected_srs = osr.SpatialReference()
     projected_srs.ImportFromEPSG(4269)
     projected_srs.SetUTM(18, True)
@@ -117,17 +117,18 @@ if not os.path.exists(destination):
 # "timedelta(days=0)": download the current date
 # "timedelta(days=1)": download one day older from the current date
 target_date_time_utc = datetime.utcnow()
-target_date = str(target_date_time_utc.date()- timedelta(days=0)).replace("-","")
+#target_date = str(target_date_time_utc.date()- timedelta(days=0)).replace("-","")
+
+# check the available hrrr forecast rainfall data to retrieve the appropriate boundary condition
+# from the NWM
+hour_utc, target_date = get_hrrr_data_info(target_date_time_utc, 0)
+
 if not os.path.exists(destination+"/"+target_date):
     os.makedirs(destination+"/"+target_date)
 
 # get the whole list of the available data for the target day
 nwm_data="/pub/data/nccf/com/nwm/prod/nwm."+target_date+"/"
 ftp.cwd(nwm_data)
-
-# check the available hrrr forecast rainfall data to retrieve the appropriate boundary condition
-# from the NWM
-hour_utc = get_hrrr_data_info(target_date_time_utc, 0)
 
 # by default, all the data folder will be downloaded. In case you would like to download
 # a specific folder, change the following line from "target_data_folder = ftp.nlst()" to
@@ -165,25 +166,9 @@ for data_type in target_data_folder:
             #precp_hr=precp_hr[0].tolist()
             lats = np.array(dataset['y'[:]])
             lons = np.array(dataset['x'[:]])
-            lons_mask = (lons == lons)
-            lats_mask = (lats == lats)
+            #lons_mask = (lons == lons)
+            #lats_mask = (lats == lats)
 
 
             shp_filename = '../InputData/Hampton_Roads_model.shp'
-            #x, y, precip_proj = get_projected_array(lats, lons, precp_hr, 't0', data_type_path, shp_filename)
-
-
-#             for val in bc_items.itervalues():
-#                 x = df.ix[int(val), ['streamflow']]
-#                 ext_data[i][j] = str(x).split(" ")[-1]
-#                 j += 1
-#             j = 0
-#             i += 1
-#
-#             print file + " downloaded"
-#
-# # write the appropriate boundary condition file for the 2D model
-# write_tuflow_bc_ts1_file(destination+'Forecast_RF_Point', bc_items, ext_data)
-# print "Done downloading and preparing the NWM data as boundary condition file for the 2D model!"
-
-
+            x, y, precip_proj = get_projected_array(lats, lons, precp_hr, 't0', data_type_path, shp_filename)
