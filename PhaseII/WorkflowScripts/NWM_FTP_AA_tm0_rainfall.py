@@ -45,16 +45,8 @@ def make_wgs_raster(lats, lons, precip_array, hr, directory):
     projected_srs.ImportFromEPSG(4269)
     projected_srs.SetUTM(18, True)
     gt = [ulx, xres, 0, uly, 0, yres]
-    #print precip_array
-    print "1"
-
-    # raw_input("TEST")
-    #precip_array = precip_array.astype(np.float64)
-    precip_array = np.array(precip_array, dtype=np.float64)
-    print "2"
-    latlonfile = '%s/TIF/%s.tif' % (directory, hr)
-    print "3"
-    print hr
+    precip_array=np.asarray(precip_array[0], dtype=np.float64)
+    latlonfile = '%s/%s.tif' % (directory, hr)
     ds = driver.Create(latlonfile, xsize, ysize, 1, gdal.GDT_Float64, )
     ds.SetProjection(srs.ExportToWkt())
     ds.SetGeoTransform(gt)
@@ -65,25 +57,26 @@ def make_wgs_raster(lats, lons, precip_array, hr, directory):
                           np.std(precip_array))
     outband.WriteArray(precip_array)
     ds = None
-    print "4"
     return latlonfile
 
 
 def project_to_utm(wgs_raster_name, hr, directory):
     print "5"
-    outfilename = "%s/TIF/projected%s.tif" % (directory, hr)
+    outfilename = "%s/projected%s.tif" % (directory, hr)
     print ("Projecting file for hour {} from WSG84 to NAD83 UTM ZONE 18N".format(hr))
     # Added -tr to fix the output raster resoltuion to match with the one projected in ArcMap
-    os.system('gdalwarp %s %s -t_srs "+proj=utm +zone=18 +datum=NAD83" -tr 500 500' % (wgs_raster_name,
-                                                                           outfilename))
+    os.system('gdalwarp %s %s -t_srs "+proj=utm +zone=18 +datum=NAD83" -tr 500 500' %
+              (wgs_raster_name, outfilename))
     return outfilename
 
 
 def tif_to_asc(projected_tif, hr, directory, shapefile):
-    outclippedtif = "%s/TIF/clipped_%s.tif" % (directory, hr)
-    os.system('gdalwarp -cutline %s -crop_to_cutline %s %s' % (shapefile, projected_tif, outclippedtif))
-    outascfile = "%s/ASC/%s.asc" % (directory, hr)
-    os.system('gdal_translate -co force_cellsize=true  -of AAIGrid %s %s' % (outclippedtif, outascfile))
+    outclippedtif = "%s/clipped_%s.tif" % (directory, hr)
+    os.system('gdalwarp -cutline %s -crop_to_cutline %s %s' % (shapefile, projected_tif,
+                                                               outclippedtif))
+    outascfile = "%s/%s.asc" % (directory, hr)
+    os.system('gdal_translate -co force_cellsize=true  -of AAIGrid %s %s' % (outclippedtif,
+                                                                             outascfile))
 
 
 def get_projected_array(lats, lons, precip, hr, directory, shapefile):
@@ -111,6 +104,9 @@ def get_projected_array(lats, lons, precip, hr, directory, shapefile):
 # define the NWM main FTP URL.
 ftp = FTP("ftpprd.ncep.noaa.gov")
 ftp.login()
+
+# shapefile for the study area
+shp_filename = '../InputData/Hampton_Roads_model.shp'
 
 # create a local folder to store the downloaded data.
 destination = "../bc_dbase/realtime_rainfall/"
@@ -168,12 +164,7 @@ for data_type in target_data_folder:
             var = dataset['RAINRATE']
             precp = var
             precp_hr = [x * 3600.0 for x in precp]
-            #precp_hr=precp_hr[0].tolist()
             lats = np.array(dataset['y'[:]])
             lons = np.array(dataset['x'[:]])
-            #lons_mask = (lons == lons)
-            #lats_mask = (lats == lats)
-
-
-            shp_filename = '../InputData/Hampton_Roads_model.shp'
-            x, y, precip_proj = get_projected_array(lats, lons, precp_hr, 't0', dest_data_path, shp_filename)
+            x, y, precip_proj = get_projected_array(lats, lons, precp_hr, 't0', dest_data_path,
+                                                    shp_filename)
