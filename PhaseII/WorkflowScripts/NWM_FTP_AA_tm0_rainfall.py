@@ -40,7 +40,8 @@ def make_wgs_raster(lats, lons, precip_array, hr, directory):
     uly = lats[0] - (yres / 2.)
     driver = gdal.GetDriverByName('GTiff')
     srs = osr.SpatialReference()
-    srs.ImportFromEPSG(102009)
+    prj4_str = "+proj=lcc +a=6370000.0 +f=0.0 +pm=0.0  +x_0=0.0 +y_0=0.0 +lon_0=-97.0 +lat_1=30.0 +lat_2=60.0 +lat_0=40.0000076294 +units=m +axis=enu +no_defs"
+    srs.ImportFromProj4(prj4_str)
     projected_srs = osr.SpatialReference()
     projected_srs.ImportFromEPSG(4269)
     projected_srs.SetUTM(18, True)
