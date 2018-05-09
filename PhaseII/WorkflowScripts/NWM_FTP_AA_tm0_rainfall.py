@@ -62,7 +62,6 @@ def make_wgs_raster(lats, lons, precip_array, hr, directory):
 
 
 def project_to_utm(wgs_raster_name, hr, directory):
-    print "5"
     outfilename = "%s/projected%s.tif" % (directory, hr)
     print ("Projecting file for hour {} from WSG84 to NAD83 UTM ZONE 18N".format(hr))
     # Added -tr to fix the output raster resoltuion to match with the one projected in ArcMap
