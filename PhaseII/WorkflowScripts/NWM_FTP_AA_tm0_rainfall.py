@@ -124,8 +124,8 @@ target_date_time_utc = datetime.utcnow()
 # from the NWM
 hour_utc, target_date = get_hrrr_data_info(target_date_time_utc, 0)
 
-if not os.path.exists(destination+"/"+target_date):
-    os.makedirs(destination+"/"+target_date)
+if not os.path.exists(destination+"/"+target_date+"_"+hour_utc+"z"):
+    os.makedirs(destination+"/"+target_date+"_"+hour_utc+"z")
 
 # get the whole list of the available data for the target day
 nwm_data="/pub/data/nccf/com/nwm/prod/nwm."+target_date+"/"
@@ -142,7 +142,7 @@ target_data_folder = ['forcing_analysis_assim']
 # download the available data for the target date and data folder/s
 for data_type in target_data_folder:
     data_type_path = nwm_data+data_type+"/"
-    dest_data_path = destination+"/"+target_date+"/"+data_type
+    dest_data_path = destination+"/"+target_date+"_"+hour_utc+"z"+"/"+data_type
     if not os.path.exists(dest_data_path):
         os.makedirs(dest_data_path)
     ftp.cwd(data_type_path)
