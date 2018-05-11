@@ -1,4 +1,5 @@
 import os
+import zipfile
 from ftplib import FTP
 from datetime import datetime, timedelta
 from pydap.client import open_url
@@ -9,15 +10,18 @@ import time
 import pandas as pd
 from osgeo import gdal, osr
 
+
 def zero_pad(inte):
     return '{:02d}'.format(inte)
+
 
 def get_hrrr_data_info(current_date_utc, delta_time):
     dtime_fix = current_date_utc - timedelta(hours=delta_time)
     date = datetime.strftime(dtime_fix, "%Y%m%d")
     fc_hour = datetime.strftime(dtime_fix, "%H")
     hour = str(fc_hour)
-    url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz' % (date, hour)
+    url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz' % (
+        date, hour)
     try:
         dataset = open_url(url)
         if len(dataset.keys()) > 0:
@@ -46,7 +50,7 @@ def make_wgs_raster(lats, lons, precip_array, hr, directory):
     projected_srs.ImportFromEPSG(4269)
     projected_srs.SetUTM(18, True)
     gt = [ulx, xres, 0, uly, 0, yres]
-    precip_array=np.asarray(precip_array[0], dtype=np.float64)
+    precip_array = np.asarray(precip_array[0], dtype=np.float64)
     latlonfile = '%s/%s.tif' % (directory, hr)
     ds = driver.Create(latlonfile, xsize, ysize, 1, gdal.GDT_Float64, )
     ds.SetProjection(srs.ExportToWkt())
@@ -92,7 +96,8 @@ def get_projected_array(lats, lons, precip, hr, directory, shapefile):
     x = np.arange(nx) * b[1] + (b[0] + b[1]/2.0)
     y = np.arange(ny) * b[5] + (b[3] + b[5]/2.0)
     y = np.flipud(y)  # This step to arrange Y values from smallest to largest
-    precip = np.flipud(precip)  # Flip the precipitation values to match up with Y values
+    # Flip the precipitation values to match up with Y values
+    precip = np.flipud(precip)
     return x, y, precip
 
 
@@ -106,10 +111,10 @@ ftp = FTP("ftpprd.ncep.noaa.gov")
 ftp.login()
 
 # shapefile for the study area
-shp_filename = '../InputData/Hampton_Roads_model.shp'
+shp_filename = '../scripts_shapefiles/Hampton_Roads_model.shp'
 
 # create a local folder to store the downloaded data.
-destination = "../bc_dbase/realtime_rainfall/"
+destination = "../bc_dbase/forecast_rainfall/"
 if not os.path.exists(destination):
     os.makedirs(destination)
 
@@ -128,7 +133,7 @@ if not os.path.exists(destination+"/"+target_date+"_"+hour_utc+"z"):
     os.makedirs(destination+"/"+target_date+"_"+hour_utc+"z")
 
 # get the whole list of the available data for the target day
-nwm_data="/pub/data/nccf/com/nwm/prod/nwm."+target_date+"/"
+nwm_data = "/pub/data/nccf/com/nwm/prod/nwm."+target_date+"/"
 ftp.cwd(nwm_data)
 
 # by default, all the data folder will be downloaded. In case you would like to download
@@ -146,25 +151,33 @@ for data_type in target_data_folder:
     if not os.path.exists(dest_data_path):
         os.makedirs(dest_data_path)
     ftp.cwd(data_type_path)
-    filelist=ftp.nlst()
+    filelist = ftp.nlst()
 
     # check at least one file is available for the specific hour in hour_utc
     if data_type == 'forcing_analysis_assim':
         while not "nwm.t"+str(hour_utc)+"z.analysis_assim.forcing.tm00.conus.nc" in filelist:
             print "Waiting for the updated data in analysis_assim"
             time.sleep(30)
-            filelist=ftp.nlst()
+            filelist = ftp.nlst()
 
     # download the available files in the target folder/s
     for file in filelist:
         file_info = file.split(".")
         if file_info[1] == 't'+str(hour_utc)+'z' and file_info[4] == "tm00":
-            ftp.retrbinary("RETR "+file, open(os.path.join(dest_data_path,file),"wb").write)
-            dataset = xr.open_dataset(os.path.join(dest_data_path,file))
+            ftp.retrbinary(
+                "RETR "+file, open(os.path.join(dest_data_path, file), "wb").write)
+            dataset = xr.open_dataset(os.path.join(dest_data_path, file))
             var = dataset['RAINRATE']
             precp = var
             precp_hr = [x * 3600.0 for x in precp]
             lats = np.array(dataset['y'[:]])
             lons = np.array(dataset['x'[:]])
-            x, y, precip_proj = get_projected_array(lats, lons, precp_hr, 't0', dest_data_path,
-                                                    shp_filename)
+            x, y, precip_proj = get_projected_array(
+                lats, lons, precp_hr, 't0', dest_data_path, shp_filename)
+            files = []
+            for file in os.listdir(destination):
+                if file.endswith(".zip"):
+                    files.append(file)
+            zip = zipfile.ZipFile(destination+"/"+files[0], 'a')
+            zip.write(dest_data_path+"/t0.asc", "ASC/t0_NWM.asc")
+            zip.close()
