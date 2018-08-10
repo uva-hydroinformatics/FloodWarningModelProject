@@ -16,26 +16,6 @@ def zero_pad(inte):
     return '{:02d}'.format(inte)
 
 
-# def get_hrrr_data_info(current_date_utc, delta_time):
-#     dtime_fix = current_date_utc - timedelta(hours=delta_time)
-#     date = datetime.strftime(dtime_fix, "%Y%m%d")
-#     fc_hour = datetime.strftime(dtime_fix, "%H")
-#     hour = str(fc_hour)
-#     url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc.t%sz' % (
-#         date, hour)
-#     try:
-#         dataset = open_url(url)
-#         if len(dataset.keys()) > 0:
-#             print "Succeeded to open : %s" % url
-#             return hour, date
-#         else:
-#             print "Back up method - Failed to open : %s" % url
-#             return get_hrrr_data_info(current_date_utc, delta_time + 1)
-#     except ServerError:
-#         print "Failed to open : %s" % url
-#         return get_hrrr_data_info(current_date_utc, delta_time + 1)
-
-
 def make_wgs_raster(lats, lons, precip_array, hr, directory):
     xres = lons[1] - lons[0]
     yres = lats[1] - lats[0]
@@ -112,7 +92,7 @@ ftp = FTP("ftpprd.ncep.noaa.gov")
 ftp.login()
 
 # shapefile for the study area
-shp_filename = '../scripts_shapefiles/Hampton_Roads_model.shp'
+shp_filename = 'Hampton_Roads_model.shp'
 
 
 # data can be downloaded only for the current day and one day older as we are using the official
@@ -157,6 +137,7 @@ for data_type in target_data_folder:
     filelist = ftp.nlst()
 
     # check at least one file is available for the specific hour in hour_utc
+    rain_layers = []
     for i in range(24):
         if data_type == 'forcing_analysis_assim':
             while not "nwm.t"+str(i).zfill(2)+"z.analysis_assim.forcing.tm00.conus.nc" in filelist:
@@ -179,6 +160,8 @@ for data_type in target_data_folder:
                 name_item = file.split(".")[:-2]
                 name_select = (target_date, name_item[1], "rain", name_item[4])
                 gen_file_name = ".".join(name_select)
+                rain_layers.append(gen_file_name)
+
                 x, y, precip_proj = get_projected_array(
                     lats, lons, precp_hr, gen_file_name, dest_data_path, shp_filename)
                 dataset.close()
@@ -187,8 +170,11 @@ for data_type in target_data_folder:
                 os.remove(os.path.join(dest_data_path, "projected"+gen_file_name+".tif"))
                 os.remove(os.path.join(dest_data_path, "clipped_"+gen_file_name+".tif"))
 
-
+rainfall_realtime = open(dest_data_path+"/rainfall_realtime.csv", 'w')
+for i in range(len(rain_layers)):
+    rainfall_realtime.write(str(i)+","+rain_layers[i]+".asc\n")
+rainfall_realtime.close()
 # Zip the rainfall data folder to send to AWS S3 then delete the original folder
 shutil.make_archive(target_date, 'zip', target_date)
-shutil.rmtree(target_date)
+#shutil.rmtree(target_date)
 print "Done Archiving the NWM realtime rainfall data for "+target_date+"!"
