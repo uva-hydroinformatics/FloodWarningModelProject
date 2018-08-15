@@ -13,7 +13,7 @@ def get_hrrr_data_info(current_date_utc, delta_time):
     date = datetime.strftime(dtime_fix, "%Y%m%d")
     fc_hour = datetime.strftime(dtime_fix, "%H")
     hour = str(fc_hour)
-    url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz' % (date, hour)
+    url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc.t%sz' % (date, hour)
     try:
         dataset = open_url(url)
         if len(dataset.keys()) > 0:
