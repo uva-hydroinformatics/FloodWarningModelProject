@@ -18,7 +18,7 @@ def get_hrrr_data_info(current_date_utc, delta_time):
         dataset = open_url(url)
         if len(dataset.keys()) > 0:
             print "Succeeded to open : %s" % url
-            return hour, date
+            return hour
         else:
             print "Back up method - Failed to open : %s" % url
             return get_hrrr_data_info(current_date_utc, delta_time + 1)
@@ -26,15 +26,16 @@ def get_hrrr_data_info(current_date_utc, delta_time):
         print "Failed to open : %s" % url
         return get_hrrr_data_info(current_date_utc, delta_time + 1)
 
+
 def write_tuflow_bc_ts1_file(file_name, dictionary, array_name):
-    bc_file = open(file_name+'.ts1', 'w')
+    bc_file = open(file_name + '.ts1', 'w')
     bc_file.write("! Forecasted streamflow in m3/s boundary condition from the NWM\n")
     bc_file.write("11,19\n")
     bc_file.write("Start_Index,1,1,1,1,1,1,1,1,1,1,1\n")
     bc_file.write("End_Index,19,19,19,19,19,19,19,19,19,19,19\n")
     bc_file.write("Time (min)")
     for key in dictionary:
-        bc_file.write(','+ key)
+        bc_file.write(',' + key)
     bc_file.write("\n")
     hr = 0
     bc_file.write(str(hr * 60.0))
@@ -62,15 +63,15 @@ def main():
 
     # dictionary to includes the boundary condition feature names and the corresponding Reach ID
     # or COMID from the NWM that represent the streamflow for the model boundary
-    bc_items = {"10_35C":"11583062","11_34C":"11583342","1_42C":"8746119","2_41C":"8745499",
-                "3_40C":"8742901","4_39C":"8741071","5_38C":"8725803","6_44C":"8724029",
-                "7_37C":"8723783","8_43C":"8723533","9_36C":"8719585"}
+    bc_items = {"10_35C": "11583062", "11_34C": "11583342", "1_42C": "8746119", "2_41C": "8745499",
+                "3_40C": "8742901", "4_39C": "8741071", "5_38C": "8725803", "6_44C": "8724029",
+                "7_37C": "8723783", "8_43C": "8723533", "9_36C": "8719585"}
 
-    ext_data_rt = np.zeros((3,11))  # extracted realtime streamflows from t00, t01, and t02
-    ext_data_fc = np.zeros((18,11))  # extracted forecasted streamflows from the short range 18 lyrs
-    ext_data = np.zeros((21,11))  # extracted forecasted streamflows from the short range 18 lyrs
-    i=0
-    j=0
+    ext_data_rt = np.zeros((3, 11))  # extracted realtime streamflows from t00, t01, and t02
+    ext_data_fc = np.zeros((18, 11))  # extracted forecasted streamflows from the short range 18 lyrs
+    ext_data = np.zeros((21, 11))  # extracted forecasted streamflows from the short range 18 lyrs
+    i = 0
+    j = 0
 
     # create a local folder to store the downloaded data.
     destination = "../bc_dbase/NWM/"
@@ -82,18 +83,18 @@ def main():
     # "timedelta(days=0)": download the current date
     # "timedelta(days=1)": download one day older from the current date
     target_date_time_utc = datetime.utcnow()
-    #target_date = str(target_date_time_utc.date()- timedelta(days=0)).replace("-","")
+    target_date = str(target_date_time_utc.date() - timedelta(days=0)).replace("-", "")
+
+    if not os.path.exists(destination + "/" + target_date):
+        os.makedirs(destination + "/" + target_date)
+
+    # get the whole list of the available data for the target day
+    nwm_data = "/pub/data/nccf/com/nwm/prod/nwm." + target_date + "/"
+    ftp.cwd(nwm_data)
 
     # check the available hrrr forecast rainfall data to retrieve the appropriate boundary condition
     # from the NWM
-    hour_utc, target_date = get_hrrr_data_info(target_date_time_utc, 0)
-
-    if not os.path.exists(destination+"/"+target_date):
-        os.makedirs(destination+"/"+target_date)
-
-    # get the whole list of the available data for the target day
-    nwm_data="/pub/data/nccf/com/nwm/prod/nwm."+target_date+"/"
-    ftp.cwd(nwm_data)
+    hour_utc = get_hrrr_data_info(target_date_time_utc, 0)
 
     # by default, all the data folder will be downloaded. In case you would like to download
     # a specific folder, change the following line from "target_data_folder = ftp.nlst()" to
@@ -105,32 +106,32 @@ def main():
 
     # download the available data for the target date and data folder/s
     for data_type in target_data_folder:
-        data_type_path = nwm_data+data_type+"/"
-        dest_data_path = destination+"/"+target_date+"/"+data_type
+        data_type_path = nwm_data + data_type + "/"
+        dest_data_path = destination + "/" + target_date + "/" + data_type
         if not os.path.exists(dest_data_path):
             os.makedirs(dest_data_path)
         ftp.cwd(data_type_path)
-        filelist=ftp.nlst()
+        filelist = ftp.nlst()
 
         # check at least one file is available for the specific hour in hour_utc
         if data_type == 'analysis_assim':
-            while not "nwm.t"+str(hour_utc)+"z.analysis_assim.channel_rt.tm00.conus.nc" in filelist:
+            while not "nwm.t" + str(hour_utc) + "z.analysis_assim.channel_rt.tm00.conus.nc" in filelist:
                 print "Waiting for the updated data in analysis_assim"
                 time.sleep(30)
-                filelist=ftp.nlst()
+                filelist = ftp.nlst()
 
         if data_type == 'short_range':
-            while not "nwm.t"+str(hour_utc)+"z.short_range.channel_rt.f001.conus.nc" in filelist:
+            while not "nwm.t" + str(hour_utc) + "z.short_range.channel_rt.f001.conus.nc" in filelist:
                 print "Waiting for the updated data in short_range"
                 time.sleep(30)
-                filelist=ftp.nlst()
+                filelist = ftp.nlst()
 
         # download the available files in the target folder/s
         for file in filelist:
             file_info = file.split(".")
-            if file_info[1] == 't'+str(hour_utc)+'z' and file_info[3] == "channel_rt":
-                ftp.retrbinary("RETR "+file, open(os.path.join(dest_data_path,file),"wb").write)
-                ds = xr.open_dataset(os.path.join(dest_data_path,file))
+            if file_info[1] == 't' + str(hour_utc) + 'z' and file_info[3] == "channel_rt":
+                ftp.retrbinary("RETR " + file, open(os.path.join(dest_data_path, file), "wb").write)
+                ds = xr.open_dataset(os.path.join(dest_data_path, file))
                 df = ds.to_dataframe()
                 for val in bc_items.itervalues():
                     x = df.ix[int(val), ['streamflow']]
@@ -142,7 +143,7 @@ def main():
                 print file + " downloaded"
 
     # write the appropriate boundary condition file for the 2D model
-    write_tuflow_bc_ts1_file(destination+'Forecast_RF_Point', bc_items, ext_data)
+    write_tuflow_bc_ts1_file(destination + 'Forecast_RF_Point', bc_items, ext_data)
     print "Done downloading and preparing the NWM data as boundary condition file for the 2D model!"
 
 

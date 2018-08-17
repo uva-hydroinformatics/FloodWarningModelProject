@@ -92,7 +92,7 @@ ftp = FTP("ftpprd.ncep.noaa.gov")
 ftp.login()
 
 # shapefile for the study area
-shp_filename = 'Hampton_Roads_model.shp'
+shp_filename = '../scripts_shapefiles/Hampton_Roads_model.shp'
 
 
 # data can be downloaded only for the current day and one day older as we are using the official
@@ -175,6 +175,7 @@ for i in range(len(rain_layers)):
     rainfall_realtime.write(str(i)+","+rain_layers[i]+".asc\n")
 rainfall_realtime.close()
 # Zip the rainfall data folder to send to AWS S3 then delete the original folder
-shutil.make_archive(target_date, 'zip', target_date)
-#shutil.rmtree(target_date)
+shutil.make_archive("../bc_dbase/forecast_rainfall/"+target_date, 'zip', target_date)
+shutil.copytree(dest_data_path, "../bc_dbase/forecast_rainfall/ASC")
+shutil.rmtree(target_date)
 print "Done Archiving the NWM realtime rainfall data for "+target_date+"!"

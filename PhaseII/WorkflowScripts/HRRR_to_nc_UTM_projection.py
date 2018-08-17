@@ -42,7 +42,7 @@ def getData(current_dt, delta_T):
     date = dt.datetime.strftime(dtime_fix, "%Y%m%d")
     fc_hour = dt.datetime.strftime(dtime_fix, "%H")
     hour = str(fc_hour)
-    url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc_%sz' % (date, hour)
+    url = 'http://nomads.ncep.noaa.gov:9090/dods/hrrr/hrrr%s/hrrr_sfc.t%sz' % (date, hour)
     try:
         dataset = open_url(url)
         if len(dataset.keys()) > 0:
@@ -93,7 +93,7 @@ def make_wgs_raster(grid, hr, directory):
 def project_to_utm(wgs_raster_name, hr, directory):
     outfilename = "%s/TIF/projected%s.tif" % (directory, hr)
     print ("Projecting file for hour %d from WSG84 to NAD83 UTM ZONE 18N" % hr)
-    os.system('gdalwarp %s %s -t_srs "+proj=utm +zone=18 +datum=NAD83"' % (wgs_raster_name,
+    os.system('gdalwarp %s %s -t_srs "+proj=utm +zone=18 +datum=NAD83" -tr 500 500' % (wgs_raster_name,
                                                                            outfilename))
     return outfilename
 
@@ -138,6 +138,16 @@ def generate_gridded_rainfall_data(x, y, precip_list, directory):
 ##################################################################################################
 
 def main():
+    # make directory to store rainfall data
+    loc_datetime = dt.datetime.now()
+    loc_datetime_str = loc_datetime.strftime('%Y%m%d-%H%M%S')
+    os.makedirs(loc_datetime_str)
+    # The TIF folder includes the original and projected rainfall data in TIF format
+    os.makedirs(loc_datetime_str + "/TIF")
+    # The ASC includes the projected rainfall in ASCII format
+    # to be used as gridded rainfall with TUFLOW
+    os.makedirs(loc_datetime_str + "/ASC")
+
     # Get newest available HRRR dataset by trying (current datetime - delta time) until
     # a dataset is available for that hour. This corrects for inconsistent posting
     # of HRRR datasets to repository
@@ -145,6 +155,9 @@ def main():
     print "Open a connection to HRRR to retrieve forecast rainfall data.............\n"
     # get newest available dataset
     dataset, url, date, hour = getData(utc_datetime, delta_T=0)
+    hrrr_data_url = open(loc_datetime_str+"/hrrr_data_url.txt", 'w')
+    hrrr_data_url.write(url)
+    hrrr_data_url.close()
     print ("Retrieving forecast data from: %s " % url)
 
     # select desired forecast product from grid, grid dimensions are time, lat, lon
@@ -160,15 +173,6 @@ def main():
     grid_lat1 = gridpt(lat_lb, initLat, aResLat)
     grid_lat2 = gridpt(lat_ub, initLat, aResLat)
 
-    # make directory to store rainfall data
-    loc_datetime = dt.datetime.now()
-    loc_datetime_str = loc_datetime.strftime('%Y%m%d-%H%M%S')
-    os.makedirs(loc_datetime_str)
-    # The TIF folder includes the original and projected rainfall data in TIF format
-    os.makedirs(loc_datetime_str+"/TIF")
-    # The ASC includes the projected rainfall in ASCII format
-    # to be used as gridded rainfall with TUFLOW
-    os.makedirs(loc_datetime_str+"/ASC")
 
     # add rain values to data array file for each time step
     precip_list = []
@@ -218,6 +222,7 @@ def main():
     # Send the NetCDF to the bc_dbase directory for TUFLOW to run
     if not os.path.exists('../bc_dbase/forecast_rainfall'):
         os.makedirs('../bc_dbase/forecast_rainfall')
+	shutil.copytree(loc_datetime_str+"/ASC", "../bc_dbase/forecast_rainfall/ASC")
     shutil.copy2(nc_file_name, "../bc_dbase/forecast_rainfall/rainfall_forecast.nc")
 
     # Zip the rainfall data folder to send to AWS S3 then delete the original folder
