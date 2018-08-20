@@ -67,9 +67,10 @@ def main():
                 "3_40C": "8742901", "4_39C": "8741071", "5_38C": "8725803", "6_44C": "8724029",
                 "7_37C": "8723783", "8_43C": "8723533", "9_36C": "8719585"}
 
-    ext_data_rt = np.zeros((3, 11))  # extracted realtime streamflows from t00, t01, and t02
-    ext_data_fc = np.zeros((18, 11))  # extracted forecasted streamflows from the short range 18 lyrs
-    ext_data = np.zeros((21, 11))  # extracted forecasted streamflows from the short range 18 lyrs
+    # extracted realtime Q from 3 layers of analysis and assimilation
+    #  (tm00, tm01, and tm02), extracted forecasted Q from 18 layers of short range (f001 to f003), and extracted
+    #  forecasted Q from 80 layers of medium range (f003 to f240)
+    ext_data = np.zeros((21, 11))
     i = 0
     j = 0
 
@@ -115,13 +116,19 @@ def main():
 
         # check at least one file is available for the specific hour in hour_utc
         if data_type == 'analysis_assim':
-            while not "nwm.t" + str(hour_utc) + "z.analysis_assim.channel_rt.tm00.conus.nc" in filelist:
+            while not "nwm.t" + str(hour_utc).zfill(2) + "z.analysis_assim.channel_rt.tm00.conus.nc" in filelist:
                 print "Waiting for the updated data in analysis_assim"
                 time.sleep(30)
                 filelist = ftp.nlst()
 
         if data_type == 'short_range':
-            while not "nwm.t" + str(hour_utc) + "z.short_range.channel_rt.f001.conus.nc" in filelist:
+            while not "nwm.t" + str(hour_utc).zfill(2) + "z.short_range.channel_rt.f001.conus.nc" in filelist:
+                print "Waiting for the updated data in short_range"
+                time.sleep(30)
+                filelist = ftp.nlst()
+
+        if data_type == 'medium_range' and str(hour_utc).zfill(2) in ["00", "06", "12", "18"]:
+            while not "nwm.t" + str(0).zfill(2) + "z.medium_range.channel_rt.f003.conus.nc" in filelist:
                 print "Waiting for the updated data in short_range"
                 time.sleep(30)
                 filelist = ftp.nlst()
@@ -129,7 +136,7 @@ def main():
         # download the available files in the target folder/s
         for file in filelist:
             file_info = file.split(".")
-            if file_info[1] == 't' + str(hour_utc) + 'z' and file_info[3] == "channel_rt":
+            if file_info[1] == 't' + str(hour_utc).zfill(2) + 'z' and file_info[3] == "channel_rt":
                 ftp.retrbinary("RETR " + file, open(os.path.join(dest_data_path, file), "wb").write)
                 ds = xr.open_dataset(os.path.join(dest_data_path, file))
                 df = ds.to_dataframe()
